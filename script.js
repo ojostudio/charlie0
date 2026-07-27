@@ -24,3 +24,46 @@ document.querySelectorAll('a.btn').forEach(btn => {
     if (btn.getAttribute('href') === '#') e.preventDefault();
   });
 });
+
+// Carrossel de depoimentos (seção Resultados)
+(() => {
+  const dots = document.querySelectorAll('.results-dots [data-dot]');
+  const slides = document.querySelectorAll('.testimonial-slide');
+  const photos = document.querySelectorAll('.results-person');
+  if (!dots.length) return;
+
+  let current = 0;
+  let autoplayTimer = null;
+
+  function goTo(index) {
+    current = index;
+    dots.forEach(d => {
+      const active = d.dataset.dot === String(index);
+      d.classList.toggle('is-active', active);
+      d.setAttribute('aria-selected', String(active));
+    });
+    slides.forEach(s => s.classList.toggle('is-active', s.dataset.slide === String(index)));
+    photos.forEach(p => p.classList.toggle('is-active', p.dataset.slide === String(index)));
+  }
+
+  function next() {
+    goTo((current + 1) % dots.length);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(next, 6000);
+  }
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      goTo(Number(dot.dataset.dot));
+      startAutoplay(); // reinicia a contagem ao clicar manualmente
+    });
+  });
+
+  startAutoplay();
+})();
