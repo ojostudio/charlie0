@@ -17,9 +17,9 @@
   --font-body:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --container:1240px;
-  --radius-lg:28px;
+  --radius-lg:20px;
   --radius-md:20px;
-  --radius-sm:10px;
+  --radius-sm:20px;
 }
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -81,8 +81,9 @@ p{margin:0;}
   font-weight:700;
   letter-spacing:.4px;
   text-transform:uppercase;
-  padding:14px 26px;
-  border-radius:100px;
+  line-height:1;
+  padding:16px 26px;
+  border-radius:20px;
   border:1px solid transparent;
   cursor:pointer;
   white-space:nowrap;
@@ -157,8 +158,8 @@ p{margin:0;}
 
 .header-actions{display:flex;align-items:center;gap:14px;}
 .icon-btn{
-  width:38px;height:38px;
-  border-radius:10px;
+  width:44px;height:44px;
+  border-radius:20px;
   border:1px solid var(--line);
   background:var(--white);
   display:flex;align-items:center;justify-content:center;
@@ -199,7 +200,7 @@ p{margin:0;}
   padding:56px 56px 0;
   display:grid;
   grid-template-columns:1fr 1fr;
-  align-items:center;
+  align-items:stretch;
   gap:40px;
   overflow:hidden;
   isolation:isolate;
@@ -211,7 +212,7 @@ p{margin:0;}
   background:radial-gradient(circle at 62% 45%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%);
   z-index:0;
 }
-.hero-copy{position:relative;z-index:1;padding-bottom:56px;}
+.hero-copy{position:relative;z-index:1;padding-bottom:56px;align-self:center;}
 .eyebrow{
   font-size:15px;
   color:var(--ink);
@@ -235,26 +236,26 @@ p{margin:0;}
 .hero-media{
   position:relative;
   z-index:1;
-  align-self:end;
-  height:clamp(320px,42vw,530px);
-  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  height:100%;
+  min-height:520px;
+  border-radius:20px 20px 0 0;
   overflow:hidden;
 }
 .hero-plane{
   position:absolute;
   right:0;
-  top:1%;
-  width:42%;
-  height:98%;
+  top:0;
+  width:64%;
+  height:100%;
   object-fit:cover;
-  border-radius:var(--radius-md) 0 0 0;
+  object-position:center;
 }
 .hero-person{
   position:absolute;
-  left:36%;
+  left:14%;
   bottom:0;
-  width:42%;
-  height:100%;
+  width:62%;
+  height:102%;
   object-fit:contain;
   object-position:bottom;
 }
@@ -264,17 +265,21 @@ p{margin:0;}
   right:4%;
   width:15%;
   min-width:110px;
-  border-radius:6px;
+  border-radius:20px;
   box-shadow:0 10px 24px -8px rgba(0,0,0,.35);
+  z-index:2;
 }
 
 /* fade to black under hero, matching original transition into the dark simulator section */
 .hero::after{
   content:"";
   display:block;
-  height:64px;
-  margin-top:-1px;
-  background:linear-gradient(180deg, rgba(220,220,215,0), var(--black));
+  height:220px;
+  margin-top:-140px;
+  position:relative;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(180deg, rgba(220,220,215,0) 0%, rgba(20,20,20,.5) 55%, var(--black) 100%);
 }
 
 /* ===================================================
@@ -322,21 +327,22 @@ p{margin:0;}
 /* ===================================================
    Courses
 =================================================== */
-.courses{padding:0;background:var(--black);}
+.courses{padding:60px 0;background:var(--black);}
 .courses-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:0;
+  gap:28px;
 }
 .course-card{
   position:relative;
-  background:var(--black);
+  background:#0d0d0d;
   color:var(--white);
-  border-right:1px solid rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  overflow:hidden;
   display:flex;
   flex-direction:column;
 }
-.course-card:last-child{border-right:none;}
 .course-media{
   position:relative;
   height:260px;
@@ -350,7 +356,7 @@ p{margin:0;}
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.15) 0%, var(--black) 100%);
+  background:linear-gradient(180deg, rgba(0,0,0,.15) 0%, #0d0d0d 100%);
 }
 .course-tag{
   position:absolute;
@@ -593,10 +599,10 @@ p{margin:0;}
 
   .hero-card{grid-template-columns:1fr;padding:40px 28px 0;}
   .hero-copy{padding-bottom:32px;text-align:left;}
-  .hero-media{height:clamp(280px,70vw,420px);border-radius:var(--radius-md);margin-inline:-4px;}
+  .hero-media{height:clamp(280px,70vw,420px);min-height:0;border-radius:var(--radius-md);margin-inline:-4px;}
 
   .courses-grid{grid-template-columns:1fr;}
-  .course-card{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+  .course-card{border-bottom:none;}
 
   .stats-grid{grid-template-columns:repeat(2,1fr);}
 
