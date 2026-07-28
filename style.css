@@ -9,4 +9,8 @@
 @import url("css/02-tipografia.css");
 @import url("css/03-layout.css");
 @import url("css/04-componentes.css");
-@import url("css/05-paginas.css");
+
+/* 05. Páginas — um arquivo por página, veja /css/paginas/ */
+@import url("css/paginas/home.css");
+@import url("css/paginas/quem-somos.css");
+@import url("css/paginas/cursos.css");
