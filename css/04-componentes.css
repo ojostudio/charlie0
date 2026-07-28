@@ -1,0 +1,297 @@
+/* ===================================================
+   04. COMPONENTES
+   Peças de UI reutilizáveis em qualquer página:
+   botões, ícones, card de curso, card de estatística,
+   banner de CTA e o mecanismo genérico de carrossel
+   (dots + slide com fade). Ao criar uma página nova,
+   comece olhando aqui antes de escrever CSS novo.
+=================================================== */
+
+/* --- Botões --- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  line-height:1;
+  padding:16px 26px;
+  border-radius:10px;
+  border:1px solid transparent;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+.btn:active{transform:scale(.96);}
+.btn:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
+
+.btn-primary{background:var(--blue);color:var(--white);}
+.btn-primary:hover{background:var(--blue-dark);box-shadow:0 10px 24px -8px rgba(23,105,226,.55);}
+
+.btn-dark{background:var(--black);color:var(--white);}
+.btn-dark:hover{background:var(--blue);box-shadow:0 10px 24px -8px rgba(23,105,226,.4);}
+
+.btn-outline{background:transparent;color:var(--ink);border-color:var(--ink);}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue);}
+
+.btn-outline-light{background:transparent;color:var(--white);border-color:rgba(255,255,255,.6);}
+.btn-outline-light:hover{border-color:var(--white);background:rgba(255,255,255,.08);}
+
+
+/* --- Ícones do header (botão de área do aluno / hambúrguer) --- */
+.icon-btn{
+  width:48px;height:44px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:var(--white);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);
+  cursor:pointer;
+}
+.icon-btn:hover{border-color:var(--blue);color:var(--blue);}
+
+.menu-toggle{
+  display:none;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  width:38px;height:38px;
+  border:none;
+  background:none;
+  cursor:pointer;
+  padding:0;
+}
+.menu-toggle span{
+  width:100%;height:2px;
+  background:var(--ink);
+  border-radius:2px;
+  transition:transform .25s ease, opacity .25s ease;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+
+/* --- Card de curso --- */
+.course-card{
+  position:relative;
+  background:#0d0d0d;
+  color:var(--white);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.course-media{
+  position:relative;
+  height:260px;
+  overflow:hidden;
+}
+.course-media img{
+  width:100%;height:100%;
+  object-fit:cover;
+}
+.course-media::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,.15) 0%, #0d0d0d 100%);
+}
+.course-tag{
+  position:absolute;
+  top:20px;left:24px;
+  z-index:1;
+  display:flex;align-items:center;gap:6px;
+}
+.course-tag img.course-tag-logo{
+  width:auto;
+  height:18px;
+  object-fit:contain;
+  display:block;
+}
+.course-body{
+  padding:28px 28px 40px;
+  flex-grow:1;
+  display:flex;
+  flex-direction:column;
+}
+.course-body h3{
+  font-family:var(--font-body);
+  font-size:20px;
+  font-weight:800;
+  margin-bottom:14px;
+}
+.course-body p{
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+  color:#b7b7b4;
+  margin-bottom:26px;
+  flex-grow:1;
+}
+.course-body .btn{align-self:flex-start;}
+
+
+/* --- Card de estatística ("IMAGEM" + número grande) --- */
+.stat{
+  background:var(--white);
+  border-radius:var(--radius-md);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+.stat-media{
+  height:190px;
+  background:var(--mist);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.4px;
+  color:#9b9b95;
+  text-transform:uppercase;
+}
+.stat-number{
+  font-family:var(--font-body);
+  font-weight:800;
+  font-size:var(--fs-big-number);
+  line-height:var(--lh-big-number);
+  letter-spacing:var(--ls-big-number);
+  padding:20px 20px 4px;
+}
+.stat-label{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  color:#5a5a56;
+  padding:0 20px 22px;
+  line-height:1.5;
+}
+
+
+/* --- Banner de CTA ("Já é aluno?") --- */
+.cta-banner{
+  width:100%;
+  background:var(--black);
+  color:var(--white);
+  border-radius:var(--radius-lg);
+  display:grid;
+  grid-template-columns:280px 1fr auto;
+  align-items:center;
+  gap:24px;
+  padding:20px;
+  box-shadow:0 30px 60px -18px rgba(0,0,0,.55);
+}
+.cta-image{
+  width:100%;height:180px;
+  object-fit:cover;
+  border-radius:var(--radius-md);
+}
+.cta-text h3{
+  font-family:var(--font-body);
+  font-size:19px;
+  line-height:1.35;
+  font-weight:700;
+  margin-bottom:10px;
+}
+.cta-text p{
+  font-size:14px;
+  line-height:1.6;
+  color:#c9c9c9;
+  max-width:380px;
+}
+.cta-btn{margin-right:8px;}
+
+
+/* --- Carrossel genérico: dots + slide com fade ---
+   Reutilizar esta mesma marcação (elemento com
+   .is-active alternado via JS) em qualquer carrossel
+   novo — ver js/carousel.js */
+.testimonial-slides{position:relative;}
+.testimonial-slide{display:none;margin:0;}
+.testimonial-slide.is-active{display:block;animation:fadeIn .4s ease;}
+.testimonial-slide p{
+  font-size:15px;
+  line-height:1.7;
+  color:#3a3a37;
+  margin-bottom:14px;
+}
+.testimonial-slide cite{
+  font-family:var(--font-display);
+  font-style:normal;
+  font-size:var(--fs-caption);
+  line-height:var(--lh-caption);
+  font-weight:700;
+  color:var(--muted);
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+.results-dots{
+  display:flex;
+  gap:6px;
+}
+.results-dots span{
+  width:8px;height:8px;
+  border-radius:100px;
+  background:rgba(255,255,255,.55);
+  cursor:pointer;
+  transition:width .2s ease, background-color .2s ease;
+}
+.results-dots span.is-active{width:26px;background:var(--blue);}
+.results-dots span:hover{background:rgba(255,255,255,.85);}
+
+
+/* --- Placeholder genérico "IMAGEM" (usar sempre que uma
+   foto ainda não tiver sido definida — ex.: .stat-media
+   na home usa este mesmo visual) --- */
+.placeholder-box{
+  height:190px;
+  background:var(--mist);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1.4px;
+  color:#9b9b95;
+  text-transform:uppercase;
+  border-radius:var(--radius-md);
+}
+
+/* --- Botão circular de seta (carrosséis com setas) --- */
+.arrow-btn{
+  width:44px;height:44px;
+  border-radius:100px;
+  border:1px solid var(--line);
+  background:var(--white);
+  color:var(--ink);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  transition:border-color .18s ease, color .18s ease, background-color .18s ease;
+}
+.arrow-btn:hover{border-color:var(--blue);color:var(--blue);}
+
+/* --- Responsive --- */
+@media (max-width:1080px){
+  .course-card{border-bottom:none;}
+  .cta-banner{grid-template-columns:1fr;text-align:left;padding:20px;}
+  .cta-image{height:130px;}
+  .cta-btn{margin:0;}
+}
+
+@media (max-width:640px){
+  .stat-media{height:120px;}
+  .stat-number{font-size:26px;letter-spacing:-1px;padding:14px 14px 2px;}
+  .stat-label{font-size:11px;padding:0 14px 16px;}
+}

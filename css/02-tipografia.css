@@ -1,0 +1,39 @@
+/* ===================================================
+   02. TIPOGRAFIA
+   Hierarquia de texto reutilizável em qualquer página.
+   Os tamanhos reais (--fs-title, --fs-subtitle, etc.)
+   ficam em 01-base.css; aqui aplicamos esses tokens nas
+   classes de texto genéricas usadas em várias seções.
+
+   Referência rápida (baseada no Penpot):
+   - Título Principal   -> var(--fs-title)      (Lekton)
+   - Subtítulo          -> var(--fs-subtitle)   (Jakarta)
+   - Descrição          -> var(--fs-caption)    (Lekton, legendas/citações)
+   - Descrição complem. -> var(--fs-desc-lg)    (Jakarta, parágrafo de destaque)
+   - Corpo do texto     -> var(--fs-body)       (Jakarta)
+   - Big numbers        -> var(--fs-big-number) (Jakarta)
+=================================================== */
+
+.eyebrow{
+  font-size:15px;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+
+.lead{
+  font-size:15.5px;
+  line-height:1.65;
+  color:#4d4d4a;
+  max-width:420px;
+  margin-bottom:32px;
+}
+
+/* Título principal padrão — usar em qualquer h1/h2 de
+   destaque de seção (hero, simuladores, resultados, e
+   futuras páginas). Basta aplicar estas 3 propriedades
+   no seletor do título da seção nova. */
+.text-title{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+}

@@ -24,7 +24,7 @@
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Navegação principal">
-      <a href="#quem-somos">Quem Somos</a>
+      <a href="quem-somos.html">Quem Somos</a>
       <a href="#cursos">Cursos</a>
       <a href="#gestao">Charlie Zero Gestão</a>
       <a href="#vitrine">Vitrine Cirrus</a>
@@ -97,7 +97,7 @@
       <article class="course-card">
         <div class="course-media">
           <img src="imagens/curso-cirrus.webp" alt="Piloto embarcando em aeronave Cirrus" loading="lazy">
-          <span class="course-tag">✕ CIRRUS</span>
+          <span class="course-tag"><img src="imagens/logo-cirrus.svg" alt="Cirrus Aircraft" class="course-tag-logo"></span>
         </div>
         <div class="course-body">
           <h3>Cursos Cirrus</h3>
@@ -109,7 +109,7 @@
       <article class="course-card">
         <div class="course-media">
           <img src="imagens/curso-anac.webp" alt="Vista de cockpit ao entardecer sobre uma cidade" loading="lazy">
-          <span class="course-tag">◐ ANAC</span>
+          <span class="course-tag"><img src="imagens/logo-anac.svg" alt="ANAC" class="course-tag-logo"></span>
         </div>
         <div class="course-body">
           <h3>Cursos ANAC</h3>
@@ -121,7 +121,7 @@
       <article class="course-card">
         <div class="course-media">
           <img src="imagens/cursos-e-learning.webp" alt="Aluno estudando em plataforma de e-learning" loading="lazy">
-          <span class="course-tag">✈ E-LEARNING</span>
+          <span class="course-tag"><img src="imagens/loog-e-learning.svg" alt="E-learning" class="course-tag-logo"></span>
         </div>
         <div class="course-body">
           <h3>Cursos E-learning</h3>
@@ -162,7 +162,7 @@
   </section>
 
   <!-- RESULTS / CARROSSEL DE DEPOIMENTOS -->
-  <section class="results" id="vitrine" aria-labelledby="results-title">
+  <section class="results" id="vitrine" data-carousel="fade" aria-labelledby="results-title">
     <div class="wrap results-grid">
       <div class="results-copy">
         <h2 id="results-title">Resultados</h2>
@@ -260,6 +260,8 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="js/nav.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/carousel.js"></script>
 </body>
 </html>
