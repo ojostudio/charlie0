@@ -1,8 +1,12 @@
 /* ===================================================
    nav.js — Menu mobile (hambúrguer do header)
    Usado em todas as páginas do site.
+
+   O header agora é injetado dinamicamente por
+   partials.js, então este código só roda depois do
+   evento "partialsLoaded".
 =================================================== */
-(() => {
+document.addEventListener('partialsLoaded', () => {
   const header = document.querySelector('.site-header');
   const menuToggle = document.getElementById('menuToggle');
   if (!header || !menuToggle) return;
@@ -18,4 +22,4 @@
       menuToggle.setAttribute('aria-expanded', 'false');
     });
   });
-})();
+});
