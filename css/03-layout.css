@@ -45,24 +45,64 @@
   gap:32px;
   margin-inline:auto;
 }
-.main-nav a{
-  font-size:13.5px;
-  font-weight:600;
-  letter-spacing:.2px;
-  position:relative;
-  padding:6px 0;
+/* --- Estilos base dos links do menu --- */
+.main-nav a {
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .2px;
+  position: relative;
+  padding: 6px 0;
+  /* Adicionei text-transform para ficar tudo maiúsculo igual à sua imagem do Penpot */
+  text-transform: uppercase; 
 }
-.main-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;bottom:0;
-  width:0;height:2px;
-  background:var(--blue);
-  transition:width .2s ease;
+
+/* --- A linha azul (::after) --- */
+.main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--blue);
+  transition: width .25s ease;
 }
-.main-nav a:hover::after{width:100%;}
-.main-nav a.is-active{color:var(--blue);}
-.main-nav a.is-active::after{width:100%;}
+
+/* --- O ícone da estrela (::before) --- */
+.main-nav a::before {
+  content: "";
+  position: absolute;
+  left: 0; /* Começa na mesma posição que a linha */
+  bottom: -4px; /* Centraliza a altura do ícone com os 2px da linha */
+  width: 10px;
+  height: 10px;
+  /* Como o CSS está na pasta /css/, usamos ../ para buscar na pasta /imagens/ */
+  background: url("../imagens/icon-detail.svg") no-repeat center / contain;
+  opacity: 0; /* Fica invisível quando não está selecionado */
+  
+  /* Puxa o ícone 50% para trás, para o centro dele cravar na ponta da linha */
+  transform: translateX(-50%); 
+  
+  /* Anima o deslocamento e o fade ao mesmo tempo que a linha */
+  transition: left .25s ease, opacity .25s ease;
+}
+
+/* --- Hover e Estado Ativo (cresce a linha e viaja o ícone) --- */
+.main-nav a:hover::after,
+.main-nav a.is-active::after {
+  width: 100%;
+}
+
+.main-nav a:hover::before,
+.main-nav a.is-active::before {
+  left: 100%; /* Ícone viaja até o final de onde a linha vai chegar */
+  opacity: 1; /* Revela o ícone */
+}
+
+/* --- Cor do texto ativo --- */
+.main-nav a.is-active {
+  color: var(--blue);
+}
 
 
 .header-actions{display:flex;align-items:center;gap:14px;}
