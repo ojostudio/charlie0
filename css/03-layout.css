@@ -114,11 +114,11 @@
 
 
 /* --- Responsive (header/footer) --- */
-.nav-cta{display:none;}
+.main-nav .nav-cta{display:none;}
 
 @media (max-width:1080px){
   .main-nav{display:none;}
-  .menu-toggle{display:flex;}
+  .site-header .menu-toggle{display:flex;}
   .header-actions .btn-primary,
   .header-actions .icon-btn{display:none;}
 
@@ -133,7 +133,7 @@
     padding:12px 24px 24px;
   }
   .site-header.nav-open .main-nav a{padding:12px 0;font-size:15px;}
-  .nav-cta{display:inline-flex;margin-top:10px;align-self:flex-start;}
+  .main-nav .nav-cta{display:inline-flex;margin-top:10px;align-self:flex-start;}
 
   .footer-grid{grid-template-columns:1fr 1fr;}
 }
