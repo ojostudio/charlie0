@@ -29,16 +29,18 @@
   gap:24px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-family:var(--font-display);
-  font-size:20px;
-  letter-spacing:.5px;
-  flex-shrink:0;
+.brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
-.brand-mark{width:20px;height:20px;color:var(--blue);}
+
+/* NOVA REGRA PARA O LOGO EM SVG */
+.brand-logo {
+  height: 32px; /* Controla a altura do logo no header e footer */
+  width: 180px;  /* Mantém a proporção original da imagem */
+  display: block;
+}
 
 .main-nav{
   display:flex;
