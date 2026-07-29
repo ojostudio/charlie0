@@ -8,13 +8,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lekton:wght@400;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/01-variaveis.css">
-<link rel="stylesheet" href="css/02-tipografia.css">
-<link rel="stylesheet" href="css/03-layout.css">
-<link rel="stylesheet" href="css/04-componentes.css">
-<link rel="stylesheet" href="css/05-paginas.css">
+<!-- O coração do site voltou para o lugar certo! -->
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Acessibilidade padronizada -->
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
 
   <!-- Header Dinâmico -->
   <div id="header-placeholder"></div>
@@ -23,7 +23,8 @@
     
     <!-- Introdução -->
     <section class="wrap gestao-intro" aria-labelledby="gestao-title">
-      <h1 id="gestao-title" class="text-title" style="font-family: 'Lekton', monospace; font-weight: 400;">Charlie 0 Gestão</h1>
+      <!-- text-title traz a Lekton e o tamanho global -->
+      <h1 id="gestao-title" class="text-title">Charlie 0 Gestão</h1>
       <p class="lead gestao-lead-text">Gestão profissional para quem voa Cirrus. Duas frentes distintas — cotas de aeronaves compartilhadas e horas de voo otimizadas — para reduzir custos e maximizar disponibilidade, com a conformidade técnica da Charlie Zero.</p>
     </section>
 
@@ -70,9 +71,10 @@
 
       <div class="wrap">
         <div class="gestao-hero-content">
-          <p class="eyebrow" style="color: #e2e2e2;">O próximo passo da sua</p>
-          <h2 class="text-title" style="font-family: 'Lekton', monospace; font-weight: 400; color: #fff;">jornada<br>aeronáutica</h2>
-          <p class="lead" style="color: #d0d0d0; max-width: 440px;">A paixão por voar naturalmente desperta o desejo de ter o seu próprio avião. Para que a compra de uma aeronave ou cota seja tão precisa e confiável quanto a sua formação, indicamos parceiros estratégicos de nossa total confiança. Um acompanhamento especialista e transparente para ajudá-lo a fazer a escolha ideal para o seu perfil de voo.</p>
+          <p class="eyebrow">O próximo passo da sua</p>
+          <h2 class="text-title">jornada<br>aeronáutica</h2>
+          <p class="lead">A paixão por voar naturalmente desperta o desejo de ter o seu próprio avião. Para que a compra de uma aeronave ou cota seja tão precisa e confiável quanto a sua formação, indicamos parceiros estratégicos de nossa total confiança. Um acompanhamento especialista e transparente para ajudá-lo a fazer a escolha ideal para o seu perfil de voo.</p>
+          <!-- Botão oficial restaurado -->
           <a href="#" class="btn btn-outline">SAIBA MAIS</a>
         </div>
       </div>
@@ -83,8 +85,9 @@
   <!-- Footer Dinâmico -->
   <div id="footer-placeholder"></div>
 
-  <!-- Scripts -->
+  <!-- Scripts padrão da Charlie Zero -->
   <script src="js/nav.js"></script>
   <script src="js/utils.js"></script>
+  <script src="js/carousel.js"></script>
 </body>
 </html>
