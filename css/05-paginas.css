@@ -381,7 +381,7 @@
   min-height: clamp(820px, 92vw, 1120px);
   max-height: 1120px; /* <-- ADICIONE ESTA LINHA: Trava o crescimento em telas grandes */
   
-  background: var(--black);
+  background: transparent;
   color: var(--white);
   overflow: hidden;
   pointer-events: none;
@@ -409,11 +409,12 @@
   /* Ancora a imagem pelo topo sempre */
   object-position: top center; 
 }
-.certified-scrim{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.1) 35%, rgba(0,0,0,.75) 100%);
-  pointer-events:none;
+.certified-scrim {
+  position: absolute;
+  inset: 0;
+  /* MUDAMOS O 0%: Agora o topo não tem nenhum efeito por cima da sua foto */
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
 }
 .certified-content {
   position: relative;
