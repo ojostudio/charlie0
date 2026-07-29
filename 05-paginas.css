@@ -1,0 +1,870 @@
+/* ===================================================
+   05. PÁGINAS
+   Estilos exclusivos de cada página — o que é único
+   de uma seção específica (não reutilizável em outro
+   lugar) mora aqui, organizado por página.
+=================================================== */
+
+
+/* ===================================================
+   PÁGINA: Home
+=================================================== */
+
+/* --- Hero --- */
+.hero{position:relative;padding:40px 0 130px;overflow:hidden;}
+
+/* fade: sits BEHIND the hero card, starting a bit below its middle,
+   only visible where the card doesn't cover (the gap below it) */
+.hero::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;
+  top:52%;
+  bottom:-1px;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(10,10,10,.55) 55%, var(--black) 100%);
+}
+
+.hero-card{
+  position:relative;
+  z-index:1;
+  background:linear-gradient(180deg, var(--mist), #dcdcd7);
+  border-radius:var(--radius-lg);
+  padding:56px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:stretch;
+  gap:40px;
+  overflow:hidden;
+  isolation:isolate;
+}
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 62% 45%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%);
+  z-index:0;
+}
+.hero-copy{position:relative;z-index:1;align-self:center;}
+.eyebrow{
+  font-size:15px;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+.hero h1{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:22px;
+}
+.lead{
+  font-size:15.5px;
+  line-height:1.65;
+  color:#4d4d4a;
+  max-width:420px;
+  margin-bottom:32px;
+}
+.cta-group{display:flex;gap:14px;flex-wrap:wrap;}
+
+/* image composition: a fixed frame inset 20px from the gray card,
+   holding the plane "box" on the right and the person starting
+   exactly where that box starts, matching its height */
+.hero-media{
+  position:relative;
+  z-index:1;
+  height:100%;
+  min-height:560px;
+}
+.hero-image-frame{
+  position:absolute;
+  top:-56px;
+  right:-56px;
+  bottom:-56px;
+  width:66%;
+}
+.hero-photo-box{
+  position:absolute;
+  top:20px;
+  right:20px;
+  bottom:20px;
+  width:160%;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 24px 48px -20px rgba(0,0,0,.35);
+}
+.hero-plane{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:0% center;
+}
+.hero-badge{
+  position:absolute;
+  top:6%;
+  right:6%;
+  width:20%;
+  min-width:100px;
+  border-radius:0;
+  z-index:2;
+}
+.hero-person-box{
+  position:absolute;
+  left:calc(-30% - 20px - 64%);
+  top:20px;
+  bottom:20px;
+  width:120%;
+  z-index:3;
+}
+.hero-person{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:bottom;
+}
+
+
+/* --- Simuladores --- */
+/* ===================================================
+   Simulator (full-bleed dark section)
+=================================================== */
+.simulator{
+  position:relative;
+  background:var(--black);
+  color:var(--white);
+  min-height:640px;
+  display:grid;
+  grid-template-columns:minmax(280px, 40%) 1fr;
+  align-items:stretch;
+}
+.simulator-text{
+  position:relative;
+  z-index:2;
+  align-self:center;
+  padding:80px 24px 80px 0;
+  padding-left:var(--content-inset-left);
+}
+.simulator-photo{
+  position:relative;
+  z-index:1;
+  overflow:hidden;
+}
+.simulator-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+}
+.simulator h2{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:20px;
+}
+.simulator p{
+  max-width:460px;
+  font-size:var(--fs-desc-lg);
+  line-height:var(--lh-desc-lg);
+  color:#d8d8d8;
+}
+
+
+/* --- Cursos (grid da seção; o card em si está em 04-componentes) --- */
+.courses{padding:60px 0;background:var(--black);}
+.courses-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
+}
+
+/* --- Números / Charlie Zero Gestão --- */
+.stats{padding:64px 0;background:var(--paper);}
+.stats-grid{
+  background:var(--mist);
+  border-radius:var(--radius-lg);
+  padding:40px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+}
+
+/* --- Resultados / carrossel de depoimentos --- */
+.results{
+  position:relative;
+  padding:80px 0 0;
+  background:var(--paper);
+  overflow:hidden;
+}
+.results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:start;
+  gap:40px;
+}
+.results-copy{max-width:460px;padding-top:28px;}
+
+.results .eyebrow{
+  font-family:var(--font-display);
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:2px;
+}
+.results h2{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:8px;
+  width:fit-content;
+}
+
+.results-visual{
+  position:relative;
+  margin-top:-28px;
+  height:clamp(760px, 78vw, 900px);
+  border-radius:0;
+}
+.results-person{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  display:none;
+}
+.results-person.is-active{display:block;animation:fadeIn .5s ease;}
+
+.results-overlay{
+  position:absolute;
+  left:0;right:0;
+  bottom:24px;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:16px;
+}
+
+
+/* --- Responsive: Home --- */
+@media (max-width:1080px){
+  .hero-card{grid-template-columns:1fr;padding:40px 28px 0;}
+  .hero-copy{padding-bottom:32px;text-align:left;}
+  .hero-media{height:clamp(280px,70vw,420px);min-height:0;border-radius:var(--radius-md);margin-inline:-4px;}
+
+  .courses-grid{grid-template-columns:1fr;}
+
+  .simulator{grid-template-columns:1fr;min-height:0;}
+  .simulator-text{padding:48px 28px 32px 52px;}
+  .simulator-photo{height:340px;}
+
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+
+  .results-grid{grid-template-columns:1fr;}
+  .results-copy{max-width:100%;padding-top:0;}
+  .results-visual{margin-top:32px;height:560px;}
+  .results-overlay{bottom:16px;}
+}
+
+@media (max-width:640px){
+  .hero{padding-top:24px;}
+  .hero-card{padding:32px 20px 0;border-radius:var(--radius-md);}
+  .stats-grid{grid-template-columns:1fr 1fr;padding:24px;gap:16px;}
+  .simulator{min-height:520px;}
+  .simulator-text{padding-left:38px;}
+}
+
+/* ===================================================
+   PÁGINA: Quem Somos
+=================================================== */
+
+/* --- Intro ("Uma evolução natural, não uma mudança de rumo.") --- */
+.intro{padding:40px 0 0;}
+.intro-card{
+  position:relative;
+  background:linear-gradient(180deg, var(--mist), #dcdcd7);
+  border-radius:var(--radius-lg);
+  padding:20px;
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  align-items:stretch;
+  gap:40px;
+  min-height:600px;
+}
+.intro-photo{
+  position:relative;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 24px 48px -20px rgba(0,0,0,.35);
+}
+.intro-photo img{width:100%;height:100%;object-fit:cover;}
+.intro-copy{padding:36px 56px 36px 8px;align-self:center;}
+.intro-copy h1{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:24px;
+}
+.intro-copy .lead{max-width:none;margin-bottom:20px;}
+.intro-copy .lead:last-child{margin-bottom:0;}
+
+/* --- Equipe --- */
+.team {
+  position: relative;
+  z-index: 2;
+  padding: 90px 0 0; 
+  background: transparent; 
+  text-align: center;
+}
+.team-heading h2{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:12px;
+}
+.team-heading .lead{max-width:none;margin:0 auto 48px;text-align:center;}
+
+.team-panel {
+  position: relative;
+  background: var(--mist);
+  border-radius: var(--radius-lg);
+  padding: 32px 32px 40px;
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.team-track{
+  display:flex;
+  gap:24px;
+  flex:1;
+  min-width:0;
+}
+.team-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex: 1 1 0;
+  min-width: 0;
+  margin-top: -100px; 
+  text-align: left;
+  box-shadow: 0 16px 32px -18px rgba(0,0,0,.25);
+}
+.team-card .placeholder-box {
+  margin: 12px 12px 0 12px;
+  width: auto;
+  height: 240px; 
+  border-radius: 12px; 
+}
+.team-card h3{
+  font-family:var(--font-body);
+  font-weight:800;
+  font-size:18px;
+  padding:20px 20px 4px;
+}
+.team-card p{
+  font-family:var(--font-display);
+  font-size:13px;
+  color:var(--muted);
+  padding:0 20px 20px;
+}
+
+/* --- Homologado Cirrus --- */
+.certified {
+  position: relative;
+  z-index: 1;
+  margin-top: -180px;
+  
+  /* Mantemos o clamp para telas normais, mas travamos o máximo */
+  min-height: clamp(820px, 92vw, 1120px);
+  max-height: 1120px; /* <-- ADICIONE ESTA LINHA: Trava o crescimento em telas grandes */
+  
+  background: transparent;
+  color: var(--white);
+  overflow: hidden;
+  pointer-events: none;
+  
+  display: flex;
+  flex-direction: column;
+  padding-top: 150px; 
+  padding-bottom: 50px; 
+}
+.certified-overlay,
+.certified-content{pointer-events:auto;}
+.certified-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 2560px; 
+  height: 100%;
+  object-fit: cover;
+  opacity: .92;
+  pointer-events: none;
+  
+  /* Ancora a imagem pelo topo sempre */
+  object-position: top center; 
+}
+.certified-scrim {
+  position: absolute;
+  inset: 0;
+  /* MUDAMOS O 0%: Agora o topo não tem nenhum efeito por cima da sua foto */
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.75) 100%);
+  pointer-events: none;
+}
+.certified-content {
+  position: relative;
+  z-index: 2; /* Alterado para 2 para ficar acima do avião */
+  width: 100%; 
+  padding-right: 24px;
+  padding-left: var(--content-inset-left);
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+/* Nova regra que limita a largura apenas do texto em si */
+.certified-content h2,
+.certified-content p {
+  /* Diminuído de 760px para 440px para comprimir o texto e dar destaque ao avião */
+  max-width: 440px; 
+}
+
+/* --- Avião Animado (Idle / Flutuação) --- */
+.certified-plane {
+  position: absolute;
+  /* A MÁGICA ACONTECE AQUI: Em vez de colar na direita, ancoramos no centro! */
+  left: 46%; 
+  top: 50%; 
+  
+  width: 55vw; 
+  /* Travamos o tamanho máximo para manter a proporção elegante no monitor de 27" */
+  max-width: 850px;
+  min-width: 500px;
+  
+  z-index: 1; 
+  pointer-events: none; 
+  animation: planeIdle 6s ease-in-out infinite;
+}
+
+/* Keyframes da animação (mantido igual, só para garantir) */
+@keyframes planeIdle {
+  0% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-54%) translateX(-15px) rotate(1deg); }
+  100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+}
+
+.certified-content h2{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:20px;
+}
+.certified-content p{
+  font-size:var(--fs-desc-lg);
+  line-height:var(--lh-desc-lg);
+  color:#e2e2e2;
+}
+
+.certified-overlay {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* --- Carrossel "Homologado Cirrus" (Atualizado) --- */
+.certified-slider {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: 0 30px 60px -18px rgba(0,0,0,.5);
+  width: 100%;
+}
+
+.certified-card {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex: 1;
+  min-width: 0;
+}
+
+.certified-card .placeholder-box {
+  width: 50%;
+  height: 340px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  display: none;
+}
+.certified-card .placeholder-box.is-active {
+  display: flex;
+}
+
+.certified-text-wrap {
+  flex: 1;
+  padding-right: 80px;
+}
+
+.certified-caption {
+  display: none;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.certified-caption.is-active {
+  display: block;
+}
+
+.certified-slider .arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+.certified-slider [data-prev] {
+  left: 40px;
+}
+.certified-slider [data-next] {
+  right: 40px;
+}
+
+.certified-dots{display:flex;gap:6px;}
+.certified-dots span{
+  width:8px;height:8px;
+  border-radius:100px;
+  background:rgba(255,255,255,.55);
+  cursor:pointer;
+  transition:width .2s ease, background-color .2s ease;
+}
+.certified-dots span.is-active{width:26px;background:var(--blue);}
+.certified-dots span:hover{background:rgba(255,255,255,.85);}
+
+
+/* --- Responsive: Quem Somos --- */
+@media (max-width:1080px){
+  .intro-card{grid-template-columns:1fr;min-height:0;}
+  .intro-photo{height:320px;}
+  .intro-copy{padding:32px 28px;}
+
+  .team-panel{flex-direction:column;padding:64px 20px 32px;}
+  .team-track{
+    width:100%;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .team-track::-webkit-scrollbar{display:none;}
+  .team-card{flex:0 0 auto;width:220px;scroll-snap-align:start;margin-top:-28px;}
+  .team-panel .arrow-btn{display:none;}
+
+  .certified-content{padding-top:64px;max-width:100%;}
+}
+
+@media (max-width: 640px) {
+  .certified-slider {
+    flex-direction: column;
+    text-align: left;
+    padding: 12px;
+  }
+  .certified-slider .arrow-btn {
+    display: none;
+  }
+  .certified-card {
+    flex-direction: column;
+    gap: 24px;
+    padding-bottom: 20px;
+  }
+  .certified-card .placeholder-box {
+    width: 100%;
+    height: 240px;
+  }
+  .certified-text-wrap {
+    padding-right: 0;
+    padding-inline: 16px;
+  }
+  .certified-caption {
+    font-size: 20px;
+  }
+}
+
+/* ===================================================
+   PÁGINA: Cursos
+=================================================== */
+
+.cursos-page-wrapper {
+  padding-top: 40px;
+  padding-bottom: 60px;
+}
+
+.cursos-black-box {
+  position: relative;
+  background: var(--black);
+  border-radius: var(--radius-lg);
+  overflow: hidden; /* Garante que a imagem não vaze as bordas arredondadas */
+  margin-bottom: 80px;
+  box-shadow: 0 30px 60px -18px rgba(0,0,0,.35);
+}
+
+/* --- Hero Cursos --- */
+.hero-cursos {
+  position: relative;
+  color: var(--white);
+  /* Aumentamos o padding superior (de 120px para 260px) para descer o texto */
+  padding: 260px 48px 80px; 
+  /* Aumentamos a altura mínima do banner para caber mais imagem */
+  min-height: clamp(500px, 55vw, 680px);
+  display: flex;
+  align-items: flex-end;
+  /* NOVO: Centraliza todo o bloco de conteúdo na tela */
+  justify-content: center; 
+}
+
+.hero-cursos-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 120%;
+  z-index: 0;
+}
+
+.hero-cursos-scrim {
+  position: absolute;
+  inset: 0;
+  /* O fade agora começa mais para baixo, já que o banner cresceu */
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 75%, var(--black) 100%);
+  z-index: 1;
+}
+
+.hero-cursos-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  /* NOVO: Garante a centralização do grupo todo */
+  justify-content: center; 
+  gap: 40px;
+  width: 100%;
+}
+
+.hero-cursos-content h1 {
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.hero-cursos-lead {
+  border-left: 2px solid var(--blue);
+  padding-left: 24px;
+  max-width: 580px;
+}
+
+.hero-cursos-lead p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: #e2e2e2;
+}
+
+/* --- Lista de Cursos --- */
+.cursos-lista {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 48px 64px; /* Respiro inferior da caixa preta */
+}
+.curso-horizontal-card {
+  display: flex;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  gap: 32px;
+}
+.curso-horizontal-media {
+  width: 38%;
+  flex-shrink: 0;
+}
+.curso-horizontal-media .placeholder-box {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  border-radius: 12px;
+  background: #e2e2dd;
+}
+.curso-horizontal-body {
+  padding: 24px 32px 24px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+.curso-horizontal-body h2 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.curso-horizontal-body p.desc {
+  font-size: 14.5px;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+.curso-line {
+  height: 2px;
+  background: var(--blue);
+  width: 100%;
+  margin-bottom: 24px;
+}
+.curso-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.curso-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--ink);
+}
+.curso-stats strong {
+  font-weight: 700;
+}
+
+/* --- FAQ --- */
+.faq-section {
+  padding: 40px 0 100px;
+  background: var(--paper);
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 2.5fr;
+  gap: 64px;
+  align-items: start;
+}
+.faq-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.faq-header h2 {
+  font-size: clamp(38px, 5vw, 56px);
+  line-height: 1;
+}
+.faq-header p {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item summary {
+  padding: 24px 0;
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none; 
+}
+.faq-item summary::after {
+  content: "+";
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--muted);
+  transition: transform 0.3s ease;
+  margin-left: 20px;
+}
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+  color: var(--blue);
+}
+.faq-content {
+  padding-bottom: 24px;
+  padding-right: 40px;
+}
+.faq-content p {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* --- Responsive: Cursos --- */
+@media (max-width: 1080px) {
+  .hero-cursos-content {
+    flex-direction: column;
+    /* Alteramos de flex-start para center */
+    align-items: center; 
+    text-align: center;
+    gap: 24px;
+  }
+  
+  .hero-cursos-lead {
+    /* Como o texto centralizou, mudamos a linha azul da lateral para o topo */
+    border-left: none;
+    border-top: 2px solid var(--blue);
+    padding-left: 0;
+    padding-top: 20px;
+  }
+  
+  /* ... resto das suas regras do @media ... */
+}
+  .curso-horizontal-card {
+    flex-direction: column;
+    padding: 16px;
+    gap: 20px;
+  }
+  .curso-horizontal-media {
+    width: 100%;
+  }
+  .curso-horizontal-media .placeholder-box {
+    min-height: 180px;
+  }
+  .curso-horizontal-body {
+    padding: 0 8px 16px;
+  }
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+@media (max-width: 640px) {
+  .cursos-page-wrapper { padding-top: 24px; }
+  .cursos-black-box { border-radius: var(--radius-md); }
+  .hero-cursos { padding: 80px 20px 60px; }
+  .cursos-lista { padding: 0 20px 32px; }
+  .faq-section { padding: 32px 0 64px; }
+  .curso-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
