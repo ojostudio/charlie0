@@ -177,17 +177,19 @@
 
 
 /* --- Banner de CTA ("Já é aluno?") --- */
-.cta-banner{
-  width:100%;
-  background:var(--black);
-  color:var(--white);
-  border-radius:var(--radius-lg);
-  display:grid;
-  grid-template-columns:280px 1fr auto;
-  align-items:center;
-  gap:24px;
-  padding:20px;
-  box-shadow:0 30px 60px -18px rgba(0,0,0,.55);
+/* --- Banner de CTA ("Já é aluno?") --- */
+.cta-banner {
+  width: 100%;
+  background: var(--black);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  display: grid;
+  /* MUDAMOS AQUI: de 280px para 380px (cerca de 1/3 maior) */
+  grid-template-columns: 380px 1fr auto; 
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
+  box-shadow: 0 30px 60px -18px rgba(0,0,0,.55);
 }
 .cta-image{
   width:100%;height:180px;
