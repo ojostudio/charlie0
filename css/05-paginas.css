@@ -822,22 +822,26 @@
 @media (max-width: 1080px) {
   .hero-cursos-content {
     flex-direction: column;
-    /* Alteramos de flex-start para center */
     align-items: center; 
     text-align: center;
     gap: 24px;
   }
   
   .hero-cursos-lead {
-    /* Como o texto centralizou, mudamos a linha azul da lateral para o topo */
     border-left: none;
     border-top: 2px solid var(--blue);
     padding-left: 0;
     padding-top: 20px;
   }
   
-  /* ... resto das suas regras do @media ... */
+  .faq-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }
+
+/* NOVO BLOCO: Os cards só vão ficar com a imagem no topo em telas menores que 800px */
+@media (max-width: 800px) {
   .curso-horizontal-card {
     flex-direction: column;
     padding: 16px;
@@ -852,11 +856,8 @@
   .curso-horizontal-body {
     padding: 0 8px 16px;
   }
-  .faq-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
 }
+
 @media (max-width: 640px) {
   .cursos-page-wrapper { padding-top: 24px; }
   .cursos-black-box { border-radius: var(--radius-md); }
