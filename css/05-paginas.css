@@ -419,7 +419,7 @@
 }
 .certified-content {
   position: relative;
-  z-index: 1;
+  z-index: 2; /* Alterado para 2 para ficar acima do avião */
   width: 100%; 
   padding-right: 24px;
   padding-left: var(--content-inset-left);
@@ -427,10 +427,34 @@
   margin-bottom: auto;
 }
 
+/* Nova regra que limita a largura apenas do texto em si */
 .certified-content h2,
 .certified-content p {
-  max-width: 560px;
+  max-width: 760px; /* Aumentado para 760px conforme você pediu */
 }
+
+/* --- Avião Animado (Idle / Flutuação) --- */
+.certified-plane {
+  position: absolute;
+  right: 0; /* Cola o avião do lado direito */
+  top: 50%; /* Alinha verticalmente ao centro (junto com o texto) */
+  width: 55vw; /* O tamanho é relativo à tela (55% da largura) */
+  max-width: 1050px;
+  min-width: 500px;
+  z-index: 1; /* Fica entre o fundo/scrim (0) e o texto (2) */
+  pointer-events: none; /* Garante que o avião não bloqueie cliques */
+  
+  /* Invoca a animação de flutuação */
+  animation: planeIdle 6s ease-in-out infinite;
+}
+
+/* Keyframes da animação: move o avião levemente para cima, para frente e inclina 1 grau */
+@keyframes planeIdle {
+  0% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+  50% { transform: translateY(-54%) translateX(-15px) rotate(1deg); }
+  100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+}
+
 .certified-content h2{
   font-size:var(--fs-title);
   line-height:var(--lh-title);
