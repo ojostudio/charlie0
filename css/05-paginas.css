@@ -875,33 +875,28 @@
 ========================================= */
 
 .gestao-page-wrapper {
-  padding-top: 140px; /* Espaço para o header */
+  padding-top: 140px; 
 }
 
-/* --- Introdução --- */
+/* --- Introdução (Alinhamento e Linha Azul corrigidos) --- */
 .gestao-intro {
   display: flex;
-  align-items: flex-start;
+  align-items: center; /* Centraliza o título e o texto verticalmente */
   gap: 64px;
-  margin-bottom: 64px;
+  margin-bottom: 80px;
 }
 
 .gestao-intro h1 {
   flex: 1;
-  font-family: var(--font-mono); /* Supondo que o título use a fonte monospace do logo */
-  font-weight: 400;
-  font-size: clamp(32px, 4vw, 48px);
-  color: var(--black);
-  line-height: 1.1;
+  margin: 0;
+  /* Removemos as fontes daqui! Ele vai herdar a Lekton do seu sistema global */
 }
 
 .gestao-intro .lead-text {
   flex: 1;
-  border-left: 2px solid var(--blue);
-  padding-left: 24px;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #444;
+  border-left: 2px solid var(--blue); /* A linha azul padrão */
+  padding-left: 32px; /* Espaçamento fiel à referência */
+  margin: 0;
 }
 
 /* --- Cards Grid --- */
@@ -909,7 +904,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin-bottom: 80px;
+  margin-bottom: 100px;
 }
 
 .gestao-card {
@@ -961,7 +956,6 @@
   color: var(--black);
 }
 
-/* Criando o ícone de '+' via CSS para ficar leve e alinhado */
 .gestao-list li::before {
   content: '+';
   position: absolute;
@@ -976,7 +970,7 @@
 /* --- Hero Paralaxe (Estilo Quem Somos) --- */
 .gestao-hero-section {
   position: relative;
-  background: transparent; /* Importante para o fade do Photoshop funcionar */
+  background: transparent; 
   min-height: clamp(800px, 60vw, 1000px);
   display: flex;
   align-items: center;
@@ -994,57 +988,45 @@
   max-width: 2560px;
   height: 100%;
   object-fit: cover;
-  object-position: top center; /* Ancora o fade transparente no topo sempre! */
+  object-position: top center; 
   z-index: 0;
   pointer-events: none;
 }
 
 .gestao-hero-planes {
   position: absolute;
-  left: 45%; /* Posicionado ao lado do texto */
+  left: 45%; 
   top: 50%;
   width: 60vw;
   max-width: 950px;
   min-width: 500px;
   z-index: 1;
   pointer-events: none;
-  animation: planeIdle 6s ease-in-out infinite; /* Usando a mesma animação! */
+  animation: planeIdle 6s ease-in-out infinite;
 }
 
 .gestao-hero-content {
   position: relative;
   z-index: 2;
-  max-width: 420px;
+  max-width: 480px; 
   color: var(--white);
 }
 
-.gestao-hero-content .eyebrow {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 18px;
-  margin-bottom: 16px;
-  color: #e2e2e2;
-}
-
 .gestao-hero-content h2 {
-  font-family: var(--font-mono);
-  font-size: clamp(40px, 5vw, 64px);
-  line-height: 1;
   margin-bottom: 24px;
+  /* Fonte Lekton herdada do seu sistema sem interferências! */
 }
 
 .gestao-hero-content p {
-  font-size: 15px;
-  line-height: 1.65;
-  color: #d0d0d0;
   margin-bottom: 32px;
 }
 
-/* --- Responsivo: Gestão --- */
+/* --- Responsive: Gestão --- */
 @media (max-width: 1080px) {
   .gestao-intro {
     flex-direction: column;
-    gap: 24px;
+    align-items: flex-start;
+    gap: 32px;
   }
   .gestao-intro .lead-text {
     border-left: none;
@@ -1058,9 +1040,10 @@
   .gestao-hero-planes {
     left: 20%;
     top: 55%;
-    opacity: 0.8; /* Dá destaque ao texto em telas menores */
+    opacity: 0.8; 
   }
 }
+
 @media (max-width: 640px) {
   .gestao-card-body { padding: 24px; }
 }
