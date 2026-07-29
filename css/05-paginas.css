@@ -395,21 +395,19 @@
 .certified-content{pointer-events:auto;}
 .certified-bg {
   position: absolute;
-  /* Muda o inset para top/bottom 0 e left/right auto para centralizar */
   top: 0;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  
-  /* Permite que a imagem estique até 2560px (telas muito grandes), mas não mais que isso */
   width: 100%;
   max-width: 2560px; 
   height: 100%;
-  
   object-fit: cover;
   opacity: .92;
   pointer-events: none;
-  object-position: center 30%; 
+  
+  /* Ancora a imagem pelo topo sempre */
+  object-position: top center; 
 }
 .certified-scrim{
   position:absolute;
