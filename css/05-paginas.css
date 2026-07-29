@@ -429,25 +429,28 @@
 /* Nova regra que limita a largura apenas do texto em si */
 .certified-content h2,
 .certified-content p {
-  max-width: 760px; /* Aumentado para 760px conforme você pediu */
+  /* Diminuído de 760px para 440px para comprimir o texto e dar destaque ao avião */
+  max-width: 440px; 
 }
 
 /* --- Avião Animado (Idle / Flutuação) --- */
 .certified-plane {
   position: absolute;
-  right: 0; /* Cola o avião do lado direito */
-  top: 50%; /* Alinha verticalmente ao centro (junto com o texto) */
-  width: 55vw; /* O tamanho é relativo à tela (55% da largura) */
-  max-width: 1050px;
-  min-width: 500px;
-  z-index: 1; /* Fica entre o fundo/scrim (0) e o texto (2) */
-  pointer-events: none; /* Garante que o avião não bloqueie cliques */
+  /* A MÁGICA ACONTECE AQUI: Em vez de colar na direita, ancoramos no centro! */
+  left: 46%; 
+  top: 50%; 
   
-  /* Invoca a animação de flutuação */
+  width: 55vw; 
+  /* Travamos o tamanho máximo para manter a proporção elegante no monitor de 27" */
+  max-width: 850px;
+  min-width: 500px;
+  
+  z-index: 1; 
+  pointer-events: none; 
   animation: planeIdle 6s ease-in-out infinite;
 }
 
-/* Keyframes da animação: move o avião levemente para cima, para frente e inclina 1 grau */
+/* Keyframes da animação (mantido igual, só para garantir) */
 @keyframes planeIdle {
   0% { transform: translateY(-50%) translateX(0) rotate(0deg); }
   50% { transform: translateY(-54%) translateX(-15px) rotate(1deg); }
