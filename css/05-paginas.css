@@ -438,7 +438,7 @@
   position: absolute;
   /* A MÁGICA ACONTECE AQUI: Em vez de colar na direita, ancoramos no centro! */
   left: 46%; 
-  top: 50%; 
+  top: 35%; 
   
   width: 55vw; 
   /* Travamos o tamanho máximo para manter a proporção elegante no monitor de 27" */
