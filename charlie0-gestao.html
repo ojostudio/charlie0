@@ -95,24 +95,22 @@
   <script src="js/utils.js"></script>
   <script src="js/carousel.js"></script>
 
-  <!-- Script Específico: Paralaxe Leve das Aeronaves -->
+<!-- Script Rigoroso do Paralaxe -->
   <script>
-    document.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       const planes = document.querySelector('.gestao-hero-planes');
       const section = document.querySelector('.gestao-hero-section');
       
       if (planes && section) {
-        const sectionPos = section.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
+        const rect = section.getBoundingClientRect();
         
-        // Aplica o efeito apenas quando a seção entra na tela
-        if (sectionPos < windowHeight && section.getBoundingClientRect().bottom > 0) {
-          // O multiplicador 0.06 define a força do paralaxe (muito leve)
-          // Quanto menor o número, mais sutil o movimento
-          const parallaxOffset = (windowHeight - sectionPos) * 0.06;
+        // Aplica o cálculo APENAS quando a seção das aeronaves aparecer na tela
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          // Mede o quanto rolou
+          const scrollDist = window.innerHeight - rect.top;
           
-          // Mantém o -50% do eixo Y e subtrai o offset para as aeronaves "subirem" levemente
-          planes.style.transform = `translateY(calc(-50% - ${parallaxOffset}px))`;
+          // Move levemente as aeronaves para cima (0.08 é a velocidade)
+          planes.style.transform = `translateY(calc(-50% - ${scrollDist * 0.08}px))`;
         }
       }
     });
