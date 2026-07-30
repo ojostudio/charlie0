@@ -1002,7 +1002,9 @@
   min-width: 500px;
   z-index: 1;
   pointer-events: none;
-  animation: planeIdle 6s ease-in-out infinite;
+  /* Animação idle removida */
+  transform: translateY(-50%); /* Centraliza a imagem no eixo Y */
+  will-change: transform; /* Avisa o navegador que isso vai se mover, melhorando a performance */
 }
 
 .gestao-hero-content {
