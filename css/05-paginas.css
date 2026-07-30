@@ -991,7 +991,8 @@
   max-width: 2560px;
   height: 100%;
   object-fit: cover;
-  object-position: top center; 
+  /* A mágica acontece aqui: ancoramos a imagem na parte de baixo! */
+  object-position: bottom center; 
   z-index: 0;
   pointer-events: none;
 }
