@@ -1,0 +1,119 @@
+/* ===================================================
+   06. EFEITOS
+   Camada de polimento visual — transições, hovers e
+   animações sutis de entrada. Não altera layout, cores
+   ou estrutura: apenas adiciona movimento discreto.
+=================================================== */
+
+/* --- Reveal on scroll (aplicado via js/effects.js) --- */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  will-change:opacity, transform;
+}
+[data-reveal].is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+/* Pequeno atraso escalonado dentro de grids (cards, stats, cursos) */
+[data-reveal-group] > *{ transition-delay: calc(var(--reveal-i, 0) * 70ms); }
+
+/* --- Cards com leve elevação ao passar o mouse --- */
+.course-card,
+.stat{
+  transition:transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1);
+}
+.course-card:hover,
+.stat:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.25);
+}
+
+/* --- Mídias de curso: leve zoom contido ao passar o mouse --- */
+.course-media img,
+.stat-media img{
+  transition:transform .6s cubic-bezier(.16,1,.3,1);
+}
+.course-card:hover .course-media img,
+.stat:hover .stat-media img{
+  transform:scale(1.045);
+}
+.course-media,
+.stat-media{
+  overflow:hidden;
+}
+
+/* --- Botões: transição mais macia (mantém escala/cores já definidas) --- */
+.btn{
+  transition:background-color .35s ease, color .35s ease, border-color .35s ease,
+             box-shadow .35s ease, transform .2s ease;
+}
+
+/* --- Links de navegação: sublinhado sutil --- */
+.main-nav a{
+  position:relative;
+}
+.main-nav a::after{
+  content:"";
+  position:absolute;
+  left:0; bottom:-4px;
+  width:0; height:1px;
+  background:currentColor;
+  transition:width .35s cubic-bezier(.16,1,.3,1);
+}
+.main-nav a:hover::after,
+.main-nav a.is-active::after{
+  width:100%;
+}
+
+/* --- Header: sombra sutil ao rolar a página --- */
+.site-header{
+  transition:box-shadow .4s ease, background-color .4s ease;
+}
+.site-header.is-scrolled{
+  box-shadow:0 6px 24px -12px rgba(0,0,0,.18);
+}
+
+/* --- Hero: leve profundidade de paralaxe (aplicado via JS na imagem) --- */
+.hero-media img,
+.hero-photo-box img,
+.hero-person img{
+  transition:transform .2s linear;
+  will-change:transform;
+}
+
+/* --- Badges e selos: pulso muito discreto para chamar atenção sem cansar --- */
+.hero-badge,
+.course-tag{
+  transition:transform .3s ease;
+}
+.course-card:hover .course-tag{
+  transform:translateY(-2px);
+}
+
+/* --- Dots do carrossel: transição de estado mais suave --- */
+.results-dots [data-dot]{
+  transition:background-color .3s ease, transform .3s ease, opacity .3s ease;
+}
+.results-dots [data-dot].is-active{
+  transform:scale(1.15);
+}
+
+/* --- Big numbers: contagem suave (classe adicionada via JS quando visível) --- */
+.stat-number{
+  transition:opacity .5s ease;
+}
+
+/* --- Respeita preferência de movimento reduzido --- */
+@media (prefers-reduced-motion: reduce){
+  [data-reveal]{
+    opacity:1 !important;
+    transform:none !important;
+    transition:none !important;
+  }
+  .course-card, .stat, .course-media img, .stat-media img,
+  .main-nav a::after, .hero-media img, .hero-photo-box img, .hero-person img{
+    transition:none !important;
+  }
+}
