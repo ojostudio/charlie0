@@ -1003,9 +1003,8 @@
   min-width: 500px;
   z-index: 1;
   pointer-events: none;
-  /* Animação idle removida */
-  transform: translateY(-50%); /* Centraliza a imagem no eixo Y */
-  will-change: transform; /* Avisa o navegador que isso vai se mover, melhorando a performance */
+  transform: translateY(-50%); /* Centraliza a imagem no eixo Y para o paralaxe funcionar */
+  will-change: transform; 
 }
 
 .gestao-hero-content {
@@ -1017,7 +1016,6 @@
 
 .gestao-hero-content h2 {
   margin-bottom: 24px;
-  /* Fonte Lekton herdada do seu sistema sem interferências! */
 }
 
 .gestao-hero-content p {
@@ -1042,8 +1040,7 @@
     padding-top: 24px;
   }
   
-  /* ... restante das regras de 1080px ... */
-}
+  /* Agora estas regras estão dentro do @media corretamente! */
   .gestao-cards-grid {
     grid-template-columns: 1fr;
   }
@@ -1052,7 +1049,10 @@
     top: 55%;
     opacity: 0.8; 
   }
+}
 
 @media (max-width: 640px) {
-  .gestao-card-body { padding: 24px; }
+  .gestao-card-body { 
+    padding: 24px; 
+  }
 }
