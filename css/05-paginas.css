@@ -878,24 +878,25 @@
   padding-top: 140px; 
 }
 
-/* --- Introdução (Alinhamento e Linha Azul corrigidos) --- */
+/* --- Introdução (Estilo Cursos: Centralizado e Justo) --- */
 .gestao-intro {
   display: flex;
-  align-items: center; /* Centraliza o título e o texto verticalmente */
-  gap: 64px;
+  align-items: center; /* Alinha o título, a barra e o texto verticalmente no meio */
+  justify-content: center; /* Centraliza o bloco inteiro no meio da tela */
+  gap: 32px; /* Deixa a barra azul bem justinha entre o título e o texto */
   margin-bottom: 80px;
 }
 
 .gestao-intro h1 {
-  flex: 1;
   margin: 0;
-  /* Removemos as fontes daqui! Ele vai herdar a Lekton do seu sistema global */
+  flex: 0 0 auto; /* Impede o título de esticar, matando o buraco em branco */
+  text-align: right; /* Garante que o título fique coladinho na barra azul */
 }
 
 .gestao-intro .lead-text {
-  flex: 1;
-  border-left: 2px solid var(--blue); /* A linha azul padrão */
-  padding-left: 32px; /* Espaçamento fiel à referência */
+  flex: 0 1 700px; /* Limita a largura do texto para o bloco não esticar demais nas bordas */
+  border-left: 2px solid var(--blue);
+  padding-left: 32px; /* Distância da barra azul para o texto */
   margin: 0;
 }
 
@@ -1027,15 +1028,22 @@
 @media (max-width: 1080px) {
   .gestao-intro {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 32px;
+    text-align: center;
+    gap: 24px;
+  }
+  .gestao-intro h1 {
+    text-align: center;
   }
   .gestao-intro .lead-text {
+    flex: 1;
     border-left: none;
     border-top: 2px solid var(--blue);
     padding-left: 0;
     padding-top: 24px;
   }
+  
+  /* ... restante das regras de 1080px ... */
+}
   .gestao-cards-grid {
     grid-template-columns: 1fr;
   }
@@ -1044,7 +1052,6 @@
     top: 55%;
     opacity: 0.8; 
   }
-}
 
 @media (max-width: 640px) {
   .gestao-card-body { padding: 24px; }
