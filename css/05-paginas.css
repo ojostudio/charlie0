@@ -878,28 +878,27 @@
   padding-top: 140px; 
 }
 
-/* --- Introdução (Estilo Cursos: Centralizado e Justo) --- */
+/* --- Introdução --- */
 .gestao-intro {
   display: flex;
-  align-items: center; /* Alinha o título, a barra e o texto verticalmente no meio */
-  justify-content: center; /* Centraliza o bloco inteiro no meio da tela */
-  gap: 32px; /* Deixa a barra azul bem justinha entre o título e o texto */
+  align-items: center; 
+  justify-content: center; 
+  gap: 32px; 
   margin-bottom: 80px;
 }
 
 .gestao-intro h1 {
   margin: 0;
-  flex: 0 0 auto; /* Impede o título de esticar */
+  flex: 0 0 auto; 
   text-align: right; 
-  line-height: 1; /* Tira os espaços invisíveis da Lekton para o alinhamento ficar perfeito */
+  line-height: 1; 
 }
 
-/* ERRO CORRIGIDO: Agora o CSS mira exatamente na classe .lead do HTML */
 .gestao-intro p.lead {
-  flex: 0 1 700px; /* Limita a largura do texto */
-  border-left: 2px solid var(--blue); /* Adiciona a linha azul */
-  padding-left: 32px; /* Distância da barra azul para o texto */
-  margin: 0; /* Zera a margem que estava desalinhando o conjunto */
+  flex: 0 1 700px; 
+  border-left: 2px solid var(--blue); 
+  padding-left: 32px; 
+  margin: 0; 
 }
 
 /* --- Cards Grid --- */
@@ -907,9 +906,11 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin-bottom: 40px; /* Reduzimos a margem para a imagem chegar perto */
+  /* ZERADO para a seção Hero subir e invadir o espaço suavemente */
+  margin-bottom: 0; 
   position: relative;
-  z-index: 2; /* Protege os cards, garantindo que fiquem ACIMA do fade da imagem */
+  /* Z-INDEX ALTO: Força os cards a ficarem acima da imagem de fundo */
+  z-index: 10; 
 }
 
 .gestao-card {
@@ -979,23 +980,24 @@
   min-height: clamp(800px, 60vw, 1000px);
   display: flex;
   align-items: center;
-  /* ATENÇÃO: Removemos o 'overflow: hidden' daqui para parar de "cortar" a imagem! */
-  padding: 100px 0;
+  /* MÁGICA DO OVERLAP: Puxa a seção inteira 250px para CIMA, por trás dos cards */
+  margin-top: -250px; 
+  /* Empurra o texto de volta para o lugar correto */
+  padding-top: 350px; 
+  padding-bottom: 100px;
+  /* Cria o contexto para a imagem não sumir */
+  z-index: 1; 
 }
 
 .gestao-hero-bg {
   position: absolute;
-  bottom: 0; /* Mantém a imagem perfeitamente colada no footer */
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0; 
+  left: 0;
   width: 100%;
-  max-width: 2560px;
-  /* A MÁGICA: Deixamos a imagem 300px mais alta que a própria seção. 
-     Como tiramos o overflow, essa sobra vai vazar para cima, atrás dos cards! */
-  height: calc(100% + 300px); 
+  height: 100%; 
   object-fit: cover;
-  object-position: bottom center; /* Garante o alinhamento com a base */
-  z-index: -1; /* Joga a imagem lá pro fundo */
+  object-position: bottom center; 
+  z-index: -1; 
   pointer-events: none;
 }
 
@@ -1016,15 +1018,33 @@
   position: relative;
   z-index: 2;
   max-width: 480px; 
-  color: var(--white);
+}
+
+/* === FORÇA TEXTOS E BOTÃO BRANCOS NA SEÇÃO HERO === */
+.gestao-hero-content .eyebrow,
+.gestao-hero-content h2,
+.gestao-hero-content p.lead {
+  color: #ffffff !important;
 }
 
 .gestao-hero-content h2 {
   margin-bottom: 24px;
 }
 
-.gestao-hero-content p {
+.gestao-hero-content p.lead {
   margin-bottom: 32px;
+}
+
+/* Configuração rigorosa do botão branco */
+.gestao-hero-content .btn-outline {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+  background: transparent !important;
+}
+
+.gestao-hero-content .btn-outline:hover {
+  background: #ffffff !important;
+  color: var(--black) !important;
 }
 
 /* --- Responsive: Gestão --- */
@@ -1037,7 +1057,6 @@
   .gestao-intro h1 {
     text-align: center;
   }
-  /* Ajuste responsivo com a classe corrigida (.lead) */
   .gestao-intro p.lead {
     flex: 1;
     border-left: none;
