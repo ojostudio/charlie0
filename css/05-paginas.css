@@ -889,15 +889,17 @@
 
 .gestao-intro h1 {
   margin: 0;
-  flex: 0 0 auto; /* Impede o título de esticar, matando o buraco em branco */
-  text-align: right; /* Garante que o título fique coladinho na barra azul */
+  flex: 0 0 auto; /* Impede o título de esticar */
+  text-align: right; 
+  line-height: 1; /* Tira os espaços invisíveis da Lekton para o alinhamento ficar perfeito */
 }
 
-.gestao-intro .lead-text {
-  flex: 0 1 700px; /* Limita a largura do texto para o bloco não esticar demais nas bordas */
-  border-left: 2px solid var(--blue);
+/* ERRO CORRIGIDO: Agora o CSS mira exatamente na classe .lead do HTML */
+.gestao-intro p.lead {
+  flex: 0 1 700px; /* Limita a largura do texto */
+  border-left: 2px solid var(--blue); /* Adiciona a linha azul */
   padding-left: 32px; /* Distância da barra azul para o texto */
-  margin: 0;
+  margin: 0; /* Zera a margem que estava desalinhando o conjunto */
 }
 
 /* --- Cards Grid --- */
@@ -968,7 +970,7 @@
   line-height: 1;
 }
 
-/* --- Hero Paralaxe (Estilo Quem Somos) --- */
+/* --- Hero Paralaxe --- */
 .gestao-hero-section {
   position: relative;
   background: transparent; 
@@ -1003,7 +1005,7 @@
   min-width: 500px;
   z-index: 1;
   pointer-events: none;
-  transform: translateY(-50%); /* Centraliza a imagem no eixo Y para o paralaxe funcionar */
+  transform: translateY(-50%); 
   will-change: transform; 
 }
 
@@ -1032,15 +1034,14 @@
   .gestao-intro h1 {
     text-align: center;
   }
-  .gestao-intro .lead-text {
+  /* Ajuste responsivo com a classe corrigida (.lead) */
+  .gestao-intro p.lead {
     flex: 1;
     border-left: none;
     border-top: 2px solid var(--blue);
     padding-left: 0;
     padding-top: 24px;
   }
-  
-  /* Agora estas regras estão dentro do @media corretamente! */
   .gestao-cards-grid {
     grid-template-columns: 1fr;
   }
