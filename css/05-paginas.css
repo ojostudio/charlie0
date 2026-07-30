@@ -907,7 +907,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin-bottom: 100px;
+  margin-bottom: 40px; /* Reduzido para a imagem chegar mais perto */
+  position: relative;  /* Adicionado */
+  z-index: 2;          /* Garante que os cards fiquem acima do fundo */
 }
 
 .gestao-card {
