@@ -1091,7 +1091,7 @@
 ========================================= */
 
 .vitrine-page-wrapper {
-  padding-top: 140px; 
+  padding-top: 70px; /* Reduzido pela metade */
   padding-bottom: 100px;
 }
 
@@ -1102,13 +1102,13 @@
 
 .vitrine-hero-img {
   width: 100%;
-  height: auto;
+  height: 320px; /* Máscara mais estreita, cortando a altura */
   border-radius: var(--radius-lg);
   object-fit: cover;
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
 }
 
-/* --- Introdução (Alinhamento Charlie 0) --- */
+/* --- Introdução --- */
 .vitrine-intro {
   display: flex;
   align-items: center; 
@@ -1122,7 +1122,7 @@
   flex: 0 0 auto; 
   text-align: right; 
   line-height: 1; 
-  font-size: clamp(40px, 4vw, 56px); /* Escala suave baseada no design */
+  font-size: clamp(40px, 4vw, 56px);
 }
 
 .vitrine-intro p.lead {
@@ -1140,62 +1140,91 @@
   margin-bottom: 100px;
 }
 
-/* --- Cards de Produto (Fundo Degradê Cinza) --- */
+/* --- Cards Estilo Imagem Full + Fade --- */
 .vitrine-card {
-  /* Degradê simulando a iluminação do seu design */
-  background: linear-gradient(180deg, #e6e6e6 0%, #a8a8a8 100%);
+  position: relative;
   border-radius: var(--radius-lg);
-  padding: 40px 32px 32px 32px;
+  min-height: 400px; /* Card mais curto na altura */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-end; /* Joga o texto para a base */
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .vitrine-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
 }
 
-.vitrine-card img {
+/* Imagem de Fundo (A Mala com fundo cinza) */
+.vitrine-card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 260px;
-  height: auto;
-  margin: 0 auto 32px auto; /* Centraliza a imagem e dá espaço para o título */
-  display: block;
-  object-fit: contain;
-  /* Drop shadow leve para o produto destacar do fundo cinza */
-  filter: drop-shadow(0 20px 20px rgba(0,0,0,0.2)); 
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
-.vitrine-card h3 {
+/* O Fade Preto Inferior */
+.vitrine-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 55%; /* Ocupa um pouco mais da metade do card */
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Conteúdo Flutuante */
+.vitrine-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.vitrine-card-content h3 {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 20px;
   font-weight: 700;
-  color: var(--black);
-  margin-bottom: 12px;
+  color: #ffffff;
+  margin-bottom: 8px;
 }
 
-.vitrine-card p {
-  font-size: 14px;
-  color: #333;
+.vitrine-card-content p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
   line-height: 1.5;
-  margin-bottom: 32px;
-  flex: 1; /* Empurra o botão sempre para a base */
+  margin-bottom: 24px;
 }
 
-/* Botão específico do Card da Vitrine (Outline Dark) */
-.vitrine-card .btn-outline {
-  border: 1px solid var(--black);
-  color: var(--black);
+/* Botão Clean Outline Branco */
+.btn-outline-white {
+  display: inline-block;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  background: transparent;
   padding: 10px 24px;
   font-size: 12px;
+  font-weight: 700;
   border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.vitrine-card .btn-outline:hover {
-  background: var(--black);
-  color: var(--white);
+.btn-outline-white:hover {
+  background: #ffffff;
+  color: var(--black);
 }
 
 /* --- Mini Sessão CTA (Avião Laranja) --- */
@@ -1210,7 +1239,7 @@
 }
 
 .cta-orange-img-wrap {
-  flex: 0 0 35%; /* Ocupa 35% do banner */
+  flex: 0 0 35%; 
   position: relative;
   overflow: hidden;
 }
@@ -1257,7 +1286,7 @@
   flex: 0 0 auto;
 }
 
-/* Botão Azul Sólido Específico do CTA */
+/* Botão Azul Sólido CTA */
 .btn-solid-blue {
   display: inline-flex;
   align-items: center;
@@ -1297,7 +1326,7 @@
     padding-top: 24px;
   }
   .vitrine-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas no tablet */
+    grid-template-columns: repeat(2, 1fr); 
   }
   .cta-orange-content {
     flex-direction: column;
@@ -1308,7 +1337,7 @@
 
 @media (max-width: 768px) {
   .vitrine-grid {
-    grid-template-columns: 1fr; /* 1 coluna no celular */
+    grid-template-columns: 1fr; 
   }
   .cta-orange-banner {
     flex-direction: column;
