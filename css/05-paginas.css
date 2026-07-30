@@ -907,9 +907,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
-  margin-bottom: 40px; /* Reduzido para a imagem chegar mais perto */
-  position: relative;  /* Adicionado */
-  z-index: 2;          /* Garante que os cards fiquem acima do fundo */
+  margin-bottom: 40px; /* Reduzimos a margem para a imagem chegar perto */
+  position: relative;
+  z-index: 2; /* Protege os cards, garantindo que fiquem ACIMA do fade da imagem */
 }
 
 .gestao-card {
@@ -979,25 +979,23 @@
   min-height: clamp(800px, 60vw, 1000px);
   display: flex;
   align-items: center;
-  overflow: hidden;
-  margin-top: -200px;  /* Puxa a seção inteira para cima, invadindo a parte branca */
-  padding-top: 300px;  /* Empurra o texto de volta para o lugar correto */
-  padding-bottom: 100px;
+  /* ATENÇÃO: Removemos o 'overflow: hidden' daqui para parar de "cortar" a imagem! */
+  padding: 100px 0;
 }
 
 .gestao-hero-bg {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  bottom: 0; /* Mantém a imagem perfeitamente colada no footer */
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 2560px;
-  height: 100%;
+  /* A MÁGICA: Deixamos a imagem 300px mais alta que a própria seção. 
+     Como tiramos o overflow, essa sobra vai vazar para cima, atrás dos cards! */
+  height: calc(100% + 300px); 
   object-fit: cover;
-  /* A mágica acontece aqui: ancoramos a imagem na parte de baixo! */
-  object-position: bottom center; 
-  z-index: 0;
+  object-position: bottom center; /* Garante o alinhamento com a base */
+  z-index: -1; /* Joga a imagem lá pro fundo */
   pointer-events: none;
 }
 
