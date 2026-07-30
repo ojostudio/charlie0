@@ -1085,3 +1085,240 @@
     padding: 24px; 
   }
 }
+
+/* =========================================
+   PÁGINA: VITRINE CIRRUS
+========================================= */
+
+.vitrine-page-wrapper {
+  padding-top: 140px; 
+  padding-bottom: 100px;
+}
+
+/* --- Hero Image --- */
+.vitrine-hero-section {
+  margin-bottom: 64px;
+}
+
+.vitrine-hero-img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+}
+
+/* --- Introdução (Alinhamento Charlie 0) --- */
+.vitrine-intro {
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  gap: 32px; 
+  margin-bottom: 80px;
+}
+
+.vitrine-intro h1 {
+  margin: 0;
+  flex: 0 0 auto; 
+  text-align: right; 
+  line-height: 1; 
+  font-size: clamp(40px, 4vw, 56px); /* Escala suave baseada no design */
+}
+
+.vitrine-intro p.lead {
+  flex: 0 1 700px; 
+  border-left: 2px solid var(--blue); 
+  padding-left: 32px; 
+  margin: 0; 
+}
+
+/* --- Grid de Produtos --- */
+.vitrine-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 100px;
+}
+
+/* --- Cards de Produto (Fundo Degradê Cinza) --- */
+.vitrine-card {
+  /* Degradê simulando a iluminação do seu design */
+  background: linear-gradient(180deg, #e6e6e6 0%, #a8a8a8 100%);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vitrine-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.15);
+}
+
+.vitrine-card img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  margin: 0 auto 32px auto; /* Centraliza a imagem e dá espaço para o título */
+  display: block;
+  object-fit: contain;
+  /* Drop shadow leve para o produto destacar do fundo cinza */
+  filter: drop-shadow(0 20px 20px rgba(0,0,0,0.2)); 
+}
+
+.vitrine-card h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--black);
+  margin-bottom: 12px;
+}
+
+.vitrine-card p {
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 32px;
+  flex: 1; /* Empurra o botão sempre para a base */
+}
+
+/* Botão específico do Card da Vitrine (Outline Dark) */
+.vitrine-card .btn-outline {
+  border: 1px solid var(--black);
+  color: var(--black);
+  padding: 10px 24px;
+  font-size: 12px;
+  border-radius: 8px;
+}
+
+.vitrine-card .btn-outline:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+/* --- Mini Sessão CTA (Avião Laranja) --- */
+.cta-orange-banner {
+  background: #000000;
+  border-radius: var(--radius-lg);
+  display: flex;
+  overflow: hidden;
+  align-items: stretch;
+  min-height: 240px;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
+}
+
+.cta-orange-img-wrap {
+  flex: 0 0 35%; /* Ocupa 35% do banner */
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-orange-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cta-orange-content {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.cta-orange-text {
+  max-width: 600px;
+}
+
+.cta-orange-text h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.cta-orange-text p {
+  font-size: 14px;
+  color: #a0a0a0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cta-orange-action {
+  flex: 0 0 auto;
+}
+
+/* Botão Azul Sólido Específico do CTA */
+.btn-solid-blue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 14px 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-solid-blue:hover {
+  background: #005bb5;
+  transform: translateY(-2px);
+}
+
+/* --- Responsivo --- */
+@media (max-width: 1080px) {
+  .vitrine-intro {
+    flex-direction: column;
+    text-align: center;
+    gap: 24px;
+  }
+  .vitrine-intro h1 {
+    text-align: center;
+  }
+  .vitrine-intro p.lead {
+    flex: 1;
+    border-left: none;
+    border-top: 2px solid var(--blue);
+    padding-left: 0;
+    padding-top: 24px;
+  }
+  .vitrine-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas no tablet */
+  }
+  .cta-orange-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .vitrine-grid {
+    grid-template-columns: 1fr; /* 1 coluna no celular */
+  }
+  .cta-orange-banner {
+    flex-direction: column;
+  }
+  .cta-orange-img-wrap {
+    width: 100%;
+    height: 200px;
+    flex: none;
+  }
+  .cta-orange-content {
+    padding: 32px;
+  }
+}
