@@ -1145,7 +1145,8 @@
 .vitrine-card {
   position: relative;
   border-radius: var(--radius-lg);
-  min-height: 400px; /* Card mais curto na altura */
+  /* AUMENTAMOS AQUI: de 400px para 460px (ou 480px se quiser ainda maior) */
+  min-height: 460px; 
   display: flex;
   flex-direction: column;
   justify-content: flex-end; /* Joga o texto para a base */
