@@ -1007,8 +1007,8 @@
 
 .gestao-hero-planes {
   position: absolute;
-  left: 45%; 
-  top: 50%;
+  left: 45%; /* Se o texto vai ficar no centro, o avião vai passar por trás/frente dele */
+  top: 60%; /* A MÁGICA AQUI: Mudamos de 50% para 60% para o avião descer e se realinhar! */
   width: 60vw;
   max-width: 950px;
   min-width: 500px;
@@ -1021,7 +1021,14 @@
 .gestao-hero-content {
   position: relative;
   z-index: 2;
-  max-width: 480px; 
+  max-width: 520px; /* Dei um respiro um pouco maior para o texto centralizado */
+  
+  /* --- REGRAS DE CENTRALIZAÇÃO HORIZONTAL --- */
+  margin: 0 auto; /* Empurra a "caixa" do texto para o centro exato da tela */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza o botão e os elementos internamente */
+  text-align: center; /* Centraliza as linhas de texto */
 }
 
 /* === FORÇA TEXTOS E BOTÃO BRANCOS NA SEÇÃO HERO === */
