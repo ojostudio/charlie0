@@ -980,7 +980,10 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  padding: 100px 0;
+  /* AS 3 LINHAS DA MÁGICA: */
+  margin-top: -200px;  /* Puxa a seção inteira para cima, invadindo a parte branca */
+  padding-top: 300px;  /* Empurra o texto de volta para o lugar correto */
+  padding-bottom: 100px;
 }
 
 .gestao-hero-bg {
