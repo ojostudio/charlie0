@@ -1102,7 +1102,7 @@
 
 .vitrine-hero-img {
   width: 100%;
-  height: 320px; /* Máscara mais estreita, cortando a altura */
+  height: 200px; /* Máscara mais estreita, cortando a altura */
   border-radius: var(--radius-lg);
   object-fit: cover;
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
