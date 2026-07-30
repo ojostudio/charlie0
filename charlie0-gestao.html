@@ -89,5 +89,34 @@
   <script src="js/nav.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/carousel.js"></script>
+
+  <!-- Scripts padrão da Charlie Zero -->
+  <script src="js/nav.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/carousel.js"></script>
+
+  <!-- Script Específico: Paralaxe Leve das Aeronaves -->
+  <script>
+    document.addEventListener('scroll', () => {
+      const planes = document.querySelector('.gestao-hero-planes');
+      const section = document.querySelector('.gestao-hero-section');
+      
+      if (planes && section) {
+        const sectionPos = section.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        // Aplica o efeito apenas quando a seção entra na tela
+        if (sectionPos < windowHeight && section.getBoundingClientRect().bottom > 0) {
+          // O multiplicador 0.06 define a força do paralaxe (muito leve)
+          // Quanto menor o número, mais sutil o movimento
+          const parallaxOffset = (windowHeight - sectionPos) * 0.06;
+          
+          // Mantém o -50% do eixo Y e subtrai o offset para as aeronaves "subirem" levemente
+          planes.style.transform = `translateY(calc(-50% - ${parallaxOffset}px))`;
+        }
+      }
+    });
+  </script>
+
 </body>
 </html>
