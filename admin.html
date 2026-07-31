@@ -475,17 +475,50 @@
     });
   }
 
+  // Redimensiona e converte a imagem para WebP comprimido no navegador,
+  // retornando uma Data URL pronta pra salvar no Firestore (modo "inline").
+  function compressToWebPDataURL(file, maxDim = 1600, quality = 0.82) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = () => { img.src = reader.result; };
+      reader.onerror = reject;
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDim || height > maxDim) {
+          const scale = maxDim / Math.max(width, height);
+          width = Math.round(width * scale);
+          height = Math.round(height * scale);
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width; canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/webp', quality));
+      };
+      img.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function uploadProductImages(files){
     if (!files || !files.length) return;
     const progEl = $("pProg"), bar = progEl.querySelector(".bar");
 
     if (CZ.IMAGE_MODE !== "storage" || !storage) {
-      // Fallback inline (Base64) — só recomendado temporariamente
-      progEl.classList.add("show"); bar.style.width = "30%";
-      for (const file of Array.from(files).slice(0, 6 - editImages.length)) {
+      // Sem Storage: converte cada imagem pra WebP comprimido (canvas) e
+      // guarda como Base64 no próprio documento do Firestore.
+      progEl.classList.add("show");
+      const slots = Math.max(0, 6 - editImages.length);
+      const toProcess = Array.from(files).slice(0, slots);
+      if (files.length > slots) alert("Modo sem Storage: máx. 6 imagens por produto.");
+      for (const file of toProcess) {
         if (!file.type.startsWith("image/")) continue;
-        const dataUrl = await new Promise((res) => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(file); });
-        editImages.push(dataUrl);
+        bar.style.width = "40%";
+        try {
+          const webpDataUrl = await compressToWebPDataURL(file, 1600, 0.82);
+          editImages.push(webpDataUrl);
+          bar.style.width = "90%";
+        } catch(e) { console.error(e); alert("Erro ao converter a imagem para WebP."); }
       }
       bar.style.width = "100%";
       setTimeout(() => { progEl.classList.remove("show"); bar.style.width = "0%"; }, 250);

@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function myRole() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role;
+    }
+    function isStaff() {
+      return isSignedIn() && myRole() in ["admin", "editor"];
+    }
+
+    // Imagens de produtos: leitura pública (aparecem no site),
+    // upload só por admin/editor logado.
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+  }
+}

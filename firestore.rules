@@ -1,0 +1,32 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function myRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    function isAdmin() {
+      return isSignedIn() && myRole() == "admin";
+    }
+    function isStaff() {
+      return isSignedIn() && myRole() in ["admin", "editor"];
+    }
+
+    // Produtos da vitrine: qualquer visitante pode LER (site público),
+    // só admin/editor logado pode escrever.
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
+    // Usuários do painel: só admin pode gerenciar (criar/editar/remover).
+    // Cada usuário pode ler o próprio documento (necessário pro login funcionar).
+    match /users/{userId} {
+      allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow write: if isAdmin();
+    }
+  }
+}
