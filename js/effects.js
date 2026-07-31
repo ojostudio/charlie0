@@ -11,9 +11,23 @@
   /* 1. Marca automaticamente elementos "revelaveis" que ainda
         não tenham sido marcados manualmente no HTML. */
   const autoSelectors = [
+    // Home
     '.hero-copy', '.hero-media', '.hero-card',
     '.course-card', '.stat', '.results-copy', '.results-visual',
     '.cta-banner', '.simulator-text', '.simulator-photo',
+    // Quem Somos
+    '.intro-copy', '.intro-photo', '.team-card',
+    '.certified-content', '.certified-card',
+    // Cursos
+    '.hero-cursos-content', '.curso-horizontal-card',
+    '.cursos-black-box', '.faq-item',
+    // Vitrine
+    '.vitrine-card', '.vitrine-hero-img', '.cta-orange-banner',
+    // Contato
+    '.contact-box', '.contact-form-container', '.contact-title-group',
+    // Charlie0 Gestão
+    '.gestao-card', '.gestao-hero-content', '.gestao-intro',
+    // Genéricos
     '.section-title', '.eyebrow'
   ];
   document.querySelectorAll(autoSelectors.join(',')).forEach(el => {
@@ -21,7 +35,10 @@
   });
 
   // Escalona o delay dentro de grids (cursos, stats)
-  document.querySelectorAll('.courses-grid, .stats-grid').forEach(group => {
+  document.querySelectorAll(
+    '.courses-grid, .stats-grid, .team-track, .faq-grid, ' +
+    '.vitrine-grid, .gestao-cards-grid, .curso-line'
+  ).forEach(group => {
     Array.from(group.children).forEach((child, i) => {
       child.style.setProperty('--reveal-i', i);
     });
