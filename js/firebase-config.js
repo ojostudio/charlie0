@@ -43,7 +43,10 @@ CZ.configured = CZ.config.apiKey && CZ.config.apiKey !== "COLE_AQUI";
 
 if (CZ.configured) {
   firebase.initializeApp(CZ.config);
-  CZ.auth = firebase.auth();
+  // auth e storage só são inicializados se o respectivo SDK foi carregado
+  // na página (páginas públicas como vitrine.html/produto.html não
+  // precisam do SDK de Auth, só do de Firestore).
+  CZ.auth = (typeof firebase.auth === "function") ? firebase.auth() : null;
   CZ.db = firebase.firestore();
-  CZ.storage = CZ.IMAGE_MODE === "storage" ? firebase.storage() : null;
+  CZ.storage = (CZ.IMAGE_MODE === "storage" && typeof firebase.storage === "function") ? firebase.storage() : null;
 }
