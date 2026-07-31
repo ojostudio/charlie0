@@ -72,22 +72,9 @@
              box-shadow .35s ease, transform .2s ease;
 }
 
-/* --- Links de navegação: sublinhado sutil --- */
-.main-nav a{
-  position:relative;
-}
-.main-nav a::after{
-  content:"";
-  position:absolute;
-  left:0; bottom:-4px;
-  width:0; height:1px;
-  background:currentColor;
-  transition:width .35s cubic-bezier(.16,1,.3,1);
-}
-.main-nav a:hover::after,
-.main-nav a.is-active::after{
-  width:100%;
-}
+/* Sublinhado de hover/ativo do menu: mantido apenas em 03-layout.css
+   (linha + ícone). Removido daqui para não sobrepor/afinar a animação
+   original. */
 
 /* --- Header: sombra sutil ao rolar a página --- */
 .site-header{
@@ -134,8 +121,10 @@
     transform:none !important;
     transition:none !important;
   }
-  .course-card, .stat, .course-media img, .stat-media img,
-  .main-nav a::after, .hero-media img, .hero-photo-box img, .hero-person img{
+  .course-card, .stat, .team-card, .certified-card, .curso-horizontal-card,
+  .vitrine-card, .contact-box, .gestao-card,
+  .course-media img, .stat-media img,
+  .hero-media img, .hero-photo-box img, .hero-person img{
     transition:none !important;
   }
 }
