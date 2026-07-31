@@ -62,17 +62,23 @@
     item.setAttribute('open', '');
     const target = content.scrollHeight;
     content.style.height = '0px';
-    void content.offsetHeight; // força reflow para garantir que a transição parta de 0
-    content.style.height = target + 'px';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        content.style.height = target + 'px';
+      });
+    });
   }
 
   function closeItem(item, content) {
     // Se a altura estiver "auto" (item aberto e parado), fixa em px
     // antes de animar para 0 — senão o navegador não tem de onde partir.
-    const current = content.getBoundingClientRect().height;
+    const current = content.scrollHeight;
     content.style.height = current + 'px';
-    void content.offsetHeight; // força reflow
-    content.style.height = '0px';
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        content.style.height = '0px';
+      });
+    });
     // 'open' é removido pelo listener de transitionend acima
   }
 })();
