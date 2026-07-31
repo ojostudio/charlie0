@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: blob: https:;
+  connect-src 'self' https://*.googleapis.com https://*.firebaseio.com wss://*.firebaseio.com;
+  frame-src 'self' https://*.firebaseapp.com;
+">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Administrativo | Charlie Zero</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lekton:wght@400;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<style>
+  /* ===================================================
+     Tokens do admin — mapeados para as variáveis do
+     Charlie Zero (ver css/01-base.css), no formato hsl()
+     usado pelos componentes abaixo.
+  =================================================== */
+  :root{
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 100%;
+    --border: 60 5% 89%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 60 3% 42%;
+    --radius: 10px;
+    --radius-sm: 8px;
+    --blue: 214 79% 48%;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:hsl(var(--background));
+    color:hsl(var(--foreground));
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Lekton', ui-monospace, monospace; font-weight:700; margin:0; }
+  .container{ max-width:1240px; margin:0 auto; padding:0 24px; }
+
+  .admin-top{ position:sticky; top:0; z-index:40; background:rgba(255,255,255,.95); backdrop-filter:blur(8px); border-bottom:1px solid hsl(var(--border)); }
+  .admin-top .container{ height:3.5rem; display:flex; align-items:center; justify-content:space-between; }
+  .admin-top .brand-logo{ height:26px; width:auto; display:block; }
+  .admin-top .who{ font-size:.75rem; color:hsl(var(--muted-foreground)); display:flex; align-items:center; gap:.75rem; }
+  .admin-top .who b{ color:hsl(var(--foreground)); font-weight:600; }
+  .pill{ font-size:10px; letter-spacing:.05em; text-transform:uppercase; font-weight:700; padding:.2rem .5rem; border-radius:var(--radius-sm); border:1px solid hsl(var(--border)); }
+  .pill.admin{ background:hsl(var(--foreground)); color:hsl(var(--background)); border-color:hsl(var(--foreground)); }
+  .pill.editor{ color:hsl(var(--muted-foreground)); }
+  .pill.ativo{ background:#1a7f47; color:#fff; border-color:#1a7f47; }
+  .pill.rascunho{ color:hsl(var(--muted-foreground)); }
+
+  .tabs{ display:flex; gap:.25rem; border-bottom:1px solid hsl(var(--border)); margin-bottom:2rem; flex-wrap:wrap; }
+  .tab{ background:none; border:none; border-bottom:2px solid transparent; padding:.75rem 1rem; font-size:.8125rem; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:hsl(var(--muted-foreground)); cursor:pointer; font-family:inherit; }
+  .tab.active{ color:hsl(var(--foreground)); border-bottom-color:hsl(214 79% 48%); }
+  .panel{ display:none; } .panel.active{ display:block; }
+
+  .row-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; gap:1rem; flex-wrap:wrap; }
+  .row-head h2{ font-size:1.25rem; letter-spacing:-.025em; }
+  .row-head .sub{ font-size:.8125rem; color:hsl(var(--muted-foreground)); margin-top:.125rem; font-family:'Plus Jakarta Sans',sans-serif; }
+
+  table.tbl{ width:100%; border-collapse:collapse; border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); overflow:hidden; background:hsl(var(--card)); }
+  .tbl th{ text-align:left; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:hsl(var(--muted-foreground)); font-weight:600; padding:.75rem 1rem; border-bottom:1px solid hsl(var(--border)); background:hsl(var(--muted)); }
+  .tbl td{ padding:.75rem 1rem; font-size:.875rem; border-bottom:1px solid hsl(var(--border)); vertical-align:middle; }
+  .tbl tr:last-child td{ border-bottom:none; }
+  .tbl .thumb{ width:5rem; height:3.75rem; object-fit:cover; border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); background:hsl(var(--muted)); display:block; }
+  .tbl .act{ display:flex; gap:.5rem; justify-content:flex-end; }
+  .icon-btn{ background:none; border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); padding:.4rem .75rem; font-size:.75rem; font-weight:600; cursor:pointer; color:hsl(var(--foreground)); line-height:1.4; display:inline-flex; align-items:center; font-family:inherit; }
+  .icon-btn:hover{ background:hsl(var(--muted)); }
+  .icon-btn.danger{ color:#b42318; border-color:#f3c6c0; }
+  .icon-btn.danger:hover{ background:#fdecea; }
+  .empty-row{ text-align:center; color:hsl(var(--muted-foreground)); padding:3rem 1rem; font-size:.875rem; }
+
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:.4rem; border-radius:999px; font-weight:700; font-size:.8125rem; letter-spacing:.02em; cursor:pointer; text-decoration:none; font-family:inherit; border:1px solid transparent; padding:.65rem 1.25rem; }
+  .btn-solid{ background:hsl(var(--foreground)); color:hsl(var(--background)); }
+  .btn-solid:hover{ opacity:.85; }
+  .btn-outline{ background:transparent; border-color:hsl(var(--border)); color:hsl(var(--foreground)); }
+  .btn-outline:hover{ background:hsl(var(--muted)); }
+  .btn-md{ padding:.75rem 1.5rem; } .btn-sm{ padding:.5rem 1rem; font-size:.75rem; }
+
+  /* Modal */
+  .overlay{ position:fixed; inset:0; background:rgba(0,0,0,.45); display:none; align-items:flex-start; justify-content:center; z-index:60; padding:2rem 1rem; overflow-y:auto; }
+  .overlay.open{ display:flex; }
+  .modal{ background:hsl(var(--card)); border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); width:100%; max-width:42rem; margin:auto; }
+  .modal-head{ display:flex; align-items:center; justify-content:space-between; padding:1.25rem 1.5rem; border-bottom:1px solid hsl(var(--border)); }
+  .modal-head h3{ font-size:1rem; }
+  .modal-body{ padding:1.5rem; }
+  .modal-foot{ display:flex; justify-content:flex-end; gap:.75rem; padding:1.25rem 1.5rem; border-top:1px solid hsl(var(--border)); }
+  .x-btn{ background:none; border:none; cursor:pointer; color:hsl(var(--muted-foreground)); padding:.25rem; font-size:1.1rem; }
+
+  /* Forms */
+  .fld{ margin-bottom:1rem; }
+  .fld label{ display:block; font-size:.75rem; font-weight:500; letter-spacing:.025em; text-transform:uppercase; color:hsl(var(--muted-foreground)); margin-bottom:.375rem; }
+  .fld input, .fld select, .fld textarea{ width:100%; border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); padding:.625rem .75rem; font-size:.875rem; background:hsl(var(--card)); color:hsl(var(--foreground)); font-family:inherit; }
+  .fld input:focus, .fld select:focus, .fld textarea:focus{ outline:none; border-color:hsl(var(--blue)); }
+  .fld .hint{ font-size:.75rem; color:hsl(var(--muted-foreground)); margin-top:.25rem; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media(max-width:560px){ .grid2{ grid-template-columns:1fr; } }
+  .check{ display:flex; align-items:center; gap:.5rem; font-size:.875rem; }
+  .check input{ width:auto; }
+
+  /* Image uploader */
+  .uploader{ border:2px dashed hsl(var(--border)); border-radius:var(--radius-sm); padding:1rem; text-align:center; cursor:pointer; }
+  .uploader input{ display:none; }
+  .uploader .hint{ font-size:.75rem; color:hsl(var(--muted-foreground)); }
+  .thumbs-edit{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem; }
+  .thumbs-edit .t{ position:relative; }
+  .thumbs-edit img{ width:4.5rem; height:3.25rem; object-fit:cover; border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); display:block; }
+  .thumbs-edit .del{ position:absolute; top:-.4rem; right:-.4rem; width:1.25rem; height:1.25rem; background:#b42318; color:#fff; border:none; border-radius:9999px; font-size:.7rem; cursor:pointer; line-height:1; }
+  .prog{ height:.25rem; background:hsl(var(--muted)); border-radius:9999px; overflow:hidden; margin-top:.5rem; display:none; }
+  .prog.show{ display:block; } .prog .bar{ height:100%; background:hsl(214 79% 48%); width:0; transition:width .2s; }
+
+  /* Login + states */
+  .center-screen{ min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+  .auth-card{ width:100%; max-width:24rem; background:hsl(var(--card)); border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); padding:2rem; }
+  .auth-logo{ margin-bottom:1.5rem; }
+  .auth-logo img{ height:30px; width:auto; }
+  .auth-card h1{ font-size:1.125rem; margin-bottom:.25rem; }
+  .auth-card .muted{ font-size:.8125rem; color:hsl(var(--muted-foreground)); margin-bottom:1.5rem; font-family:'Plus Jakarta Sans',sans-serif; }
+  .msg{ font-size:.8125rem; padding:.625rem .75rem; border-radius:var(--radius-sm); margin-bottom:1rem; display:none; }
+  .msg.show{ display:block; }
+  .msg.err{ background:#fdecea; color:#b42318; border:1px solid #f3c6c0; }
+  .msg.ok{ background:#eafaf0; color:#1a7f47; border:1px solid #bfe6cd; }
+  .link-btn{ background:none; border:none; color:hsl(var(--foreground)); text-decoration:underline; font-size:.8125rem; cursor:pointer; padding:0; font-family:inherit; }
+  .notice{ max-width:40rem; margin:3rem auto; background:hsl(var(--card)); border:1px solid hsl(var(--border)); border-radius:var(--radius-sm); padding:2rem; }
+  .notice h2{ font-size:1.125rem; margin-bottom:.75rem; }
+  .notice p, .notice li{ font-size:.875rem; color:hsl(var(--muted-foreground)); line-height:1.6; font-family:'Plus Jakarta Sans',sans-serif; }
+  .notice ol{ margin:.75rem 0 0 1.25rem; } .notice code{ background:hsl(var(--muted)); padding:.1rem .35rem; border-radius:3px; font-size:.8125rem; }
+  .spinner{ min-height:100vh; display:flex; align-items:center; justify-content:center; color:hsl(var(--muted-foreground)); font-size:.875rem; }
+</style>
+</head>
+<body>
+
+<div id="view-loading" class="spinner">Carregando…</div>
+
+<div id="view-setup" style="display:none">
+  <div class="notice">
+    <h2>Configure o Firebase para ativar o painel</h2>
+    <p>Este painel usa Firebase (Auth + Firestore + Storage). Para ligá-lo:</p>
+    <ol>
+      <li>Crie um projeto em <code>console.firebase.google.com</code>.</li>
+      <li>Ative <b>Authentication → E-mail/senha</b>, crie um <b>Firestore</b> e o <b>Storage</b>.</li>
+      <li>Cole as chaves do app em <code>js/firebase-config.js</code>.</li>
+      <li>Publique as regras de segurança do Firestore e do Storage.</li>
+      <li>Crie o primeiro usuário admin direto no console do Firebase (Authentication → Add user), depois crie o documento correspondente na coleção <code>users</code> do Firestore (doc ID = UID do usuário) com os campos <code>name</code>, <code>email</code>, <code>role: "admin"</code>.</li>
+    </ol>
+  </div>
+</div>
+
+<div id="view-login" class="center-screen" style="display:none">
+  <div class="auth-card">
+    <div class="auth-logo"><img src="imagens/charlie0-logo.svg" alt="Charlie Zero"></div>
+    <h1>Painel Administrativo</h1>
+    <p class="muted">Acesso restrito à equipe autorizada.</p>
+    <div id="loginMsg" class="msg"></div>
+    <div class="fld"><label>E-mail</label><input type="email" id="loginEmail" placeholder="voce@empresa.com" autocomplete="username"></div>
+    <div class="fld"><label>Senha</label><input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password"></div>
+    <button class="btn btn-solid btn-md" id="loginBtn" style="width:100%">Entrar</button>
+    <div style="margin-top:1rem;text-align:center"><button class="link-btn" id="forgotBtn">Esqueci minha senha</button></div>
+  </div>
+</div>
+
+<div id="view-denied" class="center-screen" style="display:none">
+  <div class="auth-card">
+    <h1>Sem permissão de acesso</h1>
+    <p class="muted">Sua conta está autenticada, mas ainda não tem um papel (admin/editor) atribuído. Peça a um administrador para liberar seu acesso.</p>
+    <button class="btn btn-outline btn-sm" id="denyLogout">Sair</button>
+  </div>
+</div>
+
+<div id="view-app" style="display:none">
+  <div class="admin-top">
+    <div class="container">
+      <a href="index.html" target="_blank" aria-label="Ver site"><img src="imagens/charlie0-logo.svg" alt="Charlie Zero" class="brand-logo"></a>
+      <div class="who">
+        <span><b id="meName"></b> <span id="meEmail" style="font-size:.7rem;color:hsl(var(--muted-foreground))"></span></span>
+        <span class="pill" id="mePill"></span>
+        <a href="index.html" class="icon-btn" target="_blank">Ver site</a>
+        <button class="icon-btn" id="logoutBtn">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-top:2rem;padding-bottom:4rem">
+    <div class="tabs">
+      <button class="tab active" data-tab="vitrine">Vitrine</button>
+      <button class="tab admin-only" data-tab="users">Usuários & Permissões</button>
+    </div>
+
+    <!-- ============== VITRINE ============== -->
+    <div class="panel active" id="panel-vitrine">
+      <div class="row-head">
+        <div>
+          <h2>Produtos da Vitrine</h2>
+          <div class="sub">Itens exibidos em vitrine.html. O pedido é finalizado direto no WhatsApp — não há checkout ou pagamento no site.</div>
+        </div>
+        <button class="btn btn-solid btn-sm" id="addProduct">+ Novo produto</button>
+      </div>
+      <table class="tbl">
+        <thead><tr><th style="width:5.5rem">Imagem</th><th>Produto</th><th>Preço</th><th>Status</th><th style="text-align:right">Ações</th></tr></thead>
+        <tbody id="productRows"><tr><td class="empty-row" colspan="5">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- ============== USUÁRIOS ============== -->
+    <div class="panel" id="panel-users">
+      <div class="row-head">
+        <div><h2>Usuários & Permissões</h2><div class="sub">Quem pode acessar este painel administrativo.</div></div>
+        <button class="btn btn-solid btn-sm admin-only" id="addUser">+ Novo usuário</button>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Usuário</th><th style="text-align:right">Ações</th></tr></thead>
+        <tbody id="userRows"><tr><td class="empty-row" colspan="2">Carregando…</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MODAL: PRODUTO ============== -->
+<div class="overlay" id="ovProduct">
+  <div class="modal">
+    <div class="modal-head"><h3 id="pModalTitle">Novo produto</h3><button class="x-btn" data-close>✕</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="pId">
+      <div class="fld"><label>Nome do produto</label><input id="pNome" placeholder="Ex: Mala Cirrus SR22"></div>
+      <div class="fld"><label>Descrição curta (aparece no card da vitrine)</label><textarea id="pDescCurta" rows="2" placeholder="Frase curta que aparece no card, 1-2 linhas"></textarea></div>
+      <div class="fld"><label>Descrição completa (aparece na página do produto)</label><textarea id="pDescCompleta" rows="5" placeholder="Descrição detalhada do produto"></textarea></div>
+      <div class="grid2">
+        <div class="fld"><label>Preço (R$)</label><input id="pPreco" type="number" step="0.01" min="0" placeholder="0,00"></div>
+        <div class="fld"><label>Status</label>
+          <select id="pStatus">
+            <option value="ativo">Ativo (visível na vitrine)</option>
+            <option value="rascunho">Rascunho (oculto)</option>
+          </select>
+        </div>
+      </div>
+      <div class="fld">
+        <label>Imagens do produto</label>
+        <div class="uploader" id="pUpZone">
+          <input type="file" id="pUpInput" accept="image/*" multiple>
+          <div class="hint">Clique para enviar imagens (a 1ª é usada como capa do card)</div>
+        </div>
+        <div class="prog" id="pProg"><div class="bar"></div></div>
+        <div class="thumbs-edit" id="pThumbs"></div>
+      </div>
+      <div id="pMsg" class="msg"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline btn-sm" data-close>Cancelar</button>
+      <button class="btn btn-solid btn-sm" id="pSave">Salvar produto</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MODAL: NOVO USUÁRIO ============== -->
+<div class="overlay" id="ovUser">
+  <div class="modal">
+    <div class="modal-head"><h3>Novo usuário</h3><button class="x-btn" data-close>✕</button></div>
+    <div class="modal-body">
+      <div class="fld"><label>Nome</label><input id="uName" placeholder="Nome completo"></div>
+      <div class="fld"><label>E-mail</label><input id="uEmail" type="email" placeholder="voce@empresa.com"></div>
+      <div class="fld"><label>Senha</label><input id="uPass" type="password" placeholder="Mínimo 6 caracteres"></div>
+      <div class="fld"><label>Papel</label><select id="uRole"><option value="editor">Editor (só Vitrine)</option><option value="admin">Admin (Vitrine + Usuários)</option></select></div>
+      <div id="userMsg" class="msg"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline btn-sm" data-close>Cancelar</button>
+      <button class="btn btn-solid btn-sm" id="uSave">Criar usuário</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MODAL: EDITAR USUÁRIO ============== -->
+<div class="overlay" id="ovEditUser">
+  <div class="modal">
+    <div class="modal-head"><h3>Editar usuário</h3><button class="x-btn" data-close>✕</button></div>
+    <div class="modal-body">
+      <div class="fld"><label>Nome</label><input id="editUserName"></div>
+      <div class="fld"><label>E-mail</label><input id="editUserEmail" disabled style="opacity:.6"></div>
+      <div class="fld"><label>Papel</label><select id="editUserRole"><option value="editor">Editor (só Vitrine)</option><option value="admin">Admin (Vitrine + Usuários)</option></select></div>
+      <div id="editUserMsg" class="msg"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-outline btn-sm" data-close>Cancelar</button>
+      <button class="btn btn-solid btn-sm" id="editUserSave">Salvar alterações</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/firebase-config.js"></script>
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const show = (id) => ["view-loading","view-setup","view-login","view-denied","view-app"].forEach(v => $(v).style.display = (v===id?"block":"none"));
+  const showFlex = (id) => { show(id); if($(id)) $(id).style.display="flex"; };
+
+  if (!window.CZ || !CZ.configured) { $("view-loading").style.display="none"; $("view-setup").style.display="block"; return; }
+
+  const { auth, db, storage } = CZ;
+  let me = null;
+  let editImages = [];
+
+  function msg(el, text, type){
+    if (!el) return;
+    el.textContent = text;
+    el.className = "msg show " + (type || "");
+    if (el._msgTimer) clearTimeout(el._msgTimer);
+    if (type === "ok") el._msgTimer = setTimeout(() => { el.className = "msg"; el.textContent = ""; }, 4000);
+  }
+  function clearMsg(el){ if(el){ el.className="msg"; el.textContent=""; if(el._msgTimer) clearTimeout(el._msgTimer); } }
+  function ts(){ return firebase.firestore.FieldValue.serverTimestamp(); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+  function brl(n){ return (Number(n)||0).toLocaleString("pt-BR",{style:"currency",currency:"BRL"}); }
+  function slugify(s){ return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/(^-|-$)/g,""); }
+
+  function traduzirErroFirebase(code, fallback){
+    const erros = {
+      "auth/email-already-in-use": "Este e-mail já está cadastrado no sistema.",
+      "auth/invalid-email": "E-mail inválido.",
+      "auth/weak-password": "Senha muito fraca. Use pelo menos 6 caracteres.",
+      "auth/network-request-failed": "Falha de rede. Verifique sua conexão.",
+      "auth/too-many-requests": "Muitas tentativas. Tente novamente em alguns minutos.",
+      "auth/wrong-password": "Senha incorreta.",
+      "auth/user-not-found": "Usuário não encontrado.",
+      "auth/operation-not-allowed": "Operação não permitida. Contate o administrador."
+    };
+    return erros[code] || fallback;
+  }
+
+  /* ============================================================
+     AUTENTICAÇÃO
+     ============================================================ */
+  auth.onAuthStateChanged(async (user) => {
+    if (!user) { $("view-loading").style.display="none"; showFlex("view-login"); return; }
+    try {
+      const snap = await db.collection("users").doc(user.uid).get();
+      if (!snap.exists || !CZ.ROLES.includes(snap.data().role)) {
+        $("view-loading").style.display="none"; showFlex("view-denied"); return;
+      }
+      me = { uid:user.uid, email:user.email, role:snap.data().role, name:snap.data().name||"" };
+      bootApp();
+    } catch(e){ $("view-loading").style.display="none"; showFlex("view-denied"); }
+  });
+
+  $("loginBtn").onclick = async () => {
+    clearMsg($("loginMsg"));
+    const email = $("loginEmail").value.trim(), pass = $("loginPass").value;
+    if(!email || !pass) return msg($("loginMsg"), "Preencha e-mail e senha.", "err");
+    $("loginBtn").disabled = true;
+    try { await auth.signInWithEmailAndPassword(email, pass); }
+    catch(e){ msg($("loginMsg"), traduzirErroFirebase(e.code, e.message), "err"); }
+    finally { $("loginBtn").disabled = false; }
+  };
+  $("forgotBtn").onclick = async () => {
+    const email = $("loginEmail").value.trim();
+    if(!email) return msg($("loginMsg"), "Digite seu e-mail acima primeiro.", "err");
+    try { await auth.sendPasswordResetEmail(email); msg($("loginMsg"), "E-mail de redefinição enviado.", "ok"); }
+    catch(e){ msg($("loginMsg"), traduzirErroFirebase(e.code, e.message), "err"); }
+  };
+  $("denyLogout").onclick = () => auth.signOut();
+  $("logoutBtn").onclick = () => auth.signOut();
+
+  function bootApp(){
+    show("view-app");
+    $("meName").textContent = me.name || me.email;
+    $("meEmail").textContent = me.name ? me.email : "";
+    $("mePill").textContent = me.role;
+    $("mePill").className = "pill " + me.role;
+    document.querySelectorAll(".admin-only").forEach(el => el.style.display = me.role === "admin" ? "" : "none");
+    if (me.role !== "admin") {
+      // Editor não vê a aba de usuários — garante que a Vitrine fica ativa
+      document.querySelector('.tab[data-tab="vitrine"]').click();
+    }
+    wireTabs();
+    wireProductModal();
+    wireUserModal();
+    loadProducts();
+    if (me.role === "admin") loadUsers();
+  }
+
+  function wireTabs(){
+    document.querySelectorAll(".tab").forEach(btn => {
+      btn.onclick = () => {
+        if (btn.classList.contains("admin-only") && me.role !== "admin") return;
+        document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
+        document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
+        btn.classList.add("active");
+        $("panel-" + btn.dataset.tab).classList.add("active");
+      };
+    });
+    document.querySelectorAll("[data-close]").forEach(btn => btn.onclick = () => btn.closest(".overlay").classList.remove("open"));
+  }
+
+  /* ============================================================
+     VITRINE (produtos)
+     ============================================================ */
+  async function loadProducts(){
+    const rows = $("productRows"); rows.innerHTML = `<tr><td class="empty-row" colspan="5">Carregando…</td></tr>`;
+    let snap;
+    try { snap = await db.collection("products").get(); }
+    catch(e){ rows.innerHTML = `<tr><td class="empty-row" colspan="5">Erro ao carregar produtos: ${esc(e.message)}</td></tr>`; return; }
+    if (!snap || snap.empty){ rows.innerHTML = `<tr><td class="empty-row" colspan="5">Nenhum produto cadastrado ainda. Clique em "+ Novo produto" para começar.</td></tr>`; return; }
+
+    // Ordena no JS (mais recente primeiro) — evita índice composto do Firestore
+    const items = [];
+    snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+    items.sort((a,b) => (b.createdAtMs||0) - (a.createdAtMs||0));
+
+    rows.innerHTML = "";
+    items.forEach(p => {
+      const cover = (p.images && p.images[0]) || "";
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${cover ? `<img class="thumb" src="${esc(cover)}">` : `<div class="thumb"></div>`}</td>
+        <td><b>${esc(p.nome||"(sem nome)")}</b><div style="font-size:.75rem;color:hsl(var(--muted-foreground));margin-top:.125rem">${esc(p.descCurta||"")}</div></td>
+        <td>${brl(p.preco)}</td>
+        <td><span class="pill ${p.status==='ativo'?'ativo':'rascunho'}">${p.status==='ativo'?'Ativo':'Rascunho'}</span></td>
+        <td><div class="act">
+          <button class="icon-btn editP">Editar</button>
+          <button class="icon-btn danger rmP">Remover</button>
+        </div></td>`;
+      tr.querySelector(".editP").onclick = () => openEditProduct(p.id, p);
+      tr.querySelector(".rmP").onclick = () => removeProduct(p.id, p.nome);
+      rows.appendChild(tr);
+    });
+  }
+
+  function wireProductModal(){
+    $("addProduct").onclick = () => openProductModal();
+    $("pUpZone").onclick = () => $("pUpInput").click();
+    $("pUpInput").onchange = (e) => uploadProductImages(e.target.files);
+    $("pSave").onclick = saveProduct;
+  }
+
+  function openProductModal(){
+    $("pModalTitle").textContent = "Novo produto";
+    $("pId").value = ""; $("pNome").value = ""; $("pDescCurta").value = ""; $("pDescCompleta").value = "";
+    $("pPreco").value = ""; $("pStatus").value = "ativo";
+    editImages = []; renderProductThumbs();
+    clearMsg($("pMsg"));
+    $("ovProduct").classList.add("open");
+  }
+
+  function openEditProduct(id, p){
+    $("pModalTitle").textContent = "Editar produto";
+    $("pId").value = id; $("pNome").value = p.nome||""; $("pDescCurta").value = p.descCurta||"";
+    $("pDescCompleta").value = p.descCompleta||""; $("pPreco").value = p.preco||"";
+    $("pStatus").value = p.status||"ativo";
+    editImages = Array.isArray(p.images) ? p.images.slice() : [];
+    renderProductThumbs();
+    clearMsg($("pMsg"));
+    $("ovProduct").classList.add("open");
+  }
+
+  function renderProductThumbs(){
+    const box = $("pThumbs"); box.innerHTML = "";
+    editImages.forEach((url, i) => {
+      const div = document.createElement("div"); div.className = "t";
+      div.innerHTML = `<img src="${esc(url)}"><button class="del" title="Remover imagem">✕</button>`;
+      div.querySelector(".del").onclick = () => { editImages.splice(i,1); renderProductThumbs(); };
+      box.appendChild(div);
+    });
+  }
+
+  async function uploadProductImages(files){
+    if (!files || !files.length) return;
+    const progEl = $("pProg"), bar = progEl.querySelector(".bar");
+
+    if (CZ.IMAGE_MODE !== "storage" || !storage) {
+      // Fallback inline (Base64) — só recomendado temporariamente
+      progEl.classList.add("show"); bar.style.width = "30%";
+      for (const file of Array.from(files).slice(0, 6 - editImages.length)) {
+        if (!file.type.startsWith("image/")) continue;
+        const dataUrl = await new Promise((res) => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(file); });
+        editImages.push(dataUrl);
+      }
+      bar.style.width = "100%";
+      setTimeout(() => { progEl.classList.remove("show"); bar.style.width = "0%"; }, 250);
+      renderProductThumbs();
+      return;
+    }
+
+    progEl.classList.add("show");
+    for (const file of files) {
+      if (!file.type.startsWith("image/")) { alert("Apenas imagens."); continue; }
+      try {
+        const path = `products/${Date.now()}-${Math.random().toString(36).slice(2)}-${file.name}`;
+        const task = storage.ref(path).put(file);
+        await new Promise((res, rej) => {
+          task.on("state_changed",
+            s => { bar.style.width = Math.round((s.bytesTransferred/s.totalBytes)*100) + "%"; },
+            err => { alert(err.message); rej(); },
+            async () => { const url = await task.snapshot.ref.getDownloadURL(); editImages.push(url); res(); }
+          );
+        }).catch(()=>{});
+      } catch(err){ console.error(err); alert("Erro ao subir a imagem."); }
+      bar.style.width = "0%";
+    }
+    progEl.classList.remove("show");
+    renderProductThumbs();
+  }
+
+  async function saveProduct(){
+    const nome = $("pNome").value.trim();
+    if (!nome) return msg($("pMsg"), "Informe o nome do produto.", "err");
+    const data = {
+      nome,
+      slug: slugify(nome),
+      descCurta: $("pDescCurta").value.trim(),
+      descCompleta: $("pDescCompleta").value.trim(),
+      preco: Number($("pPreco").value) || 0,
+      status: $("pStatus").value,
+      images: editImages,
+      updatedAt: ts(),
+      updatedBy: me.email
+    };
+    const id = $("pId").value;
+    try {
+      if (id) {
+        await db.collection("products").doc(id).update(data);
+      } else {
+        data.createdAt = ts();
+        data.createdAtMs = Date.now();
+        data.createdBy = me.email;
+        await db.collection("products").add(data);
+      }
+      msg($("pMsg"), id ? "Produto atualizado com sucesso!" : "Produto cadastrado com sucesso!", "ok");
+      loadProducts();
+      setTimeout(() => $("ovProduct").classList.remove("open"), 900);
+    } catch(e){ msg($("pMsg"), "Erro ao salvar: " + e.message, "err"); }
+  }
+
+  async function removeProduct(id, nome){
+    if (!confirm(`Remover o produto "${nome}"? Essa ação não pode ser desfeita.`)) return;
+    try { await db.collection("products").doc(id).delete(); loadProducts(); }
+    catch(e){ alert("Erro ao remover: " + e.message); }
+  }
+
+  /* ============================================================
+     USUÁRIOS (admin)
+     ============================================================ */
+  async function loadUsers(){
+    const rows = $("userRows"); rows.innerHTML = `<tr><td class="empty-row" colspan="2">Carregando…</td></tr>`;
+    let snap;
+    try { snap = await db.collection("users").get(); }
+    catch(e){ rows.innerHTML = `<tr><td class="empty-row" colspan="2">Erro ao carregar usuários: ${esc(e.message)}</td></tr>`; return; }
+    if (!snap || snap.empty){ rows.innerHTML = `<tr><td class="empty-row" colspan="2">Nenhum usuário cadastrado.</td></tr>`; return; }
+    rows.innerHTML = "";
+    snap.forEach(doc => {
+      const u = doc.data(); const isMe = doc.id === me.uid;
+      const displayName = u.name || u.email || doc.id;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap"><b>${esc(displayName)}</b><span class="pill ${u.role}">${esc(u.role||"")}</span>${isMe?'<span style="font-size:.7rem;color:hsl(var(--muted-foreground))">(você)</span>':""}</div>${u.name?`<div style="font-size:.75rem;color:hsl(var(--muted-foreground));margin-top:.125rem">${esc(u.email||"")}</div>`:""}</td>
+        <td><div class="act"><button class="icon-btn editUser" ${isMe?"disabled style='opacity:.4'":""}>Editar</button><button class="icon-btn danger rmUser" ${isMe?"disabled style='opacity:.4'":""}>Remover</button></div></td>`;
+      if (!isMe) { tr.querySelector(".editUser").onclick = () => openEditUser(doc.id, u); tr.querySelector(".rmUser").onclick = () => removeUser(doc.id, displayName); }
+      rows.appendChild(tr);
+    });
+  }
+
+  function wireUserModal(){
+    $("addUser").onclick = () => { clearMsg($("userMsg")); $("uName").value=""; $("uEmail").value=""; $("uPass").value=""; $("uRole").value="editor"; $("ovUser").classList.add("open"); };
+    $("uSave").onclick = createUser;
+    $("editUserSave").onclick = async () => {
+      if (!editUserId) return;
+      const name = $("editUserName").value.trim(), role = $("editUserRole").value;
+      if (!name) return msg($("editUserMsg"), "Informe o nome.", "err");
+      try { await db.collection("users").doc(editUserId).update({ name, role, updatedAt: ts(), updatedBy: me.email }); $("ovEditUser").classList.remove("open"); loadUsers(); }
+      catch(e){ msg($("editUserMsg"), e.message, "err"); }
+    };
+  }
+
+  async function createUser(){
+    const name = $("uName").value.trim(), email = $("uEmail").value.trim().toLowerCase(), pass = $("uPass").value, role = $("uRole").value;
+    if (!name || !email || pass.length < 6) return msg($("userMsg"), "Preencha tudo (senha mínima 6 caracteres).", "err");
+    $("uSave").disabled = true;
+    let sec = null;
+    try {
+      const existing = firebase.apps.find(a => a.name === "secondary");
+      if (existing) await existing.delete();
+      sec = firebase.initializeApp(CZ.config, "secondary");
+
+      const cred = await sec.auth().createUserWithEmailAndPassword(email, pass);
+      await db.collection("users").doc(cred.user.uid).set({ name, email, role, createdAt: ts(), createdBy: me.email });
+      await sec.auth().signOut();
+      await sec.delete();
+      sec = null;
+
+      $("ovUser").classList.remove("open");
+      $("uName").value=""; $("uEmail").value=""; $("uPass").value=""; $("uRole").value="editor";
+      clearMsg($("userMsg"));
+      loadUsers();
+    } catch(e) {
+      msg($("userMsg"), traduzirErroFirebase(e.code, e.message), "err");
+      if (sec) { try { await sec.auth().signOut(); await sec.delete(); } catch(_){} }
+    } finally { $("uSave").disabled = false; }
+  }
+
+  let editUserId = null;
+  function openEditUser(uid, u){ editUserId = uid; $("editUserName").value=u.name||""; $("editUserEmail").value=u.email||""; $("editUserRole").value=u.role||"editor"; clearMsg($("editUserMsg")); $("ovEditUser").classList.add("open"); }
+  async function removeUser(uid, displayName){
+    if (!confirm(`Remover acesso de ${displayName}?\n\nIsso remove o usuário da lista do painel. A conta de login permanece no Firebase — se precisar reativar, crie o usuário novamente com o mesmo e-mail.`)) return;
+    try { await db.collection("users").doc(uid).delete(); loadUsers(); }
+    catch(e){ alert("Erro ao remover: " + e.message); }
+  }
+})();
+</script>
+</body>
+</html>
