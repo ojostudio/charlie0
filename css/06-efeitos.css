@@ -21,26 +21,48 @@
 
 /* --- Cards com leve elevação ao passar o mouse --- */
 .course-card,
-.stat{
+.stat,
+.team-card,
+.certified-card,
+.curso-horizontal-card,
+.vitrine-card,
+.contact-box,
+.gestao-card{
   transition:transform .45s cubic-bezier(.16,1,.3,1), box-shadow .45s cubic-bezier(.16,1,.3,1);
 }
 .course-card:hover,
-.stat:hover{
+.stat:hover,
+.team-card:hover,
+.certified-card:hover,
+.curso-horizontal-card:hover,
+.vitrine-card:hover,
+.contact-box:hover,
+.gestao-card:hover{
   transform:translateY(-4px);
   box-shadow:0 18px 40px -22px rgba(0,0,0,.25);
 }
 
 /* --- Mídias de curso: leve zoom contido ao passar o mouse --- */
 .course-media img,
-.stat-media img{
+.stat-media img,
+.curso-horizontal-media img,
+.gestao-card-img img,
+.vitrine-card-bg img,
+.intro-photo img{
   transition:transform .6s cubic-bezier(.16,1,.3,1);
 }
 .course-card:hover .course-media img,
-.stat:hover .stat-media img{
+.stat:hover .stat-media img,
+.curso-horizontal-card:hover .curso-horizontal-media img,
+.gestao-card:hover .gestao-card-img img,
+.vitrine-card:hover .vitrine-card-bg img{
   transform:scale(1.045);
 }
 .course-media,
-.stat-media{
+.stat-media,
+.curso-horizontal-media,
+.gestao-card-img,
+.vitrine-card-bg{
   overflow:hidden;
 }
 
