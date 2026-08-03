@@ -472,7 +472,7 @@
     const preview = (l.message || "").length > 60 ? l.message.slice(0,60) + "…" : (l.message || "");
     tr.innerHTML = `
       <td><b>${esc(l.name||"")}</b></td>
-      <td style="font-size:.8125rem">${esc(l.email||"")}<br><span style="color:hsl(var(--muted-foreground))">${esc(l.phone||"")}</span></td>
+      <td style="font-size:.8125rem">${esc(l.email||"")}<br>${waLink(l.phone,l.name) ? `<a href="${waLink(l.phone,l.name)}" target="_blank" rel="noopener" style="color:#1a7f47;font-weight:600">${esc(l.phone||"")} ↗</a>` : esc(l.phone||"")}</td>
       <td style="font-size:.8125rem">${esc(l.subjectLabel||l.subject||"—")}</td>
       <td style="font-size:.8125rem;max-width:220px">${esc(preview)}</td>
       <td style="font-size:.75rem;white-space:nowrap">${fmtDate(l.createdAtMs)}</td>
@@ -545,16 +545,27 @@
     catch(e){ alert("Erro ao excluir: " + e.message); }
   }
 
+  function phoneDigits(p){ return String(p||"").replace(/\D/g,""); }
+  function waLink(phone, name){
+    let digits = phoneDigits(phone);
+    if (!digits) return "";
+    if (digits.length <= 11) digits = "55" + digits; // assume BR se não veio com DDI
+    const msg = `Olá${name ? ", " + name.split(" ")[0] : ""}! Aqui é da Charlie Zero, vi sua mensagem pelo site.`;
+    return `https://wa.me/${digits}?text=${encodeURIComponent(msg)}`;
+  }
+
   function openLeadDetail(l){
+    const wa = waLink(l.phone, l.name);
     $("leadDetailBody").innerHTML = `
       <div class="fld"><label>Nome</label><div style="font-size:.9375rem">${esc(l.name||"")}</div></div>
       <div class="grid2">
         <div class="fld"><label>E-mail</label><div style="font-size:.9375rem"><a href="mailto:${esc(l.email||"")}">${esc(l.email||"")}</a></div></div>
-        <div class="fld"><label>Telefone</label><div style="font-size:.9375rem">${esc(l.phone||"")}</div></div>
+        <div class="fld"><label>Telefone</label><div style="font-size:.9375rem">${wa ? `<a href="${wa}" target="_blank" rel="noopener" style="color:#1a7f47;font-weight:600">${esc(l.phone||"")} ↗ WhatsApp</a>` : esc(l.phone||"—")}</div></div>
       </div>
       <div class="fld"><label>Assunto</label><div style="font-size:.9375rem">${esc(l.subjectLabel||l.subject||"—")}</div></div>
       <div class="fld"><label>Mensagem</label><div style="font-size:.9375rem;white-space:pre-wrap;line-height:1.6">${esc(l.message||"")}</div></div>
       <div class="fld"><label>Recebida em</label><div style="font-size:.8125rem;color:hsl(var(--muted-foreground))">${fmtDate(l.createdAtMs)}</div></div>
+      ${wa ? `<a href="${wa}" target="_blank" rel="noopener" class="btn btn-solid btn-sm" style="margin-top:.5rem;background:#1a7f47;border-color:#1a7f47">Chamar no WhatsApp</a>` : ""}
     `;
     if (l.status !== "lido") setLeadStatus(l.id, "lido");
     $("ovLead").classList.add("open");
