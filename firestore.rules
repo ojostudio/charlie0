@@ -28,5 +28,13 @@ service cloud.firestore {
       allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
       allow write: if isAdmin();
     }
+
+    // Mensagens do formulário de contato: qualquer visitante pode CRIAR
+    // (enviar o formulário), mas só admin/editor logado pode ler, marcar
+    // como lida, arquivar ou excluir.
+    match /leads/{leadId} {
+      allow create: if true;
+      allow read, update, delete: if isStaff();
+    }
   }
 }

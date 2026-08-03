@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="Content-Security-Policy" content="
   default-src 'self';
-  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com;
+  script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://cdn.jsdelivr.net;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
   img-src 'self' data: blob: https:;
@@ -22,6 +22,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
 
 <style>
   /* ===================================================
@@ -62,6 +63,9 @@
   .pill.editor{ color:hsl(var(--muted-foreground)); }
   .pill.ativo{ background:#1a7f47; color:#fff; border-color:#1a7f47; }
   .pill.rascunho{ color:hsl(var(--muted-foreground)); }
+  .pill.novo{ background:#b42318; color:#fff; border-color:#b42318; }
+  .pill.lido{ color:hsl(var(--muted-foreground)); }
+  .badge-count{ background:#b42318; color:#fff; border-radius:999px; padding:2px 7px; font-size:10px; margin-left:5px; font-family:'Plus Jakarta Sans',sans-serif; }
 
   .tabs{ display:flex; gap:.25rem; border-bottom:1px solid hsl(var(--border)); margin-bottom:2rem; flex-wrap:wrap; }
   .tab{ background:none; border:none; border-bottom:2px solid transparent; padding:.75rem 1rem; font-size:.8125rem; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:hsl(var(--muted-foreground)); cursor:pointer; font-family:inherit; }
@@ -197,6 +201,7 @@
   <div class="container" style="padding-top:2rem;padding-bottom:4rem">
     <div class="tabs">
       <button class="tab active" data-tab="vitrine">Vitrine</button>
+      <button class="tab" data-tab="leads">Mensagens <span id="unreadBadge" class="badge-count" style="display:none">0</span></button>
       <button class="tab admin-only" data-tab="users">Usuários & Permissões</button>
     </div>
 
@@ -215,6 +220,32 @@
       </table>
     </div>
 
+    <!-- ============== MENSAGENS (leads) ============== -->
+    <div class="panel" id="panel-leads">
+      <div class="row-head">
+        <div>
+          <h2>Mensagens Recebidas</h2>
+          <div class="sub">Envios do formulário de contato do site.</div>
+        </div>
+        <div style="display:flex;gap:.5rem">
+          <button class="icon-btn" id="toggleArchivedLeads">Ver arquivadas</button>
+          <button class="btn btn-solid btn-sm" id="exportLeadsExcel">Baixar Excel</button>
+        </div>
+      </div>
+      <table class="tbl">
+        <thead><tr><th>Nome</th><th>Contato</th><th>Assunto</th><th>Mensagem</th><th>Data</th><th>Status</th><th style="text-align:right">Ações</th></tr></thead>
+        <tbody id="leadsRows"><tr><td class="empty-row" colspan="7">Carregando…</td></tr></tbody>
+      </table>
+
+      <div id="archivedLeadsBlock" style="display:none;margin-top:2rem">
+        <div class="row-head"><div><h2 style="font-size:1rem">Mensagens Arquivadas</h2></div></div>
+        <table class="tbl">
+          <thead><tr><th>Nome</th><th>Contato</th><th>Assunto</th><th>Mensagem</th><th>Data</th><th>Status</th><th style="text-align:right">Ações</th></tr></thead>
+          <tbody id="leadsArchivedRows"><tr><td class="empty-row" colspan="7">Nenhuma mensagem arquivada.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- ============== USUÁRIOS ============== -->
     <div class="panel" id="panel-users">
       <div class="row-head">
@@ -225,6 +256,17 @@
         <thead><tr><th>Usuário</th><th style="text-align:right">Ações</th></tr></thead>
         <tbody id="userRows"><tr><td class="empty-row" colspan="2">Carregando…</td></tr></tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MODAL: VER MENSAGEM ============== -->
+<div class="overlay" id="ovLead">
+  <div class="modal">
+    <div class="modal-head"><h3>Mensagem recebida</h3><button class="x-btn" data-close>✕</button></div>
+    <div class="modal-body" id="leadDetailBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-outline btn-sm" data-close>Fechar</button>
     </div>
   </div>
 </div>
@@ -387,7 +429,9 @@
     wireTabs();
     wireProductModal();
     wireUserModal();
+    wireLeads();
     loadProducts();
+    loadLeads();
     if (me.role === "admin") loadUsers();
   }
 
@@ -402,6 +446,168 @@
       };
     });
     document.querySelectorAll("[data-close]").forEach(btn => btn.onclick = () => btn.closest(".overlay").classList.remove("open"));
+  }
+
+  /* ============================================================
+     MENSAGENS (leads do formulário de contato)
+     ============================================================ */
+  let leadsActive = [];
+  let leadsArchived = [];
+  let showArchivedLeads = false;
+
+  function fmtDate(ms){
+    if (!ms) return "—";
+    return new Date(ms).toLocaleString("pt-BR", { day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit" });
+  }
+
+  function updateUnreadBadge(){
+    const unread = leadsActive.filter(l => l.status !== "lido").length;
+    const badge = $("unreadBadge");
+    if (unread > 0) { badge.textContent = unread; badge.style.display = "inline-block"; }
+    else { badge.style.display = "none"; }
+  }
+
+  function renderLeadRow(l, archived){
+    const tr = document.createElement("tr");
+    const preview = (l.message || "").length > 60 ? l.message.slice(0,60) + "…" : (l.message || "");
+    tr.innerHTML = `
+      <td><b>${esc(l.name||"")}</b></td>
+      <td style="font-size:.8125rem">${esc(l.email||"")}<br><span style="color:hsl(var(--muted-foreground))">${esc(l.phone||"")}</span></td>
+      <td style="font-size:.8125rem">${esc(l.subjectLabel||l.subject||"—")}</td>
+      <td style="font-size:.8125rem;max-width:220px">${esc(preview)}</td>
+      <td style="font-size:.75rem;white-space:nowrap">${fmtDate(l.createdAtMs)}</td>
+      <td><span class="pill ${l.status==='lido'?'lido':'novo'}">${l.status==='lido'?'Lida':'Nova'}</span></td>
+      <td><div class="act">
+        <button class="icon-btn viewLead">Ver</button>
+        ${archived
+          ? `<button class="icon-btn restoreLead">Restaurar</button><button class="icon-btn danger delLead">Excluir</button>`
+          : `<button class="icon-btn toggleReadLead">${l.status==='lido'?'Marcar não lida':'Marcar lida'}</button><button class="icon-btn archiveLead">Arquivar</button>`
+        }
+      </div></td>`;
+    tr.querySelector(".viewLead").onclick = () => openLeadDetail(l);
+    if (archived) {
+      tr.querySelector(".restoreLead").onclick = () => setLeadArchived(l.id, false);
+      tr.querySelector(".delLead").onclick = () => deleteLead(l.id, l.name);
+    } else {
+      tr.querySelector(".toggleReadLead").onclick = () => setLeadStatus(l.id, l.status === "lido" ? "novo" : "lido");
+      tr.querySelector(".archiveLead").onclick = () => setLeadArchived(l.id, true);
+    }
+    return tr;
+  }
+
+  function renderLeadsTables(){
+    const activeRows = $("leadsRows"); activeRows.innerHTML = "";
+    if (!leadsActive.length) activeRows.innerHTML = `<tr><td class="empty-row" colspan="7">Nenhuma mensagem recebida ainda.</td></tr>`;
+    else leadsActive.forEach(l => activeRows.appendChild(renderLeadRow(l, false)));
+
+    const archRows = $("leadsArchivedRows"); archRows.innerHTML = "";
+    if (!leadsArchived.length) archRows.innerHTML = `<tr><td class="empty-row" colspan="7">Nenhuma mensagem arquivada.</td></tr>`;
+    else leadsArchived.forEach(l => archRows.appendChild(renderLeadRow(l, true)));
+
+    updateUnreadBadge();
+  }
+
+  async function loadLeads(){
+    const rows = $("leadsRows"); rows.innerHTML = `<tr><td class="empty-row" colspan="7">Carregando…</td></tr>`;
+    let snap;
+    try { snap = await db.collection("leads").get(); }
+    catch(e){ rows.innerHTML = `<tr><td class="empty-row" colspan="7">Erro ao carregar mensagens: ${esc(e.message)}</td></tr>`; return; }
+
+    const items = [];
+    snap.forEach(doc => items.push({ id: doc.id, ...doc.data() }));
+    items.sort((a,b) => (b.createdAtMs||0) - (a.createdAtMs||0));
+
+    leadsActive = items.filter(l => !l.archived);
+    leadsArchived = items.filter(l => l.archived);
+    renderLeadsTables();
+  }
+
+  function wireLeads(){
+    $("toggleArchivedLeads").onclick = () => {
+      showArchivedLeads = !showArchivedLeads;
+      $("archivedLeadsBlock").style.display = showArchivedLeads ? "block" : "none";
+      $("toggleArchivedLeads").textContent = showArchivedLeads ? "Ocultar arquivadas" : "Ver arquivadas";
+    };
+    $("exportLeadsExcel").onclick = exportLeadsToExcel;
+  }
+
+  async function setLeadStatus(id, status){
+    try { await db.collection("leads").doc(id).update({ status }); loadLeads(); }
+    catch(e){ alert("Erro ao atualizar: " + e.message); }
+  }
+  async function setLeadArchived(id, archived){
+    try { await db.collection("leads").doc(id).update({ archived }); loadLeads(); }
+    catch(e){ alert("Erro ao atualizar: " + e.message); }
+  }
+  async function deleteLead(id, name){
+    if (!confirm(`Excluir definitivamente a mensagem de "${name}"? Essa ação não pode ser desfeita.`)) return;
+    try { await db.collection("leads").doc(id).delete(); loadLeads(); }
+    catch(e){ alert("Erro ao excluir: " + e.message); }
+  }
+
+  function openLeadDetail(l){
+    $("leadDetailBody").innerHTML = `
+      <div class="fld"><label>Nome</label><div style="font-size:.9375rem">${esc(l.name||"")}</div></div>
+      <div class="grid2">
+        <div class="fld"><label>E-mail</label><div style="font-size:.9375rem"><a href="mailto:${esc(l.email||"")}">${esc(l.email||"")}</a></div></div>
+        <div class="fld"><label>Telefone</label><div style="font-size:.9375rem">${esc(l.phone||"")}</div></div>
+      </div>
+      <div class="fld"><label>Assunto</label><div style="font-size:.9375rem">${esc(l.subjectLabel||l.subject||"—")}</div></div>
+      <div class="fld"><label>Mensagem</label><div style="font-size:.9375rem;white-space:pre-wrap;line-height:1.6">${esc(l.message||"")}</div></div>
+      <div class="fld"><label>Recebida em</label><div style="font-size:.8125rem;color:hsl(var(--muted-foreground))">${fmtDate(l.createdAtMs)}</div></div>
+    `;
+    if (l.status !== "lido") setLeadStatus(l.id, "lido");
+    $("ovLead").classList.add("open");
+  }
+
+  function exportLeadsToExcel(){
+    if (!window.XLSX) { alert("Biblioteca de exportação ainda não carregou. Tente novamente em instantes."); return; }
+    const all = [...leadsActive, ...leadsArchived];
+    if (!all.length) { alert("Não há mensagens para exportar."); return; }
+
+    const rows = all.map(l => ({
+      "Nome": l.name || "",
+      "E-mail": l.email || "",
+      "Telefone": l.phone || "",
+      "Assunto": l.subjectLabel || l.subject || "",
+      "Mensagem": l.message || "",
+      "Status": l.status === "lido" ? "Lida" : "Nova",
+      "Arquivada": l.archived ? "Sim" : "Não",
+      "Recebida em": fmtDate(l.createdAtMs)
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+
+    // Larguras de coluna proporcionais ao conteúdo
+    ws["!cols"] = [
+      { wch: 22 }, // Nome
+      { wch: 28 }, // E-mail
+      { wch: 16 }, // Telefone
+      { wch: 18 }, // Assunto
+      { wch: 50 }, // Mensagem
+      { wch: 10 }, // Status
+      { wch: 11 }, // Arquivada
+      { wch: 18 }  // Recebida em
+    ];
+
+    // Cabeçalho em negrito com fundo escuro e texto branco
+    const headerCols = Object.keys(rows[0]);
+    headerCols.forEach((_, i) => {
+      const cellRef = XLSX.utils.encode_cell({ r: 0, c: i });
+      if (ws[cellRef]) {
+        ws[cellRef].s = {
+          font: { bold: true, color: { rgb: "FFFFFF" } },
+          fill: { fgColor: { rgb: "1A1A1A" } },
+          alignment: { vertical: "center" }
+        };
+      }
+    });
+    ws["!autofilter"] = { ref: ws["!ref"] };
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Mensagens");
+    const dataStr = new Date().toISOString().slice(0,10);
+    XLSX.writeFile(wb, `CharlieZero_Mensagens_${dataStr}.xlsx`, { cellStyles: true });
   }
 
   /* ============================================================

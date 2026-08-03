@@ -223,6 +223,17 @@
       min-height: 120px;
     }
 
+    .contact-form-msg {
+      font-size: 13.5px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 16px;
+      display: none;
+    }
+    .contact-form-msg.show { display: block; }
+    .contact-form-msg.ok { background: #eafaf0; color: #1a7f47; border: 1px solid #bfe6cd; }
+    .contact-form-msg.err { background: #fdecea; color: #b42318; border: 1px solid #f3c6c0; }
+
     /* --- Responsivo --- */
     @media (max-width: 1080px) {
       .contact-intro {
@@ -359,7 +370,8 @@
               <textarea id="message" required placeholder="Como podemos ajudar você?"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-dark" style="width: 100%; margin-top: 16px; justify-content: center;">
+            <div id="contactFormMsg" class="contact-form-msg"></div>
+            <button type="submit" class="btn btn-dark" id="contactFormSubmit" style="width: 100%; margin-top: 16px; justify-content: center;">
               ENVIAR MENSAGEM
             </button>
           </form>
@@ -373,8 +385,12 @@
   <!-- Footer Dinâmico -->
   <div id="footer-placeholder"></div>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
   <script src="js/nav.js"></script>
   <script src="js/utils.js"></script>
   <script src="js/effects.js"></script>
+  <script src="js/contato-form.js"></script>
 </body>
 </html>
