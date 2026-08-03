@@ -1263,20 +1263,27 @@
   color: var(--black);
 }
 
-/* --- Mini Sessão CTA (Avião Laranja) --- */
+/* --- Mini Sessão CTA (Avião Laranja) ---
+   Mesmo padrão de moldura do .cta-banner da home: imagem com
+   tamanho fixo e cantos arredondados, dentro de uma margem
+   (padding) do card preto — não colada nas bordas. */
 .cta-orange-banner {
+  width: 100%;
   background: #000000;
   border-radius: var(--radius-lg);
-  display: flex;
-  overflow: hidden;
-  align-items: stretch;
-  min-height: 240px;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  align-items: center;
+  gap: 24px;
+  padding: 20px;
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.2);
 }
 
 .cta-orange-img-wrap {
-  flex: 0 0 35%; 
+  width: 100%;
+  height: 180px;
   position: relative;
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 
@@ -1290,8 +1297,7 @@
 }
 
 .cta-orange-content {
-  flex: 1;
-  padding: 48px;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1364,6 +1370,13 @@
   .vitrine-grid {
     grid-template-columns: repeat(2, 1fr); 
   }
+  .cta-orange-banner {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .cta-orange-img-wrap {
+    height: 200px;
+  }
   .cta-orange-content {
     flex-direction: column;
     align-items: flex-start;
@@ -1374,17 +1387,6 @@
 @media (max-width: 768px) {
   .vitrine-grid {
     grid-template-columns: 1fr; 
-  }
-  .cta-orange-banner {
-    flex-direction: column;
-  }
-  .cta-orange-img-wrap {
-    width: 100%;
-    height: 200px;
-    flex: none;
-  }
-  .cta-orange-content {
-    padding: 32px;
   }
 }
 /* ===================================================
