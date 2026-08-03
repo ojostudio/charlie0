@@ -242,12 +242,12 @@
 .results-dots span{
   width:8px;height:8px;
   border-radius:100px;
-  background:rgba(255,255,255,.55);
+  background:#c7c7c2;
   cursor:pointer;
   transition:width .2s ease, background-color .2s ease;
 }
 .results-dots span.is-active{width:26px;background:var(--blue);}
-.results-dots span:hover{background:rgba(255,255,255,.85);}
+.results-dots span:hover{background:#9a9a94;}
 
 
 /* --- Placeholder genérico "IMAGEM" (usar sempre que uma
