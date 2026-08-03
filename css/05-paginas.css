@@ -39,7 +39,18 @@
   overflow:hidden;
   isolation:isolate;
 }
-/* vídeo de fundo do hero, atrás de todo o conteúdo do card */
+.hero-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 62% 45%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%);
+  z-index:0;
+}
+/* vídeo de fundo de TODA a seção hero (fica atrás do .hero-card e da
+   parte branca ao redor). O .hero::before (fade preto) já existente
+   fica em z-index:0, acima do vídeo (z-index:-1), então cobre/escurece
+   o vídeo naturalmente na parte de baixo da seção — sem precisar de
+   nenhuma camada extra. */
 .hero-bg-video{
   position:absolute;
   inset:0;
@@ -47,22 +58,6 @@
   height:100%;
   object-fit:cover;
   z-index:-1;
-}
-/* camada de contraste sobre o vídeo: começa clara (mantém a legibilidade
-   do texto escuro) e escurece gradualmente na base do card, encostando
-   exatamente onde o fade preto do .hero::before começa — transição
-   orgânica entre o vídeo e a seção seguinte, sem corte visível */
-.hero-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(180deg,
-    rgba(228,228,222,.78) 0%,
-    rgba(210,210,204,.5) 45%,
-    rgba(60,60,58,.35) 75%,
-    rgba(10,10,10,.6) 100%);
 }
 @media (prefers-reduced-motion: reduce){
   .hero-bg-video{ display:none; }
