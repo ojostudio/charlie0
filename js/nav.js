@@ -18,4 +18,26 @@
       menuToggle.setAttribute('aria-expanded', 'false');
     });
   });
+
+  // Dropdown "Acessar Cursos" — clique/toque abre e fecha (funciona junto
+  // com o hover do desktop, que já é resolvido só em CSS)
+  document.querySelectorAll('.cursos-dropdown-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const dropdown = trigger.closest('.cursos-dropdown');
+      const isOpen = dropdown.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', String(isOpen));
+      // Fecha os outros dropdowns abertos
+      document.querySelectorAll('.cursos-dropdown.is-open').forEach(d => {
+        if (d !== dropdown) { d.classList.remove('is-open'); d.querySelector('.cursos-dropdown-trigger').setAttribute('aria-expanded', 'false'); }
+      });
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.cursos-dropdown.is-open').forEach(d => {
+      if (!d.contains(e.target)) { d.classList.remove('is-open'); d.querySelector('.cursos-dropdown-trigger').setAttribute('aria-expanded', 'false'); }
+    });
+  });
 })();

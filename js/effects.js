@@ -15,6 +15,7 @@
     '.hero-copy', '.hero-media', '.hero-card',
     '.course-card', '.stat', '.results-copy', '.results-visual',
     '.cta-banner', '.simulator-text', '.simulator-photo',
+    '.frota-heading', '.frota-card',
     // Quem Somos
     '.intro-copy', '.intro-photo', '.team-card',
     '.certified-content', '.certified-card',
