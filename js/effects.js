@@ -74,7 +74,7 @@
 
   /* 3. Parallax bem discreto na imagem do hero (desktop apenas) */
   if (!prefersReducedMotion && window.innerWidth > 900) {
-    const heroImg = document.querySelector('.hero-media img, .hero-photo-box img');
+    const heroImg = document.querySelector('.hero-media img');
     if (heroImg) {
       const onParallax = () => {
         const rect = heroImg.getBoundingClientRect();
