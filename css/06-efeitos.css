@@ -90,6 +90,12 @@
   transition:transform .2s linear;
   will-change:transform;
 }
+/* cirrus.webp (.hero-plane) — sem nenhum efeito de movimento */
+.hero-plane{
+  transition:none !important;
+  transform:none !important;
+  will-change:auto !important;
+}
 
 /* --- Badges e selos: pulso muito discreto para chamar atenção sem cansar --- */
 .hero-badge,
