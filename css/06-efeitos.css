@@ -86,7 +86,6 @@
 
 /* --- Hero: leve profundidade de paralaxe (aplicado via JS na imagem) --- */
 .hero-media img,
-.hero-photo-box img,
 .hero-person img{
   transition:transform .2s linear;
   will-change:transform;
@@ -124,7 +123,7 @@
   .course-card, .stat, .team-card, .certified-card, .curso-horizontal-card,
   .vitrine-card, .contact-box, .gestao-card,
   .course-media img, .stat-media img,
-  .hero-media img, .hero-photo-box img, .hero-person img{
+  .hero-media img, .hero-person img{
     transition:none !important;
   }
 }
