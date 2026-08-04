@@ -277,7 +277,7 @@
   position:relative;
   background:var(--black);
   color:var(--white);
-  min-height:640px;
+  min-height:780px;
   display:grid;
   grid-template-columns:minmax(280px, 40%) 1fr;
   align-items:stretch;
@@ -300,7 +300,10 @@
   width:100%;
   height:100%;
   object-fit:cover;
-  object-position:38% center;
+  /* "20% center" ancora a imagem bem mais à esquerda dentro
+     da coluna direita — independente do tamanho do monitor,
+     o ponto de referência é sempre 20% da largura da coluna */
+  object-position:20% center;
 }
 .simulator h2{
   font-size:var(--fs-title);
@@ -403,7 +406,7 @@
 
   .simulator{grid-template-columns:1fr;min-height:0;}
   .simulator-text{padding:48px 28px 32px 52px;}
-  .simulator-photo{height:340px;}
+  .simulator-photo{height:480px;}
 
   .stats-grid{grid-template-columns:repeat(2,1fr);}
 
