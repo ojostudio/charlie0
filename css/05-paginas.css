@@ -51,16 +51,14 @@
    fica em z-index:0, acima do vídeo (z-index:-1), então cobre/escurece
    o vídeo naturalmente na parte de baixo da seção — sem precisar de
    nenhuma camada extra. */
-.hero-bg-video{
+.hero-bg-img{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position:top center;
   z-index:-1;
-}
-@media (prefers-reduced-motion: reduce){
-  .hero-bg-video{ display:none; }
 }
 .hero-card::before{
   content:"";
