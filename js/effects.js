@@ -86,4 +86,20 @@
       window.addEventListener('scroll', onParallax, { passive: true });
     }
   }
+  /* Parallax sutil na aeronave da seção "Homologado Cirrus" (quem-somos.html).
+     Usa translateY(-50%) como base (mantém o posicionamento original) e
+     adiciona ±10px conforme a seção passa pela tela. Não interfere com
+     elementos acima ou abaixo pois a aeronave é position:absolute. */
+  const certPlane = document.querySelector('.certified-plane');
+  if (!prefersReducedMotion && certPlane) {
+    const onCertParallax = () => {
+      const rect = certPlane.closest('.certified')?.getBoundingClientRect();
+      if (!rect || rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const progress = rect.top / window.innerHeight;
+      const offset = Math.max(-10, Math.min(10, progress * 20));
+      certPlane.style.transform = `translateY(calc(-50% + ${offset}px))`;
+    };
+    onCertParallax();
+    window.addEventListener('scroll', onCertParallax, { passive: true });
+  }
 })();
