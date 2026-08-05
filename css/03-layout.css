@@ -163,6 +163,7 @@
 .cursos-dropdown-up{
   top:auto;
   bottom:calc(100% + 10px);
+  z-index:999;
 }
 .cursos-dropdown.is-open .cursos-dropdown-menu{
   opacity:1;
