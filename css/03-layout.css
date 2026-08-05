@@ -159,7 +159,11 @@
 .cursos-dropdown:hover .cursos-dropdown-arrow,
 .cursos-dropdown:focus-within .cursos-dropdown-arrow{transform:rotate(180deg);}
 
-/* Toque no mobile controla via JS (classe .is-open), pois não existe :hover no touch */
+/* Variante: abre para cima (CTA banners no fundo da página) */
+.cursos-dropdown-up{
+  top:auto;
+  bottom:calc(100% + 10px);
+}
 .cursos-dropdown.is-open .cursos-dropdown-menu{
   opacity:1;
   visibility:visible;
