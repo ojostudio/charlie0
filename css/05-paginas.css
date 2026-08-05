@@ -610,11 +610,12 @@
   line-height:var(--lh-title);
   letter-spacing:var(--ls-title);
   margin-bottom:20px;
+  color:var(--ink);
 }
 .certified-content p{
   font-size:var(--fs-desc-lg);
   line-height:var(--lh-desc-lg);
-  color:#e2e2e2;
+  color:var(--ink);
 }
 
 .certified-overlay {
