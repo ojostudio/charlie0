@@ -595,14 +595,10 @@
   
   z-index: 1; 
   pointer-events: none; 
-  animation: planeIdle 6s ease-in-out infinite;
 }
 
-/* Keyframes da animação (mantido igual, só para garantir) */
-@keyframes planeIdle {
-  0% { transform: translateY(-50%) translateX(0) rotate(0deg); }
-  50% { transform: translateY(-54%) translateX(-15px) rotate(1deg); }
-  100% { transform: translateY(-50%) translateX(0) rotate(0deg); }
+@media (prefers-reduced-motion: reduce){
+  .certified-plane{ animation:none; }
 }
 
 .certified-content h2{
