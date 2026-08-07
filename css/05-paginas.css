@@ -373,6 +373,31 @@
   height:clamp(760px, 78vw, 900px);
   border-radius:0;
 }
+
+/* --- Ícone de Fundo da Seção Resultados --- */
+.results-bg-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140%; /* Deixa o ícone grandão estourando os limites do container */
+  max-width: 900px;
+  opacity: 0.06; /* Aqui você controla o quão clarinho ele fica (0.06 = 6%) */
+  z-index: 0; /* Garante que fique atrás das pessoas */
+  pointer-events: none;
+  display: none;
+}
+.results-bg-icon.is-active {
+  display: block;
+  animation: fadeInIcon 0.8s ease forwards;
+}
+
+/* Animação exclusiva do ícone (vem levemente de baixo para cima com fade) */
+@keyframes fadeInIcon {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 0.06; transform: translate(-50%, -50%); }
+}
+
 .results-person{
   position:absolute;
   inset:0;
