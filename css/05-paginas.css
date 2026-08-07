@@ -132,7 +132,7 @@
 .hero-person-box {
   position: absolute;
   left: calc(-30% - 20px - 64%);
-  top: -10px;    /* Subimos o limite superior para dar espaço para a imagem crescer */
+  top: 25px;    /* Subimos o limite superior para dar espaço para a imagem crescer */
   bottom: 0;     /* O zero crava a caixa exatamente na base do card cinza */
   width: 135%;   /* Aumentamos a largura para forçar a escala proporcional da imagem */
   z-index: 3;
