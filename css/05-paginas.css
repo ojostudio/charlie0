@@ -345,13 +345,20 @@
   background: var(--paper);
   overflow: hidden;
 }
-.results-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  align-items:start;
-  gap:40px;
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 40px;
+  position: relative; /* <-- FUNDAMENTAL: Prende o ícone aqui dentro */
 }
-.results-copy{max-width:460px;padding-top:28px;}
+
+.results-copy {
+  max-width: 460px;
+  padding-top: 28px;
+  position: relative;
+  z-index: 2; /* Subimos mais um degrau para ficar acima do vermelho */
+}
 
 .results .eyebrow{
   font-family:var(--font-display);
@@ -367,18 +374,18 @@
   width:fit-content;
 }
 
-.results-visual{
-  position:relative;
-  margin-top:-28px;
-  height:clamp(760px, 78vw, 900px);
-  border-radius:0;
+.results-visual {
+  position: relative;
+  z-index: 2; /* Mesma coisa para a foto não ficar vermelha */
+  margin-top: -28px;
+  height: clamp(760px, 78vw, 900px);
 }
 
 /* --- Ícone de Fundo da Seção Resultados --- */
 .results-bg-icon {
   position: absolute;
-  top: 45%;
-  left: 50%;
+  top: 55%;
+  left: 40%;
   transform: translate(-50%, -50%);
   width: 140%; /* Deixa o ícone grandão estourando os limites do container */
   max-width: 900px;
@@ -387,15 +394,25 @@
   pointer-events: none;
   display: none;
 }
-.results-bg-icon.is-active {
-  display: block;
-  animation: fadeInIcon 0.8s ease forwards;
+
+/* --- Ícone de Fundo Fixo da Seção Resultados --- */
+.results-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Subimos um degrau */
+  background-color: rgba(255, 0, 0, 0.3); /* FUNDO VERMELHO PARA TESTE */
+  pointer-events: none;
 }
 
-/* Animação exclusiva do ícone (vem levemente de baixo para cima com fade) */
-@keyframes fadeInIcon {
-  from { opacity: 0; transform: translate(-50%, -40%); }
-  to { opacity: 0.06; transform: translate(-50%, -50%); }
+.results-bg-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right center;
+  opacity: 1; /* Opacidade máxima para o teste */
 }
 
 .results-person{
