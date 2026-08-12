@@ -1158,7 +1158,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 150%; 
+  
+  object-position: center 5%; 
   
   z-index: -1; 
   pointer-events: none;
