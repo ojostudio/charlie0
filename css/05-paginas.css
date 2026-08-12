@@ -587,16 +587,16 @@
 /* --- Avião Animado (Idle / Flutuação) --- */
 .certified-plane {
   position: absolute;
-  left: 45%; 
+  left: 45%; /* Continua na mesma posição horizontal que estava */
   
-  /* MÁGICA 3: Com a seção bem mais alta, descemos a âncora do avião para alinhar com o novo centro */
-  top: 48%; 
+  /* ALINHAMENTO À PROVA DE BALAS: 50% do tamanho da caixa de texto + translateY crava ele no centro absoluto do parágrafo */
+  top: 50%; 
   transform: translateY(-50%);
   
   width: 55vw; 
   max-width: 850px;
   min-width: 500px;
-  z-index: 1; 
+  z-index: -1; /* Mantém o avião por trás do texto, caso a tela aperte muito */
   pointer-events: none; 
 }
 
