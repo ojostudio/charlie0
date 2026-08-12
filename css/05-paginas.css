@@ -132,8 +132,9 @@
 .hero-person-box{
   position:absolute;
   left:calc(-30% - 20px - 64%);
-  bottom:56px;
-  top:auto;
+  bottom:56px; /* 56px = o quanto o hero-image-frame ultrapassa o card por baixo;
+                  isso faz a base do personagem assentar exatamente no card cinza */
+  top:0;
   width:120%;
   z-index:3;
 }
@@ -370,7 +371,7 @@
 .results-visual{
   position:relative;
   margin-top:-28px;
-  height:clamp(480px, 55vw, 680px);
+  height:clamp(760px, 78vw, 900px);
   border-radius:0;
 }
 .results-person{
@@ -384,7 +385,6 @@
 }
 .results-person.is-active{display:block;animation:fadeIn .5s ease;}
 
-/* Dots ficam sobrepostos na parte inferior da imagem */
 .results-overlay{
   position:absolute;
   left:0;right:0;
@@ -394,13 +394,6 @@
   flex-direction:column;
   align-items:flex-start;
   gap:16px;
-  pointer-events:none;
-}
-.results-overlay > *{pointer-events:auto;}
-
-/* CTA banner fica FORA do overlay, no fluxo normal após o grid */
-.results-cta-wrap{
-  padding:32px 0 0;
 }
 
 
@@ -420,7 +413,7 @@
 
   .results-grid{grid-template-columns:1fr;}
   .results-copy{max-width:100%;padding-top:0;}
-  .results-visual{margin-top:32px;height:420px;}
+  .results-visual{margin-top:32px;height:560px;}
   .results-overlay{bottom:16px;}
 }
 
