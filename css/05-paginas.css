@@ -564,9 +564,11 @@
   height: 100%;
   object-fit: cover;
   opacity: .92;
-  pointer-events: none;  
-  object-position: bottom center;
-  z-index: -1;
+  pointer-events: none;
+  z-index: -1; 
+  
+  /* Ajuste a altura aqui, da mesma forma que fizemos na Gestão! */
+  object-position: center 20%; 
 }
 .certified-scrim {
   position: absolute;
@@ -1159,7 +1161,7 @@
   height: 100%;
   object-fit: cover;
   
-  object-position: center 5%; 
+  object-position: center -60%; 
   
   z-index: -1; 
   pointer-events: none;
