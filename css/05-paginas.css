@@ -1152,18 +1152,16 @@
 
 .gestao-hero-bg {
   position: absolute;
-  bottom: 0; 
+  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
-  /* Aumenta a altura para compensar o margin-top */
-  height: calc(100% + 250px); 
+  height: 100%;
   object-fit: cover;
-  object-position: bottom center; 
+  object-position: center 100%; 
+  
   z-index: -1; 
   pointer-events: none;
-  /* MÁSCARA CSS: Força o topo da imagem a ficar transparente, matando a linha de corte na hora */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
 }
 
 .gestao-hero-planes {
