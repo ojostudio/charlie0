@@ -37,6 +37,7 @@
   line-height:var(--lh-title);
   letter-spacing:var(--ls-title);
 }
-p {
-  line-height: 1.65; /* Aumenta o respiro entre as linhas de todos os parágrafos */
+/* --- Ajuste de espaçamento específico para tipografia mista --- */
+.title-tight {
+  line-height: 1.05 !important; 
 }
