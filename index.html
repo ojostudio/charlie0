@@ -147,22 +147,30 @@
     <div class="wrap">
       <ul class="stats-grid">
         <li class="stat">
-          <div class="stat-media" aria-hidden="true">IMAGEM</div>
+          <div class="stat-media" aria-hidden="true">
+            <img src="imagens/big-numbers-1.webp" alt="" loading="lazy" style="width: 100%; height: auto; display: block;">
+          </div>
           <p class="stat-number">30+</p>
           <p class="stat-label">Anos de<br>Experiência</p>
         </li>
         <li class="stat">
-          <div class="stat-media" aria-hidden="true">IMAGEM</div>
+          <div class="stat-media" aria-hidden="true">
+            <img src="imagens/big-numbers-2.webp" alt="" loading="lazy" style="width: 100%; height: auto; display: block;">
+          </div>
           <p class="stat-number">95%</p>
           <p class="stat-label">Taxa de<br>Aprovação</p>
         </li>
         <li class="stat">
-          <div class="stat-media" aria-hidden="true">IMAGEM</div>
+          <div class="stat-media" aria-hidden="true">
+            <img src="imagens/big-numbers-3.webp" alt="" loading="lazy" style="width: 100%; height: auto; display: block;">
+          </div>
           <p class="stat-number">100%</p>
           <p class="stat-label">Suporte<br>ao Aluno</p>
         </li>
         <li class="stat">
-          <div class="stat-media" aria-hidden="true">IMAGEM</div>
+          <div class="stat-media" aria-hidden="true">
+            <img src="imagens/big-numbers-4.webp" alt="" loading="lazy" style="width: 100%; height: auto; display: block;">
+          </div>
           <p class="stat-number">1º</p>
           <p class="stat-label">e Único Homologado<br>Cirrus Training</p>
         </li>
@@ -172,45 +180,52 @@
 
   <!-- RESULTS / CARROSSEL DE DEPOIMENTOS -->
   <section class="results" id="vitrine" data-carousel="fade" aria-labelledby="results-title">
-    <div class="wrap results-grid">
+    
+    <!-- ÍCONE EXPANDIDO (CORRIGIDO): Usa a classe "wrap" para alinhar perfeitamente com os limites das outras seções -->
+    <div class="wrap" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 0; pointer-events: none; display: flex; align-items: center; justify-content: center;">
+      <img class="results-bg-icon" src="imagens/icone-resultados.webp" alt="" aria-hidden="true">
+    </div>
+
+    <!-- O CONTEÚDO DA SEÇÃO: Position relative e z-index 1 garantem que tudo fique por cima do ícone -->
+    <div class="wrap results-grid" style="position: relative; z-index: 1;">
       <div class="results-copy">
         <h2 id="results-title">Resultados</h2>
         <p class="lead">O que nossas avaliações dizem</p>
 
         <div class="testimonial-slides">
+          <!-- Slide 1 -->
           <blockquote class="testimonial-slide is-active" data-slide="0">
-            <p>“Centro de treinamento com excelentes instrutores, liderados por aviadores com vasta experiência na aviação comercial. Referência em padronização e profissionalismo.”</p>
-            <cite>Thiago Zenni Pereira — Google</cite>
+            <p>“Excelente centro de treinamento. A padronização de linha aérea aplicada à aviação geral faz toda a diferença na segurança da operação. Instrutores de altíssimo nível.”</p>
+            <cite>Thiago Zenni</cite>
           </blockquote>
+          
+          <!-- Slide 2 -->
           <blockquote class="testimonial-slide" data-slide="1">
-            <p>“[Substituir] Depoimento do segundo aluno formado — peça pra Pedro o texto real e a foto correspondente.”</p>
-            <cite>Nome do Aluno — Google</cite>
+            <p>“A estrutura da Charlie Zero é impecável. O treinamento no simulador antes do voo real otimizou muito meu aprendizado e me deu total confiança na transição para o Cirrus.”</p>
+            <cite>Mario Andrete</cite>
           </blockquote>
+          
+          <!-- Slide 3 -->
           <blockquote class="testimonial-slide" data-slide="2">
-            <p>“[Substituir] Depoimento do terceiro aluno formado — peça pra Pedro o texto real e a foto correspondente.”</p>
-            <cite>Nome do Aluno — Google</cite>
-          </blockquote>
-          <blockquote class="testimonial-slide" data-slide="3">
-            <p>“[Substituir] Depoimento do quarto aluno formado — peça pra Pedro o texto real e a foto correspondente.”</p>
-            <cite>Nome do Aluno — Google</cite>
+            <p>“Formação rigorosa, focada na segurança e na tecnologia. Terminei o curso dominando os sistemas da aeronave e a filosofia de voo. Recomendo de olhos fechados.”</p>
+            <cite>Rebecca Benetti</cite>
           </blockquote>
         </div>
       </div>
 
       <div class="results-visual">
-        <img class="results-person is-active" data-slide="0" src="imagens/persona-resultados.webp" alt="Piloto sorrindo, aluno da Charlie 0" loading="lazy">
-        <img class="results-person" data-slide="1" src="imagens/persona-resultados.webp" alt="" loading="lazy">
-        <img class="results-person" data-slide="2" src="imagens/persona-resultados.webp" alt="" loading="lazy">
-        <img class="results-person" data-slide="3" src="imagens/persona-resultados.webp" alt="" loading="lazy">
+        <!-- Suas fotos continuam aqui embaixo (o ícone foi movido para cima) -->
+        <img class="results-person is-active" data-slide="0" src="imagens/resultados_persona_1.webp" alt="Piloto sorrindo, aluno da Charlie 0" loading="lazy">
+        <img class="results-person" data-slide="1" src="imagens/resultados_persona_2.webp" alt="" loading="lazy">
+        <img class="results-person" data-slide="2" src="imagens/resultados_persona_3.webp" alt="" loading="lazy">
       </div>
     </div>
 
-    <div class="wrap results-overlay">
+    <div class="wrap results-overlay" style="position: relative; z-index: 1;">
       <div class="results-dots" role="tablist" aria-label="Selecionar depoimento">
         <span class="is-active" data-dot="0" role="tab" aria-selected="true" aria-label="Depoimento 1"></span>
         <span data-dot="1" role="tab" aria-selected="false" aria-label="Depoimento 2"></span>
         <span data-dot="2" role="tab" aria-selected="false" aria-label="Depoimento 3"></span>
-        <span data-dot="3" role="tab" aria-selected="false" aria-label="Depoimento 4"></span>
       </div>
 
       <div class="cta-banner">
