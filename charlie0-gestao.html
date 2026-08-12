@@ -19,7 +19,11 @@
   <!-- Header Dinâmico -->
   <div id="header-placeholder"></div>
 
-  <main id="main" class="gestao-page-wrapper">
+  <!-- ALTERAÇÃO 1: Adicionado position relative no main -->
+  <main id="main" class="gestao-page-wrapper" style="position: relative;">
+    
+    <!-- ALTERAÇÃO 2: A imagem de fundo agora é o primeiro elemento da página -->
+    <img class="gestao-hero-bg" src="imagens/background-gestao.webp" alt="Mar e floresta ao fundo" loading="lazy" aria-hidden="true">
     
     <!-- Introdução -->
     <section class="wrap gestao-intro" aria-labelledby="gestao-title">
@@ -63,9 +67,6 @@
 
     <!-- Seção Hero / Paralaxe e Idle -->
     <section class="gestao-hero-section">
-      <!-- Fundo Expandido com Fade no Topo -->
-      <img class="gestao-hero-bg" src="imagens/background-gestao.webp" alt="Mar e floresta ao fundo" loading="lazy" aria-hidden="true">
-      
       <!-- Aeronaves com Animação Idle -->
       <img class="gestao-hero-planes" src="imagens/aeronaves-gestao.webp" alt="Duas aeronaves em voo" aria-hidden="true">
 
@@ -84,11 +85,6 @@
 
   <!-- Footer Dinâmico -->
   <div id="footer-placeholder"></div>
-
-  <!-- Scripts padrão da Charlie Zero -->
-  <script src="js/nav.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/carousel.js"></script>
 
   <!-- Scripts padrão da Charlie Zero -->
   <script src="js/nav.js"></script>
