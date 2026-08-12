@@ -554,7 +554,8 @@
   object-fit: cover;
   opacity: .92;
   pointer-events: none;  
-  object-position: bottom center; 
+  object-position: bottom center;
+  z-index: -1;
 }
 .certified-scrim {
   position: absolute;
