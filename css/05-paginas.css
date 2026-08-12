@@ -129,13 +129,14 @@
   border-radius:0;
   z-index:2;
 }
-.hero-person-box {
-  position: absolute;
-  left: calc(-30% - 20px - 64%);
-  top: 25px;    /* Subimos o limite superior para dar espaço para a imagem crescer */
-  bottom: 0;     /* O zero crava a caixa exatamente na base do card cinza */
-  width: 135%;   /* Aumentamos a largura para forçar a escala proporcional da imagem */
-  z-index: 3;
+.hero-person-box{
+  position:absolute;
+  left:calc(-30% - 20px - 64%);
+  bottom:56px; /* 56px = o quanto o hero-image-frame ultrapassa o card por baixo;
+                  isso faz a base do personagem assentar exatamente no card cinza */
+  top:0;
+  width:120%;
+  z-index:3;
 }
 .hero-person{
   width:100%;
@@ -339,95 +340,62 @@
 }
 
 /* --- Resultados / carrossel de depoimentos --- */
-.results {
-  position: relative;
-  padding: 80px 0 100px;
-  background: var(--paper);
-  overflow: hidden;
+.results{
+  position:relative;
+  padding:80px 0 0;
+  background:var(--paper);
+  overflow:hidden;
+}
+.results-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:start;
+  gap:40px;
+}
+.results-copy{max-width:460px;padding-top:28px;}
+
+.results .eyebrow{
+  font-family:var(--font-display);
+  font-size:14px;
+  color:var(--muted);
+  margin-bottom:2px;
+}
+.results h2{
+  font-size:var(--fs-title);
+  line-height:var(--lh-title);
+  letter-spacing:var(--ls-title);
+  margin-bottom:8px;
+  width:fit-content;
 }
 
-.results-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: start;
-  gap: 40px;
-  position: relative; 
+.results-visual{
+  position:relative;
+  margin-top:-28px;
+  height:clamp(760px, 78vw, 900px);
+  border-radius:0;
+}
+.results-person{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  display:none;
+}
+.results-person.is-active{display:block;animation:fadeIn .5s ease;}
+
+.results-overlay{
+  position:absolute;
+  left:0;right:0;
+  bottom:24px;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:16px;
 }
 
-.results-copy {
-  max-width: 460px;
-  padding-top: 28px;
-  position: relative;
-  z-index: 2; 
-}
-
-.results .eyebrow {
-  font-family: var(--font-display);
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 2px;
-}
-
-.results h2 {
-  font-size: var(--fs-title);
-  line-height: var(--lh-title);
-  letter-spacing: var(--ls-title);
-  margin-bottom: 8px;
-  width: fit-content;
-}
-
-.results-visual {
-  position: relative;
-  z-index: 2; 
-  margin-top: -28px;
-  height: clamp(760px, 78vw, 900px);
-}
-
-/* --- Ícone de Fundo Fixo da Seção Resultados --- */
-.results-bg-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1; 
-  pointer-events: none;
-}
-
-.results-bg-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: right 30%;
-  opacity: 0.05; 
-}
-
-.results-person {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: none;
-}
-
-.results-person.is-active {
-  display: block;
-  animation: fadeIn .5s ease;
-}
-
-.results-overlay {
-  position: absolute;
-  left: 0; 
-  right: 0;
-  bottom: 80px; 
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-}
 
 /* --- Responsive: Home --- */
 @media (max-width:1080px){
@@ -446,7 +414,7 @@
   .results-grid{grid-template-columns:1fr;}
   .results-copy{max-width:100%;padding-top:0;}
   .results-visual{margin-top:32px;height:560px;}
-  .results-overlay{bottom:56px;}
+  .results-overlay{bottom:16px;}
 }
 
 @media (max-width:640px){
@@ -556,21 +524,21 @@
 .certified {
   position: relative;
   z-index: 1;
-  margin-top: -180px;
+  margin-top: -180px; /* Mantém o sobreposição da seção anterior */
   
-  /* Mantemos o clamp para telas normais, mas travamos o máximo */
-  min-height: clamp(820px, 92vw, 1120px);
-  max-height: 1120px; /* <-- ADICIONE ESTA LINHA: Trava o crescimento em telas grandes */
+  /* Removemos as travas de altura máxima. Agora o conteúdo dita a altura. */
+  min-height: 100vh; 
   
   background: transparent;
   color: var(--white);
   overflow: hidden;
   pointer-events: none;
-  
   display: flex;
   flex-direction: column;
-  padding-top: 150px; 
-  padding-bottom: 50px; 
+  
+  /* MÁGICA 1: O padding de 380px desconta os 180px perdidos lá em cima, sobrando 200px de respiro real no topo! */
+  padding-top: 380px; 
+  padding-bottom: 100px; 
 }
 .certified-overlay,
 .certified-content{pointer-events:auto;}
@@ -599,12 +567,14 @@
 }
 .certified-content {
   position: relative;
-  z-index: 2; /* Alterado para 2 para ficar acima do avião */
+  z-index: 2; 
   width: 100%; 
   padding-right: 24px;
   padding-left: var(--content-inset-left);
-  margin-top: auto;
-  margin-bottom: auto;
+  
+  /* MÁGICA 2: Trocamos o 'auto' por margens fixas e agressivas */
+  margin-top: 0;
+  margin-bottom: 160px; /* Isso cria a cratera gigante de espaço entre o texto e o carrossel */
 }
 
 /* Nova regra que limita a largura apenas do texto em si */
@@ -617,15 +587,15 @@
 /* --- Avião Animado (Idle / Flutuação) --- */
 .certified-plane {
   position: absolute;
-  /* A MÁGICA ACONTECE AQUI: Em vez de colar na direita, ancoramos no centro! */
-  left: 46%; 
-  top: 35%; 
+  left: 45%; 
+  
+  /* MÁGICA 3: Com a seção bem mais alta, descemos a âncora do avião para alinhar com o novo centro */
+  top: 48%; 
+  transform: translateY(-50%);
   
   width: 55vw; 
-  /* Travamos o tamanho máximo para manter a proporção elegante no monitor de 27" */
   max-width: 850px;
   min-width: 500px;
-  
   z-index: 1; 
   pointer-events: none; 
 }
