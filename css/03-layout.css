@@ -247,7 +247,11 @@
     gap:4px;
     padding:12px 24px 24px;
   }
-  .site-header.nav-open .main-nav a{padding:12px 0;font-size:15px;}
+  .site-header.nav-open .main-nav a {
+    padding: 12px 0;
+    font-size: 15px;
+    width: fit-content; /* <-- MÁGICA AQUI: O link agora abraça apenas o texto */
+  }
   .main-nav .nav-cta{display:inline-flex;}
   .main-nav .cursos-dropdown{align-self:flex-start;margin-top:10px;}
   .main-nav .cursos-dropdown-menu{
