@@ -155,15 +155,22 @@
   overflow:hidden;
   color:var(--white);
   padding:72px 0 48px;
+  background: #000000; /* <-- NOVA LINHA AQUI */
 }
 .frota-bg{
   position:absolute;
   inset:0;
   width:100%;
-  height:100%;
+  
+  /* 1. MUDANÇA: Damos altura extra para a imagem não "vazar fundo preto" quando subir */
+  height:120%; 
+  
   object-fit:cover;
   object-position:center;
   z-index:0;
+  
+  /* 2. MÁGICA AQUI: Puxa a foto para cima fisicamente */
+  transform: translateY(-20%); /* <-- Teste -10%, -15% ou -20% */
 }
 .frota-overlay{
   position:absolute;
@@ -173,7 +180,7 @@
     rgba(0,0,0,.6) 0%,
     rgba(0,0,0,0) 20%,
     rgba(0,0,0,0) 58%,
-    rgba(0,0,0,.75) 100%);
+    #000000 100%); /* <-- MUDAMOS AQUI: Termina em preto 100% sólido */
 }
 .frota-inner{
   position:relative;
@@ -203,6 +210,7 @@
 .frota-card-wrap{
   position:relative;
   z-index:2;
+  margin-top: 500px; /* <-- MÁGICA AQUI: O espaço que vai revelar o avião! */
 }
 .frota-card{
   background:rgba(232,232,228,.88);
@@ -254,7 +262,7 @@
 .frota-spec-list dd{margin:0;font-size:14px;font-weight:700;color:var(--ink);}
 
 @media (max-width:900px){
-  .frota{min-height:auto;padding:56px 0 32px;}
+  .frota{min-height:auto;padding:100px 0 32px;}
   .frota-card{grid-template-columns:1fr;padding:28px;}
   .frota-card-specs{
     grid-template-columns:1fr 1fr;
@@ -1773,3 +1781,74 @@
 @media (max-width: 860px) {
   .produto-detail { grid-template-columns: 1fr; gap: 32px; }
 }
+
+/* ==========================================
+   Centralização do Simulador no Mobile
+   ========================================== */
+@media (max-width: 900px) {
+  /* Centraliza e dá o respiro no topo da seção */
+  .simulator {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    
+    /* MÁGICA AQUI: Aumentamos o espaço antes do título */
+    padding-top: 40px !important; /* Estava menor. Teste 80px, 100px ou 120px para descer mais */
+  }
+
+  /* Faz a caixa da foto ocupar o centro */
+  .simulator-photo {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Garante que a imagem fique centralizada dentro da caixa */
+  .simulator-bg {
+    display: block !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    object-position: center !important;
+  }
+}
+
+@media (max-width: 900px) {
+  /* 1. A "janela" que esconde o que está fora da tela */
+  .numbers-carousel-window {
+    width: 100%;
+    overflow: hidden; /* Esconde as setas e a barra de rolagem */
+    position: relative;
+    padding: 20px 0;
+  }
+
+  /* 2. A trilha que segura os 4 cards lado a lado e faz a animação */
+  .numbers-carousel-track {
+    display: flex !important;
+    width: 400% !important; /* 4 cards = 400% de largura total */
+    
+    /* Animação: 12 segundos no total, em loop infinito */
+    animation: carrosselAutomatico 12s infinite ease-in-out;
+  }
+
+  /* 3. Cada card ocupa exatamente 100% da tela do celular */
+  .numbers-carousel-track > * {
+    width: 25% !important; /* 100% dividido por 4 cards */
+    flex-shrink: 0 !important;
+    box-sizing: border-box;
+    padding: 0 16px; /* Espaçamento interno para não colar nas bordas */
+  }
+
+  /* 4. Animação de transição pausa em cada número e desliza pro próximo */
+  @keyframes carrosselAutomatico {
+    0%, 20%   { transform: translateX(0%); }       /* Mostra o Card 1 */
+25%, 45%  { transform: translateX(-25%); }     /* Mostra o Card 2 */
+    50%, 70%  { transform: translateX(-50%); }     /* Mostra o Card 3 */
+    75%, 95%  { transform: translateX(-75%); }     /* Mostra o Card 4 */
+    100%      { transform: translateX(0%); }       /* Volta suavemente pro Card 1 */
+  }
+}
+
