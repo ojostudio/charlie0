@@ -267,7 +267,11 @@
     overflow:hidden;
     transition:max-height .25s ease;
   }
-  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu{max-height:220px;}
+  /* MÁGICA AQUI: Adicionamos o :focus-within para abrir o menu no toque do celular */
+  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu,
+  .main-nav .cursos-dropdown:focus-within .cursos-dropdown-menu {
+    max-height: 220px;
+  }
   .main-nav .cursos-dropdown-menu a{color:var(--ink);font-weight:500;padding:8px 4px;}
 
   .footer-grid{grid-template-columns:1fr 1fr;}
