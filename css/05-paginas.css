@@ -571,8 +571,53 @@
   .results-grid{grid-template-columns:1fr;}
   .results-copy{max-width:100%;padding-top:0;}
   .results-visual{margin-top:32px;height:560px;}
-  .results-overlay{bottom:16px;}
-}
+  /* --- Restante da Home Intacto --- */
+  .courses-grid{grid-template-columns:1fr;}
+  .simulator{grid-template-columns:1fr;min-height:0;}
+  .simulator-text{padding:48px 28px 32px 52px;}
+  .simulator-photo{height:480px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  
+  /* --- Restante da Home Intacto --- */
+  .courses-grid{grid-template-columns:1fr;}
+  .simulator{grid-template-columns:1fr;min-height:0;}
+  .simulator-text{padding:48px 28px 32px 52px;}
+  .simulator-photo{height:480px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  
+  /* ==========================================
+     MÁGICA DOS RESULTADOS (HOME MOBILE)
+     ========================================== */
+  
+  /* 1. Tira o "colchão" cinza do fundo da seção para colar no rodapé */
+  .results {
+    padding-bottom: 0 !important; 
+  }
+  
+  .results-grid { grid-template-columns: 1fr; }
+  .results-copy { max-width: 100%; padding-top: 0; }
+  
+  /* 2. Ajusta a altura da janela da foto */
+  .results-visual {
+    margin-top: 0 !important; 
+    height: 480px !important; 
+  }
+  
+  /* 3. A GRANDE SACADA: Contain + Bottom */
+  .results-person {
+    /* Mostra o personagem inteiro na proporção real, sem dar zoom bizarro */
+    object-fit: contain !important; 
+    /* Gruda o personagem exatamente na linha de baixo da seção */
+    object-position: bottom center !important; 
+  }
+  
+  /* 4. Mantém as bolinhas perfeitamente centralizadas */
+  .results-overlay {
+    bottom: 24px !important; 
+    align-items: center !important; 
+    text-align: center !important;
+    width: 100%; 
+  }
 
 /* --- Mobile (Telas menores) --- */
 @media (max-width: 640px){
