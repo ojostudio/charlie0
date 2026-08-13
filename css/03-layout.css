@@ -301,5 +301,13 @@
 @media (max-width:640px){
   .wrap{padding-inline:18px;}
   .site-header .wrap{height:68px;}
-  .footer-grid{grid-template-columns:1fr;gap:32px;}
+  
+  /* FOOTER MOBILE: 2 colunas */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr; /* Divide em duas colunas */
+    gap: 32px 16px; /* Espaçamento vertical e horizontal */
+  }
+  .footer-brand {
+    grid-column: 1 / -1; /* Faz a logo/redes sociais ocuparem a linha inteira no topo */
+  }
 }
