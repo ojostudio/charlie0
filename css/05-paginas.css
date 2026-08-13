@@ -410,40 +410,73 @@
 
 /* --- Responsive: Home --- */
 @media (max-width:1080px){
-  /* --- HERO MOBILE: Reordenação dos elementos --- */
+  /* --- HERO MOBILE: Estrutura e Inversão de Imagens --- */
   .hero-card {
     display: flex;
     flex-direction: column;
     padding: 40px 28px 0;
-    text-align: left; /* Garante que os textos continuem alinhados à esquerda */
+    text-align: left;
   }
   
   .hero-copy {
-    display: contents; /* Quebra a caixa e permite misturar o texto com a imagem */
+    display: contents; 
   }
   
-  /* 1 e 2: Eyebrow e Título no topo */
+  /* 1 e 2: Texto Superior (Eyebrow e Título) */
   .hero-copy .eyebrow { order: 1; }
   .hero-copy h1 { order: 2; margin-bottom: 32px; }
   
-  /* 3: Todo o bloco de Imagem (Homem, Avião, Selo) desce para o meio */
+  /* 3: O bloco de imagem (Hiro) desce para o meio */
   .hero-media {
     order: 3;
-    height: clamp(280px, 70vw, 420px);
+    height: clamp(320px, 80vw, 480px); /* Aumentado levemente para acomodar a inversão */
     min-height: 0;
     border-radius: var(--radius-md);
     margin-inline: -4px;
-    margin-bottom: 32px; /* Respiro entre a imagem e o subtítulo que vem abaixo */
+    margin-bottom: 32px;
+  }
+
+  /* --- MÁGICA DA INVERSÃO AQUI --- */
+
+  /* 3a. Prende a caixa do avião na ESQUERDA */
+  .hero-image-frame {
+    right: auto; /* Solta a direita original */
+    left: -10px;  /* Gruda na esquerda com leve respiro */
+    width: 68%;   /* Ajuste de tamanho */
+    top: 0; bottom: 0;
+  }
+  .hero-photo-box {
+    inset: 15px; /* Espaçamento interno da moldura */
+    border-radius: 12px;
+  }
+  /* Ajusta o enquadramento do avião para centralizar */
+  .hero-plane {
+    object-position: center; 
   }
   
-  /* 4 e 5: Subtítulo e Botões vão para o final */
+  /* 3b. Prende o HOMEM na DIREITA */
+  .hero-person-box {
+    left: auto;   /* Solta a esquerda original */
+    right: 0;     /* Gruda na direita */
+    bottom: 0; top: 15px; /* Respiro no topo */
+    width: 100%;  /* Usa a largura total do container media */
+    z-index: 3;
+  }
+  /* Gruda a base e a direita da foto do homem */
+  .hero-person {
+    object-position: bottom right; 
+  }
+
+  /* --- FIM DA INVERSÃO --- */
+  
+  /* 4 e 5: Texto Inferior (Subtítulo e Botões) */
   .hero-copy .lead {
     order: 4;
     margin-bottom: 24px;
   }
   .hero-copy .cta-group {
     order: 5;
-    padding-bottom: 32px; /* Mantém o espaçamento da base do card */
+    padding-bottom: 32px; 
   }
 
   /* --- Restante da Home Intacto --- */
