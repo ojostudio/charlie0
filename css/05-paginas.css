@@ -410,10 +410,43 @@
 
 /* --- Responsive: Home --- */
 @media (max-width:1080px){
-  .hero-card{grid-template-columns:1fr;padding:40px 28px 0;}
-  .hero-copy{padding-bottom:32px;text-align:left;}
-  .hero-media{height:clamp(280px,70vw,420px);min-height:0;border-radius:var(--radius-md);margin-inline:-4px;}
+  /* --- HERO MOBILE: Reordenação dos elementos --- */
+  .hero-card {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 28px 0;
+    text-align: left; /* Garante que os textos continuem alinhados à esquerda */
+  }
+  
+  .hero-copy {
+    display: contents; /* Quebra a caixa e permite misturar o texto com a imagem */
+  }
+  
+  /* 1 e 2: Eyebrow e Título no topo */
+  .hero-copy .eyebrow { order: 1; }
+  .hero-copy h1 { order: 2; margin-bottom: 32px; }
+  
+  /* 3: Todo o bloco de Imagem (Homem, Avião, Selo) desce para o meio */
+  .hero-media {
+    order: 3;
+    height: clamp(280px, 70vw, 420px);
+    min-height: 0;
+    border-radius: var(--radius-md);
+    margin-inline: -4px;
+    margin-bottom: 32px; /* Respiro entre a imagem e o subtítulo que vem abaixo */
+  }
+  
+  /* 4 e 5: Subtítulo e Botões vão para o final */
+  .hero-copy .lead {
+    order: 4;
+    margin-bottom: 24px;
+  }
+  .hero-copy .cta-group {
+    order: 5;
+    padding-bottom: 32px; /* Mantém o espaçamento da base do card */
+  }
 
+  /* --- Restante da Home Intacto --- */
   .courses-grid{grid-template-columns:1fr;}
 
   .simulator{grid-template-columns:1fr;min-height:0;}
@@ -426,14 +459,6 @@
   .results-copy{max-width:100%;padding-top:0;}
   .results-visual{margin-top:32px;height:560px;}
   .results-overlay{bottom:16px;}
-}
-
-@media (max-width:640px){
-  .hero{padding-top:24px;}
-  .hero-card{padding:32px 20px 0;border-radius:var(--radius-md);}
-  .stats-grid{grid-template-columns:1fr 1fr;padding:24px;gap:16px;}
-  .simulator{min-height:520px;}
-  .simulator-text{padding-left:38px;}
 }
 
 /* ===================================================
