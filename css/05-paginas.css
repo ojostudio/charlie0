@@ -772,17 +772,22 @@
   .certified-plane{ animation:none; }
 }
 
-.certified-content h2{
-  font-size:var(--fs-title);
-  line-height:var(--lh-title);
-  letter-spacing:var(--ls-title);
-  margin-bottom:20px;
-  color:var(--ink);
+.certified-content h2 {
+  font-size: var(--fs-title);
+  line-height: var(--lh-title);
+  letter-spacing: var(--ls-title);
+  margin-bottom: 20px;
+  
+  /* MÁGICA AQUI: Trocamos o var(--ink) por branco puro */
+  color: #ffffff !important; 
 }
-.certified-content p{
-  font-size:var(--fs-desc-lg);
-  line-height:var(--lh-desc-lg);
-  color:var(--ink);
+
+.certified-content p {
+  font-size: var(--fs-desc-lg);
+  line-height: var(--lh-desc-lg);
+  
+  /* MÁGICA AQUI: Trocamos o var(--ink) por branco puro */
+  color: #ffffff !important; 
 }
 
 .certified-overlay {
@@ -869,6 +874,67 @@
 .certified-dots span.is-active{width:26px;background:var(--blue);}
 .certified-dots span:hover{background:rgba(255,255,255,.85);}
 
+/* ==========================================
+   Seção Homologado Cirrus (MOBILE)
+   Adicionado para centralizar o Avião e o Texto
+========================================== */
+@media (max-width: 1080px) {
+  
+  /* 1. Transforma a caixa de conteúdo numa coluna centralizada */
+  .certified-content {
+    padding-top: 64px !important;
+    max-width: 100% !important;
+    padding-left: 24px !important; 
+    padding-right: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* 2. Remove as travas de largura do texto no celular */
+  .certified-content h2,
+  .certified-content p {
+    max-width: 100% !important; 
+  }
+
+  /* 3. Avião Maior, Mais Alto e com Paralaxe de Scroll */
+  .certified-plane {
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    
+    /* AUMENTO DE TAMANHO E POSIÇÃO */
+    width: 115% !important; /* Passa da tela para ajudar no efeito de corte */
+    max-width: 550px !important; /* Aumentamos o limite máximo */
+    margin-top: -60px !important; /* Puxa ele mais para cima */
+    margin-bottom: 32px !important;
+    z-index: 1 !important;
+
+    /* A MÁGICA DO PARALAXE */
+    animation: aviaoMobileParalaxe linear forwards !important;
+    
+    /* Vincula a animação ao movimento de rolagem da tela (Scroll Timeline) */
+    animation-timeline: view() !important;
+    
+    /* Começa a animação quando o avião entra na tela (entry 0%) 
+       e termina de centralizar quando a seção chega a 45% da tela (cover 45%) */
+    animation-range: entry 0% cover 45% !important; 
+  }
+
+  /* 4. A trajetória da animação do avião */
+  @keyframes aviaoMobileParalaxe {
+    0% {
+      transform: translateX(45%); /* Começa escondido/cortado na direita */
+      opacity: 0.5; /* Dá um leve efeito de fade-in enquanto entra */
+    }
+    100% {
+      transform: translateX(0%); /* Trava exatamente no centro */
+      opacity: 1;
+    }
+  }
+}
+
 
 /* --- Responsive: Quem Somos --- */
 @media (max-width:1080px){
@@ -876,45 +942,51 @@
   .intro-photo{height:320px;}
   .intro-copy{padding:32px 28px;}
 
-  .team-panel{flex-direction:column;padding:64px 20px 32px;}
-  .team-track{
-    width:100%;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    scrollbar-width:none;
+  /* 1. Reduz o espaço gigante no topo da seção inteira */
+  .team {
+    padding-top: 80px !important; 
   }
-  .team-track::-webkit-scrollbar{display:none;}
-  .team-card{flex:0 0 auto;width:220px;scroll-snap-align:start;margin-top:-28px;}
-  .team-panel .arrow-btn{display:none;}
+
+  /* 2. MÁGICA AQUI: É o team-panel que faz o bloco cinza todo subir e encostar no título */
+  .team-panel {
+    flex-direction: column !important;
+    /* Reduzimos o padding superior de 64px para 32px já que as imagens desceram */
+    padding: 32px 20px 32px !important; 
+    margin-top: 10px !important; /* Estava 100px no desktop. Diminua para 0 se quiser colar mais ainda */
+  }
+  
+  .team-heading .lead {
+    margin-bottom: 20px !important; 
+  }
+  
+  .team-track {
+    width: 100% !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none !important;
+    gap: 16px !important; 
+    
+    /* MÁGICA 1: Respiro interno (top e bottom) para a caixa não "guilhotinar" o topo nem a sombra da base */
+    padding: 10px 0 24px 0 !important; 
+  }
+  .team-track::-webkit-scrollbar { display: none !important; }
+  
+  .team-card {
+    flex: 0 0 auto !important;
+    
+    /* MÁGICA 2: 50% do espaço disponível menos metade do gap (8px). 
+       Isso força a caber exatos 2 cards por tela em qualquer celular! */
+    width: calc(50% - 8px) !important; 
+    
+    scroll-snap-align: start !important;
+    
+    /* MÁGICA 3: Zera a margem negativa. O card agora fica 100% visível dentro da janela */
+    margin-top: 0 !important; 
+  }
+  
+  .team-panel .arrow-btn { display: none !important; }
 
   .certified-content{padding-top:64px;max-width:100%;}
-}
-
-@media (max-width: 640px) {
-  .certified-slider {
-    flex-direction: column;
-    text-align: left;
-    padding: 12px;
-  }
-  .certified-slider .arrow-btn {
-    display: none;
-  }
-  .certified-card {
-    flex-direction: column;
-    gap: 24px;
-    padding-bottom: 20px;
-  }
-  .certified-card .placeholder-box {
-    width: 100%;
-    height: 240px;
-  }
-  .certified-text-wrap {
-    padding-right: 0;
-    padding-inline: 16px;
-  }
-  .certified-caption {
-    font-size: 20px;
-  }
 }
 
 /* ===================================================
