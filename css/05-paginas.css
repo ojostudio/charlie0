@@ -1239,6 +1239,9 @@
     left: 20%;
     top: 55%;
     opacity: 0.8; 
+    min-width: 0;
+    width: 85vw;
+    max-width: 420px;
   }
 }
 
@@ -1246,6 +1249,19 @@
   .gestao-card-body { 
     padding: 24px; 
   }
+  .gestao-hero-section{
+    margin-top:-160px;
+    padding-top:220px;
+    padding-bottom:70px;
+    min-height:clamp(560px, 90vw, 700px);
+  }
+  .gestao-hero-planes{
+    left:6%;
+    top:48%;
+    width:88vw;
+    max-width:360px;
+  }
+  .gestao-hero-content{max-width:100%;}
 }
 
 /* =========================================
