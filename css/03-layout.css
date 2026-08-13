@@ -240,7 +240,9 @@
   .site-header.nav-open .main-nav{
     display:flex;
     position:absolute;
-    top:76px;left:0;right:0;
+    top:100%;
+    left:0;
+    right:0;
     background:var(--white);
     border-bottom:1px solid var(--line);
     flex-direction:column;
@@ -254,25 +256,44 @@
   }
   .main-nav .nav-cta{display:inline-flex;}
   .main-nav .cursos-dropdown{align-self:flex-start;margin-top:10px;}
-  .main-nav .cursos-dropdown-menu{
-    position:static;
-    box-shadow:none;
-    border:none;
-    background:none;
-    padding:6px 0 0;
-    opacity:1;
-    visibility:visible;
-    transform:none;
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .25s ease;
+
+  /* --- 1. Caixa do menu fechada (Nova estética de janelinha branca) --- */
+  .main-nav .cursos-dropdown-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, margin .3s ease, padding .3s ease;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,0.15);
+    margin-top: 0;
+    padding: 0 12px;
   }
-  /* MÁGICA AQUI: Adicionamos o :focus-within para abrir o menu no toque do celular */
-  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu,
-  .main-nav .cursos-dropdown:focus-within .cursos-dropdown-menu {
-    max-height: 220px;
+
+  /* --- 2. Caixa do menu aberta (Liga/Desliga oficial) --- */
+  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu {
+    max-height: 260px;
+    margin-top: 12px; /* Descola do botão azul */
+    padding: 12px; /* Dá o respiro interno na caixa branca */
   }
-  .main-nav .cursos-dropdown-menu a{color:var(--ink);font-weight:500;padding:8px 4px;}
+
+  /* --- 3. Os links lá dentro (Separados e elegantes) --- */
+  .main-nav .cursos-dropdown-menu a {
+    color: var(--ink);
+    font-weight: 600;
+    padding: 14px 8px;
+    border-bottom: 1px solid var(--mist); /* Linha divisória sutil */
+    width: 100%; /* Ocupa a caixa toda */
+  }
+  
+  /* Tira a linha do último item para ficar limpo */
+  .main-nav .cursos-dropdown-menu a:last-child {
+    border-bottom: none;
+  }
 
   .footer-grid{grid-template-columns:1fr 1fr;}
 }
