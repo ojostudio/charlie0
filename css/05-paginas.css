@@ -409,8 +409,15 @@
 
 
 /* --- Responsive: Home --- */
+
+
+/* --- Controle de Quebras de Linha do Título --- */
+.quebra-mobile { display: none; }
 @media (max-width:1080px){
-  /* --- HERO MOBILE: Estrutura e Inversão de Imagens --- */
+  
+  .hero { padding: 60px 0; }
+
+  /* --- HERO MOBILE: Estrutura --- */
   .hero-card {
     display: flex;
     flex-direction: column;
@@ -418,80 +425,163 @@
     text-align: left;
   }
   
-  .hero-copy {
-    display: contents; 
+  .hero-copy { display: contents; }
+  /* --- Ajuste de Posição, Espaçamento e Título --- */
+  .hero-copy .eyebrow { 
+    order: 1; 
+    margin-top: 25px; 
+    margin-bottom: -20px; 
   }
+  .hero-copy h1 { 
+    order: 2; 
+    
+    /* MÁGICA AQUI: Desliza o título para cima visualmente, sem puxar as imagens! */
+    transform: translateY(-15px);
+    
+    margin-bottom: 0px; 
+    font-size: clamp(26px, 8vw, 34px); 
+    letter-spacing: -1px; 
+    line-height: 1.1;
+  }
+
+  /* Inverte as quebras no celular */
+  .quebra-desktop { display: none; }
+  .quebra-mobile { display: block; }
   
-  /* 1 e 2: Texto Superior (Eyebrow e Título) */
-  .hero-copy .eyebrow { order: 1; }
-  .hero-copy h1 { order: 2; margin-bottom: 32px; }
-  
-  /* 3: O bloco de imagem (Hiro) desce para o meio */
+  /* 3: Bloco de mídia base - Alinhado perfeitamente com o texto na esquerda */
   .hero-media {
     order: 3;
-    height: clamp(320px, 80vw, 480px); /* Aumentado levemente para acomodar a inversão */
+    height: 420px;
     min-height: 0;
-    border-radius: var(--radius-md);
-    margin-inline: -4px;
-    margin-bottom: 32px;
+    margin: 0 0 32px 0 !important; 
+    width: 100% !important;
+    position: relative;
   }
 
-  /* --- MÁGICA DA INVERSÃO AQUI --- */
-
-  /* 3a. Prende a caixa do avião na ESQUERDA */
   .hero-image-frame {
-    right: auto; /* Solta a direita original */
-    left: -10px;  /* Gruda na esquerda com leve respiro */
-    width: 68%;   /* Ajuste de tamanho */
-    top: 0; bottom: 0;
-  }
-  .hero-photo-box {
-    inset: 15px; /* Espaçamento interno da moldura */
-    border-radius: 12px;
-  }
-  /* Ajusta o enquadramento do avião para centralizar */
-  .hero-plane {
-    object-position: center; 
+    top: 0 !important; 
+    bottom: 0 !important; 
+    left: 0 !important; 
+    right: 0 !important;
+    width: 100% !important;
   }
   
-  /* 3b. Prende o HOMEM na DIREITA */
-  .hero-person-box {
-    left: auto;   /* Solta a esquerda original */
-    right: 0;     /* Gruda na direita */
-    bottom: 0; top: 15px; /* Respiro no topo */
-    width: 100%;  /* Usa a largura total do container media */
-    z-index: 3;
+  /* O quadro do hangar ocupa 100% do espaço com bordas arredondadas */
+  .hero-photo-box {
+    top: 0 !important; 
+    bottom: 0 !important; 
+    left: 0 !important; 
+    right: 0 !important;
+    width: 100% !important; 
+    border-radius: 12px !important;
   }
-  /* Gruda a base e a direita da foto do homem */
+  
+  .hero-plane {
+    /* 1. Prega a imagem na parede direita e solta a esquerda */
+    position: absolute !important;
+    right: 0 !important;
+    left: auto !important;
+    
+    /* 2. Expande a imagem. Como a direita está travada, ela cresce para a esquerda */
+    width: 150% !important; 
+    max-width: none !important;
+    height: 100% !important;
+    
+    /* 3. Garante que o conteúdo da foto também ancore na direita */
+    object-fit: cover !important;
+    object-position: right center !important; 
+  }
+  
+  /* MÁGICA AQUI: Homem maior e vazando muito mais pra cima */
+  .hero-person-box {
+    top: -50px !important; /* <-- MUDOU AQUI: Puxa o teto da caixa bem mais pra cima */
+    bottom: 0 !important;
+    right: -28px !important; 
+    left: auto !important; 
+    width: 80% !important; /* <-- MUDOU AQUI: Dá mais largura para ele crescer em escala */
+    z-index: 3 !important;
+  }
   .hero-person {
-    object-position: bottom right; 
+    object-position: bottom right !important;
+    object-fit: contain !important;
   }
 
-  /* --- FIM DA INVERSÃO --- */
-  
-  /* 4 e 5: Texto Inferior (Subtítulo e Botões) */
-  .hero-copy .lead {
-    order: 4;
-    margin-bottom: 24px;
+  /* Selo Cirrus movido para a base */
+  .hero-badge {
+    top: auto !important; /* Removemos a âncora do topo */
+    bottom: 15px !important; /* Ancoramos na base com o mesmo respiro */
+    left: 15px !important;
+    right: auto !important;
+    width: 28% !important;
+    min-width: 85px !important;
   }
-  .hero-copy .cta-group {
-    order: 5;
-    padding-bottom: 32px; 
+  
+ /* 4 e 5: Texto Inferior (Subtítulo e Botões) */
+  .hero-copy .lead { 
+    order: 4; 
+    
+    /* MÁGICA DA POSIÇÃO: Puxa o subtítulo para cima (aumente o valor negativo se quiser subir mais) */
+    margin-top: -50px; 
+    margin-bottom: 24px; 
+    
+    /* MÁGICA DO CLIQUE: Joga o texto para a frente de tudo */
+    position: relative; 
+    z-index: 10; 
+  }
+  
+  .hero-copy .cta-group { 
+    order: 5; 
+    
+    /* MÁGICA DO ESPAÇAMENTO: Puxa para cima e aumenta o espaço vazio embaixo */
+    margin-top: -15px; /* Puxa os botões para mais perto do texto */
+    padding-bottom: 48px; /* Aumenta o espaço vazio abaixo dos botões (antes era 32px) */
+    
+    position: relative; 
+    z-index: 10; 
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 12px; 
+  }
+
+  /* Garante que os botões dividam o espaço meio a meio e caibam na tela */
+  .hero-copy .cta-group > * {
+    flex: 1; 
+    justify-content: center;
+    text-align: center;
+    padding-inline: 12px; 
+    white-space: nowrap; 
   }
 
   /* --- Restante da Home Intacto --- */
   .courses-grid{grid-template-columns:1fr;}
-
   .simulator{grid-template-columns:1fr;min-height:0;}
   .simulator-text{padding:48px 28px 32px 52px;}
   .simulator-photo{height:480px;}
-
   .stats-grid{grid-template-columns:repeat(2,1fr);}
-
   .results-grid{grid-template-columns:1fr;}
   .results-copy{max-width:100%;padding-top:0;}
   .results-visual{margin-top:32px;height:560px;}
   .results-overlay{bottom:16px;}
+}
+
+/* --- Mobile (Telas menores) --- */
+@media (max-width: 640px){
+  /* 1. Removemos o padding da base (0) para o card cinza ancorar no fundo */
+  .hero { 
+    padding: 40px 0 0; 
+  }
+
+  /* 2. Centralizamos o enquadramento da imagem de background (cirrus.webp) */
+  .hero-bg-img {
+    object-position: center;
+  }
+  
+  .hero-card { padding: 32px 20px 0; border-radius: var(--radius-md); }
+  .stats-grid { grid-template-columns: 1fr 1fr; padding: 24px; gap: 16px; }
+  .simulator { min-height: 520px; }
+  .simulator-text { padding-left: 38px; }
 }
 
 /* ===================================================
