@@ -252,7 +252,7 @@
   .site-header.nav-open .main-nav a {
     padding: 12px 0;
     font-size: 15px;
-    width: fit-content; /* <-- MÁGICA AQUI: O link agora abraça apenas o texto */
+    width: fit-content; 
   }
   .main-nav .nav-cta{display:inline-flex;}
   .main-nav .cursos-dropdown{align-self:flex-start;margin-top:10px;}
@@ -274,11 +274,12 @@
     padding: 0 12px;
   }
 
-  /* --- 2. Caixa do menu aberta (Liga/Desliga oficial) --- */
-  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu {
+  /* --- 2. Caixa do menu aberta (RESTAURADA: Abre ao tocar no celular) --- */
+  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu,
+  .main-nav .cursos-dropdown:focus-within .cursos-dropdown-menu {
     max-height: 260px;
-    margin-top: 12px; /* Descola do botão azul */
-    padding: 12px; /* Dá o respiro interno na caixa branca */
+    margin-top: 12px; 
+    padding: 12px; 
   }
 
   /* --- 3. Os links lá dentro (Separados e elegantes) --- */
@@ -286,11 +287,10 @@
     color: var(--ink);
     font-weight: 600;
     padding: 14px 8px;
-    border-bottom: 1px solid var(--mist); /* Linha divisória sutil */
-    width: 100%; /* Ocupa a caixa toda */
+    border-bottom: 1px solid var(--mist); 
+    width: 100%; 
   }
   
-  /* Tira a linha do último item para ficar limpo */
   .main-nav .cursos-dropdown-menu a:last-child {
     border-bottom: none;
   }
