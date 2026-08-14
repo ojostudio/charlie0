@@ -183,39 +183,15 @@
     </div>
   </section>
 
-  <!-- BANNER JÁ É ALUNO (MOVIDO PARA ANTES DOS RESULTADOS) -->
-  <section class="ja-e-aluno-section" style="background: var(--paper); padding-top: 40px;">
-    <div class="wrap">
-      <div class="cta-banner">
-        <img class="cta-image" src="imagens/ja-e-aluno.webp" alt="Mão operando manche de aeronave Cirrus" loading="lazy">
-        <div class="cta-text">
-          <h3>Já é aluno?<br>Acesse sua plataforma.</h3>
-          <p>Todo o conteúdo dos cursos online. Aulas, materiais e certificados ficam disponíveis na nossa plataforma <br> de e-learning.</p>
-        </div>
-        <div class="cursos-dropdown cta-dropdown">
-          <button type="button" class="btn btn-primary cta-btn cursos-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-            Acessar os Cursos
-            <svg class="cursos-dropdown-arrow" viewBox="0 0 12 8" width="10" height="7" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="cursos-dropdown-menu cursos-dropdown-up">
-            <a href="https://elearning.charlie0.com.br/site/login.aspx" target="_blank" rel="noopener">Aluno Teórico</a>
-            <a href="https://elearning.charlie0.com.br/site/login.aspx" target="_blank" rel="noopener">Aluno Prático</a>
-            <a href="https://elearning.charlie0.com.br/site/login.aspx" target="_blank" rel="noopener">Aluno Cirrus</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- RESULTS / CARROSSEL DE DEPOIMENTOS -->
   <section class="results" id="vitrine" data-carousel="fade" aria-labelledby="results-title">
     
-    <!-- ÍCONE EXPANDIDO -->
+    <!-- ÍCONE EXPANDIDO (CORRIGIDO): Usa a classe "wrap" para alinhar perfeitamente com os limites das outras seções -->
     <div class="wrap" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 0; pointer-events: none; display: flex; align-items: center; justify-content: center;">
       <img class="results-bg-icon" src="imagens/icone-resultados.webp" alt="" aria-hidden="true">
     </div>
 
-    <!-- O CONTEÚDO DA SEÇÃO -->
+    <!-- O CONTEÚDO DA SEÇÃO: Position relative e z-index 1 garantem que tudo fique por cima do ícone -->
     <div class="wrap results-grid" style="position: relative; z-index: 1;">
       <div class="results-copy">
         <h2 id="results-title">Resultados</h2>
@@ -243,7 +219,7 @@
       </div>
 
       <div class="results-visual">
-        <!-- Suas fotos continuam aqui -->
+        <!-- Suas fotos continuam aqui embaixo (o ícone foi movido para cima) -->
         <img class="results-person is-active" data-slide="0" src="imagens/resultados_persona_1.webp" alt="Piloto sorrindo, aluno da Charlie 0" loading="lazy">
         <img class="results-person" data-slide="1" src="imagens/resultados_persona_2.webp" alt="" loading="lazy">
         <img class="results-person" data-slide="2" src="imagens/resultados_persona_3.webp" alt="" loading="lazy">
@@ -255,6 +231,25 @@
         <span class="is-active" data-dot="0" role="tab" aria-selected="true" aria-label="Depoimento 1"></span>
         <span data-dot="1" role="tab" aria-selected="false" aria-label="Depoimento 2"></span>
         <span data-dot="2" role="tab" aria-selected="false" aria-label="Depoimento 3"></span>
+      </div>
+
+      <div class="cta-banner">
+        <img class="cta-image" src="imagens/ja-e-aluno.webp" alt="Mão operando manche de aeronave Cirrus" loading="lazy">
+        <div class="cta-text">
+          <h3>Já é aluno?<br>Acesse sua plataforma.</h3>
+          <p>Todo o conteúdo dos cursos online. Aulas, materiais e certificados ficam disponíveis na nossa plataforma <br> de e-learning.</p>
+        </div>
+        <div class="cursos-dropdown cta-dropdown">
+          <button type="button" class="btn btn-primary cta-btn cursos-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+            Acessar os Cursos
+            <svg class="cursos-dropdown-arrow" viewBox="0 0 12 8" width="10" height="7" aria-hidden="true"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="cursos-dropdown-menu cursos-dropdown-up">
+            <a href="https://elearning.charlie0.com.br/site/login.aspx" target="_blank" rel="noopener">Aluno Teórico</a>
+            <a href="https://elearning.charlie0.com.br/site/login.aspx" target="_blank" rel="noopener">Aluno Prático</a>
+            <a href="https://elearning.charlie0.com.br/site/login.aspx" target="_blank" rel="noopener">Aluno Cirrus</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
