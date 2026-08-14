@@ -52,26 +52,17 @@
         </button>
 
         <div class="team-track" data-track>
-          <article class="team-card">
-            <div class="placeholder-box" aria-hidden="true">IMAGEM</div>
-            <h3>Gerson</h3>
-            <p>Instrutor Cirrus</p>
-          </article>
-          <article class="team-card">
-            <div class="placeholder-box" aria-hidden="true">IMAGEM</div>
-            <h3>Cabral</h3>
-            <p>Instrutor Cirrus</p>
-          </article>
-          <article class="team-card">
-            <div class="placeholder-box" aria-hidden="true">IMAGEM</div>
-            <h3>Nome</h3>
-            <p>Instrutor IFR</p>
-          </article>
-          <article class="team-card">
-            <div class="placeholder-box" aria-hidden="true">IMAGEM</div>
-            <h3>Nome</h3>
-            <p>Instrutor PP</p>
-          </article>
+          <!-- OS 4 CARDS ORIGINAIS -->
+          <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Gerson</h3><p>Instrutor Cirrus</p></article>
+          <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Cabral</h3><p>Instrutor Cirrus</p></article>
+          <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Nome</h3><p>Instrutor IFR</p></article>
+          <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Nome</h3><p>Instrutor PP</p></article>
+
+          <!-- OS 4 CLONES PARA O LOOP INVISÍVEL -->
+          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Gerson</h3><p>Instrutor Cirrus</p></article>
+          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Cabral</h3><p>Instrutor Cirrus</p></article>
+          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Nome</h3><p>Instrutor IFR</p></article>
+          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Nome</h3><p>Instrutor PP</p></article>
         </div>
 
         <button type="button" class="arrow-btn arrow-btn-next" data-next aria-label="Ver mais instrutores">
@@ -95,13 +86,19 @@
       <p>Único centro homologado para curso e prática na família Cirrus. Frota própria de aeronaves Cirrus e simulador dedicado para desenvolvimento de memória muscular e minimização da transferência negativa de habilidades para o voo real.</p>
     </div>
 
+    <!-- CONTAINER PRINCIPAL -->
     <div class="wrap certified-overlay" data-carousel="fade" style="margin-bottom: 80px;">
-      <div class="certified-slider">
-        <button type="button" class="arrow-btn" data-prev aria-label="Depoimento anterior">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
+      
+      <!-- ============================================== -->
+      <!-- VERSÃO DESKTOP (INTACTA - NÃO VAI QUEBRAR O PC!) -->
+      <!-- ============================================== -->
+      <div class="certified-desktop-only">
+        <div class="certified-slider">
+          <button type="button" class="arrow-btn" data-prev aria-label="Depoimento anterior">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
 
-        <div class="certified-card">
+          <div class="certified-card">
             <!-- Imagens -->
             <div class="placeholder-box is-active" data-slide="0" aria-hidden="true">IMAGEM</div>
             <div class="placeholder-box" data-slide="1" aria-hidden="true">IMAGEM</div>
@@ -126,7 +123,6 @@
           </button>
         </div>
         
-        <!-- Navegação em bolinhas -->
         <div class="certified-dots" role="tablist" aria-label="Selecionar destaque">
           <span class="is-active" data-dot="0" role="tab" aria-selected="true" aria-label="Item 1"></span>
           <span data-dot="1" role="tab" aria-selected="false" aria-label="Item 2"></span>
@@ -136,6 +132,76 @@
           <span data-dot="5" role="tab" aria-selected="false" aria-label="Item 6"></span>
         </div>
       </div>
+
+      <!-- ============================================== -->
+      <!-- VERSÃO MOBILE (SWIPE NATIVO - SEM SETAS) -->
+      <!-- ============================================== -->
+      <div class="certified-mobile-only">
+        <div class="certified-swipe-track">
+          
+          <article class="certified-swipe-card">
+            <div class="placeholder-box">IMAGEM</div>
+            <p class="certified-caption">Padrão de linha aérea aplicado à aviação geral</p>
+          </article>
+          
+          <article class="certified-swipe-card">
+            <div class="placeholder-box">IMAGEM</div>
+            <p class="certified-caption">Único centro homologado para a família Cirrus</p>
+          </article>
+          
+          <article class="certified-swipe-card">
+            <div class="placeholder-box">IMAGEM</div>
+            <p class="certified-caption">Simulador Cirrus e frota própria</p>
+          </article>
+          
+          <article class="certified-swipe-card">
+            <div class="placeholder-box">IMAGEM</div>
+            <p class="certified-caption">Instrutores em atividade na aviação comercial</p>
+          </article>
+          
+          <article class="certified-swipe-card">
+            <div class="placeholder-box">IMAGEM</div>
+            <p class="certified-caption">95% de taxa de aprovação</p>
+          </article>
+          
+          <article class="certified-swipe-card">
+            <div class="placeholder-box">IMAGEM</div>
+            <p class="certified-caption">Compromisso com sustentabilidade (crédito de carbono)</p>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- MÁGICA DO AUTO-PLAY COM SWIPE (MOBILE)         -->
+      <!-- ============================================== -->
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const track = document.querySelector(".certified-swipe-track");
+          if (!track) return;
+          
+          // Define a velocidade da troca automática (4000 = 4 segundos)
+          let autoScroll = setInterval(moveNext, 4000);
+          
+          function moveNext() {
+            // Se o carrossel chegou no final da lista, ele volta para o começo suavemente
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+              track.scrollTo({ left: 0, behavior: "smooth" });
+            } else {
+              // Se não, empurra para a esquerda (o scroll-snap do CSS crava no lugar certo)
+              track.scrollBy({ left: window.innerWidth * 0.8, behavior: "smooth" });
+            }
+          }
+          
+          // TOQUE DE OURO: Se o usuário colocar o dedo para arrastar, o automático desliga 
+          // para não brigar com a mão da pessoa!
+          track.addEventListener("touchstart", () => {
+            clearInterval(autoScroll);
+          }, { passive: true });
+        });
+      </script>
+
+    </div> <!-- Faltava este fechamento para o certified-overlay! -->
   </section>
 
 </main>
