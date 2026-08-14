@@ -610,7 +610,7 @@
     text-align: center !important;
     width: 100%; 
   }
-
+}
 /* --- Mobile (Telas menores) --- */
 @media (max-width: 640px){
   /* 1. Removemos o padding da base (0) para o card cinza ancorar no fundo */
@@ -977,7 +977,7 @@
 @media (max-width:1080px){
   .intro-card{grid-template-columns:1fr;min-height:0;}
   .intro-photo{height:320px;}
-  .intro-copy{padding:32px 28px;}
+  .intro-copy{padding: 16px 28px 32px;}
 
   /* 1. Reduz o espaço gigante no topo da seção inteira */
   .team {
