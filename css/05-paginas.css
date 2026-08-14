@@ -942,20 +942,18 @@
     top: 0 !important;
     
     /* AUMENTO DE TAMANHO E POSIÇÃO */
-    width: 115% !important; /* Passa da tela para ajudar no efeito de corte */
-    max-width: 550px !important; /* Aumentamos o limite máximo */
-    margin-top: -60px !important; /* Puxa ele mais para cima */
+    width: 115% !important; 
+    max-width: 550px !important; 
+    
+    /* MÁGICA AQUI: Aumentamos de -60px para -100px para o avião subir mais */
+    margin-top: -120px !important; 
+    
     margin-bottom: 32px !important;
     z-index: 1 !important;
 
     /* A MÁGICA DO PARALAXE */
     animation: aviaoMobileParalaxe linear forwards !important;
-    
-    /* Vincula a animação ao movimento de rolagem da tela (Scroll Timeline) */
     animation-timeline: view() !important;
-    
-    /* Começa a animação quando o avião entra na tela (entry 0%) 
-       e termina de centralizar quando a seção chega a 45% da tela (cover 45%) */
     animation-range: entry 0% cover 45% !important; 
   }
 
@@ -973,59 +971,130 @@
 }
 
 
+/* Esconde a versão Swipe no Desktop */
+.certified-mobile-only {
+  display: none; 
+}
+
 /* --- Responsive: Quem Somos --- */
 @media (max-width:1080px){
-  .intro-card{grid-template-columns:1fr;min-height:0;}
-  .intro-photo{height:320px;}
-  .intro-copy{padding: 16px 28px 32px;}
+  .intro-card {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+    gap: 0 !important; 
+  }
+  
+  .intro-photo {
+    height: 320px !important;
+  }
+  
+  .intro-copy {
+    /* MÁGICA AQUI: Trocamos o 0 por 20px no topo para dar o respiro ideal */
+    padding: 25px 28px 32px !important; 
+  }
+  
+  .intro-copy .eyebrow {
+    margin-top: 0 !important; 
+  }
 
   /* 1. Reduz o espaço gigante no topo da seção inteira */
   .team {
     padding-top: 80px !important; 
   }
 
-  /* 2. MÁGICA AQUI: É o team-panel que faz o bloco cinza todo subir e encostar no título */
+  /* 2. O PAINEL CINZA: Volta a esconder o que vaza para fora! */
   .team-panel {
     flex-direction: column !important;
-    /* Reduzimos o padding superior de 64px para 32px já que as imagens desceram */
     padding: 32px 20px 32px !important; 
-    margin-top: 10px !important; /* Estava 100px no desktop. Diminua para 0 se quiser colar mais ainda */
+    margin-top: 10px !important; 
+    overflow: hidden !important; /* <-- A MÁGICA QUE MANTÉM OS CARDS DENTRO DA CAIXA */
   }
   
   .team-heading .lead {
     margin-bottom: 20px !important; 
   }
   
+  /* 3. A TRILHA MÁGICA: Carrossel com Pausas (Apenas para a direita) */
   .team-track {
     width: 100% !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    scrollbar-width: none !important;
+    display: flex !important;
     gap: 16px !important; 
-    
-    /* MÁGICA 1: Respiro interno (top e bottom) para a caixa não "guilhotinar" o topo nem a sombra da base */
     padding: 10px 0 24px 0 !important; 
+    overflow: visible !important; 
+    animation: deslizaEquipePausado 9s ease-in-out infinite !important; 
   }
-  .team-track::-webkit-scrollbar { display: none !important; }
   
+  /* 4. OS CARDS: Tamanho exato e sem vazamento */
   .team-card {
     flex: 0 0 auto !important;
-    
-    /* MÁGICA 2: 50% do espaço disponível menos metade do gap (8px). 
-       Isso força a caber exatos 2 cards por tela em qualquer celular! */
     width: calc(50% - 8px) !important; 
-    
-    scroll-snap-align: start !important;
-    
-    /* MÁGICA 3: Zera a margem negativa. O card agora fica 100% visível dentro da janela */
     margin-top: 0 !important; 
   }
   
   .team-panel .arrow-btn { display: none !important; }
 
-  .certified-content{padding-top:64px;max-width:100%;}
-}
-
+  /* 5. A REGRA DA ANIMAÇÃO: Mostra 2, desliza, mostra 2, loop invisível */
+  @keyframes deslizaEquipePausado {
+    0%, 30% { transform: translateX(0); }
+    35%, 65% { transform: translateX(calc(-100% - 16px)); }
+    70%, 100% { transform: translateX(calc(-200% - 32px)); }
+  }
+/* ===================================================
+     MÁGICA HOMOLOGADO CIRRUS (MOBILE SWIPE)
+  =================================================== */
+  /* 1. Esconde a versão do desktop e as setas no celular */
+  .certified-desktop-only { display: none !important; }
+  
+  /* 2. Mostra e estrutura a versão mobile fluida */
+  .certified-mobile-only {
+    display: block !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important; /* Força o carrossel a pegar de ponta a ponta na tela */
+  }
+  
+  /* 3. A trilha que permite rolar com o dedo (Scroll Snap nativo) */
+  .certified-swipe-track {
+    display: flex !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 0 24px 32px 24px !important; 
+    scrollbar-width: none !important; /* Esconde a barra feia no Firefox */
+  }
+  .certified-swipe-track::-webkit-scrollbar { display: none !important; } /* Esconde a barra feia no Chrome/Safari */
+  
+  /* 4. O Card unificado de imagem e texto */
+  .certified-swipe-card {
+    flex: 0 0 82% !important; /* Ocupa 82% da tela. A pontinha do próximo card aparece para instigar o deslize! */
+    scroll-snap-align: center !important;
+    background: var(--white) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5) !important;
+  }
+  
+  .certified-swipe-card .placeholder-box {
+    width: 100% !important;
+    height: 240px !important;
+    border-radius: 12px !important;
+    background: #e2e2dd !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .certified-swipe-card .certified-caption {
+    display: block !important; /* Sobrescreve a ocultação do JS */
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    color: var(--ink) !important;
+    line-height: 1.4 !important;
+    padding-bottom: 8px !important;
+  }
 /* ===================================================
    PÁGINA: Cursos
 =================================================== */
