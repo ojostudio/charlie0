@@ -1586,7 +1586,7 @@
   .gestao-hero-section {
     overflow: hidden !important; 
     margin-top: 0 !important; 
-    min-height: 720px !important; /* Se achar que a tela toda ficou curta, pode subir isso para 780px também */
+    min-height: 800px !important; /* Se achar que a tela toda ficou curta, pode subir isso para 780px também */
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important; 
@@ -1606,7 +1606,7 @@
 
   .gestao-hero-planes {
     left: 50% !important;
-    top: 22% !important; /* Restaurado: Aviões lá no alto, salvos! */
+    top: 15% !important; /* Restaurado: Aviões lá no alto, salvos! */
     transform: translate(-50%, -50%) !important; 
     width: 120vw !important; 
     max-width: 500px !important;
