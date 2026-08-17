@@ -1586,14 +1586,14 @@
   .gestao-hero-section {
     overflow: hidden !important; 
     margin-top: 0 !important; 
-    
-    /* RESTAURADO: De volta aos 720px para não amassar nada! */
-    min-height: 720px !important; 
-    
+    min-height: 720px !important; /* Se achar que a tela toda ficou curta, pode subir isso para 780px também */
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-end !important; 
-    padding-bottom: 24px !important; 
+    
+    /* MÁGICA AQUI: Aumentamos de 24px para 80px. 
+       Isso empurra o fundo (footer) para baixo, desgrudando do botão! */
+    padding-bottom: 80px !important; 
   }
   
   /* A MÁGICA DO CROP SEM ESTRAGAR O LAYOUT */
