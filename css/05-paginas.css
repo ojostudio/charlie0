@@ -1087,7 +1087,7 @@
   }
   
   .certified-swipe-card .certified-caption {
-    display: block !important; /* Sobrescreve a ocultação do JS */
+    display: block !important; 
     font-size: 16px !important;
     font-weight: 700 !important;
     text-align: left !important;
@@ -1095,6 +1095,11 @@
     line-height: 1.4 !important;
     padding-bottom: 8px !important;
   }
+}
+
+/* ===================================================
+   PÁGINA: Cursos
+=================================================== */
 /* ===================================================
    PÁGINA: Cursos
 =================================================== */
@@ -1551,31 +1556,100 @@
 
 /* --- Responsive: Gestão --- */
 @media (max-width: 1080px) {
+  
+  /* =================================================
+     1. TOPO RESTAURADO: Títulos e Cards perfeitos
+  ================================================= */
   .gestao-intro {
-    flex-direction: column;
-    text-align: center;
-    gap: 24px;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 24px !important;
   }
   .gestao-intro h1 {
-    text-align: center;
+    text-align: center !important;
   }
   .gestao-intro p.lead {
-    flex: 1;
-    border-left: none;
-    border-top: 2px solid var(--blue);
-    padding-left: 0;
-    padding-top: 24px;
+    flex: 1 !important;
+    border-left: none !important;
+    border-top: 2px solid var(--blue) !important;
+    padding-left: 0 !important;
+    padding-top: 24px !important;
   }
   .gestao-cards-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    margin-bottom: 40px !important; /* Dá um respiro antes de começar a imagem dos aviões */
   }
+
+  /* =================================================
+     2. PARTE DE BAIXO: Aviões e Textos alinhados (RESTAURADO)
+  ================================================= */
+  .gestao-hero-section {
+    overflow: hidden !important; 
+    margin-top: 0 !important; 
+    
+    /* RESTAURADO: De volta aos 720px para não amassar nada! */
+    min-height: 720px !important; 
+    
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-end !important; 
+    padding-bottom: 24px !important; 
+  }
+  
+  /* A MÁGICA DO CROP SEM ESTRAGAR O LAYOUT */
+  .gestao-hero-bg {
+    /* Aumentamos de 115% para 135%. Isso dá um "zoom" na foto e empurra a água toda lá para baixo, para fora da caixa! */
+    height: 135% !important; 
+    object-position: center top !important; 
+    transform: translateY(0) !important; /* Zerei aqui para o topo ficar bem alinhado */
+  }
+
   .gestao-hero-planes {
-    left: 20%;
-    top: 55%;
-    opacity: 0.8; 
-    min-width: 0;
-    width: 85vw;
-    max-width: 420px;
+    left: 50% !important;
+    top: 22% !important; /* Restaurado: Aviões lá no alto, salvos! */
+    transform: translate(-50%, -50%) !important; 
+    width: 120vw !important; 
+    max-width: 500px !important;
+    opacity: 0.8 !important; 
+    min-width: 0 !important;
+  }
+
+  .gestao-hero-content {
+    text-align: center !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    width: 100% !important;
+    margin-top: 0 !important;
+    position: relative !important;
+    z-index: 10 !important;
+  }
+  
+  .gestao-hero-bg {
+    height: 115% !important; 
+    object-position: center top !important; 
+    transform: translateY(5%) !important; 
+  }
+
+  .gestao-hero-planes {
+    left: 50% !important;
+    top: 22% !important; /* Aviões lá no alto para longe do texto */
+    transform: translate(-50%, -50%) !important; 
+    width: 120vw !important; 
+    max-width: 500px !important;
+    opacity: 0.8 !important; 
+    min-width: 0 !important;
+  }
+
+  .gestao-hero-content {
+    text-align: center !important; 
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    width: 100% !important;
+    margin-top: 0 !important;
+    position: relative !important;
+    z-index: 10 !important;
   }
 }
 
