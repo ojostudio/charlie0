@@ -203,7 +203,7 @@
 
   <div class="container" style="padding-top:2rem;padding-bottom:4rem">
     <div class="tabs">
-      <button class="tab active" data-tab="vitrine">Vitrine</button>
+      <button class="tab active" data-tab="vitrine" style="display:none">Vitrine</button>
       <button class="tab" data-tab="cursos">Cursos</button>
       <button class="tab" data-tab="leads">Mensagens <span id="unreadBadge" class="badge-count" style="display:none">0</span></button>
       <button class="tab admin-only" data-tab="users">Usuários & Permissões</button>
@@ -488,7 +488,7 @@
     document.querySelectorAll(".admin-only").forEach(el => el.style.display = me.role === "admin" ? "" : "none");
     if (me.role !== "admin") {
       // Editor não vê a aba de usuários — garante que a Vitrine fica ativa
-      document.querySelector('.tab[data-tab="vitrine"]').click();
+      document.querySelector('.tab[data-tab="cursos"]').click();
     }
     wireTabs();
     wireProductModal();
@@ -808,7 +808,7 @@
       if (!file.type.startsWith("image/")) continue;
       bar.style.width = "40%";
       try {
-        const webpUrl = await compressToWebPDataURL(file, 1600, 0.82);
+        const webpUrl = await compressToWebPDataURL(file, 1600, 900, 0.82);
         cEditImages.push(webpUrl);
         bar.style.width = "90%";
       } catch(e){ alert("Erro ao converter imagem."); }
@@ -922,22 +922,45 @@
 
   // Redimensiona e converte a imagem para WebP comprimido no navegador,
   // retornando uma Data URL pronta pra salvar no Firestore (modo "inline").
-  function compressToWebPDataURL(file, maxDim = 1600, quality = 0.82) {
+  // Recorta a imagem centralizando no aspect ratio alvo (padrão 16:9),
+  // redimensiona para maxW x maxH e exporta como WebP comprimido.
+  // Garante que todas as imagens chegam com exatamente as mesmas proporções,
+  // independente do tamanho ou formato original (retrato, quadrado, paisagem).
+  function compressToWebPDataURL(file, maxW = 1600, maxH = 900, quality = 0.82, aspectW = 16, aspectH = 9) {
     return new Promise((resolve, reject) => {
       const img = new Image();
       const reader = new FileReader();
       reader.onload = () => { img.src = reader.result; };
       reader.onerror = reject;
       img.onload = () => {
-        let { width, height } = img;
-        if (width > maxDim || height > maxDim) {
-          const scale = maxDim / Math.max(width, height);
-          width = Math.round(width * scale);
-          height = Math.round(height * scale);
+        const srcW = img.naturalWidth, srcH = img.naturalHeight;
+        const targetRatio = aspectW / aspectH;
+        const srcRatio = srcW / srcH;
+
+        // Calcula a área de crop centralizada no ratio alvo
+        let cropW, cropH, cropX, cropY;
+        if (srcRatio > targetRatio) {
+          // Imagem mais larga que o alvo — corta nas laterais
+          cropH = srcH;
+          cropW = Math.round(srcH * targetRatio);
+          cropX = Math.round((srcW - cropW) / 2);
+          cropY = 0;
+        } else {
+          // Imagem mais alta que o alvo — corta em cima/baixo
+          cropW = srcW;
+          cropH = Math.round(srcW / targetRatio);
+          cropX = 0;
+          cropY = Math.round((srcH - cropH) / 2);
         }
+
+        // Limita ao maxW x maxH mantendo o ratio
+        const scale = Math.min(1, maxW / cropW, maxH / cropH);
+        const outW = Math.round(cropW * scale);
+        const outH = Math.round(cropH * scale);
+
         const canvas = document.createElement('canvas');
-        canvas.width = width; canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        canvas.width = outW; canvas.height = outH;
+        canvas.getContext('2d').drawImage(img, cropX, cropY, cropW, cropH, 0, 0, outW, outH);
         resolve(canvas.toDataURL('image/webp', quality));
       };
       img.onerror = reject;
@@ -960,7 +983,7 @@
         if (!file.type.startsWith("image/")) continue;
         bar.style.width = "40%";
         try {
-          const webpDataUrl = await compressToWebPDataURL(file, 1600, 0.82);
+          const webpDataUrl = await compressToWebPDataURL(file, 1600, 900, 0.82);
           editImages.push(webpDataUrl);
           bar.style.width = "90%";
         } catch(e) { console.error(e); alert("Erro ao converter a imagem para WebP."); }
