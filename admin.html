@@ -297,7 +297,6 @@
         <div class="hint">Texto livre — cada linha vira uma linha separada na página.</div>
       </div>
       <div class="fld"><label>Descrição completa (aparece na página do curso)</label><textarea id="cDescCompleta" rows="7" placeholder="Descrição detalhada do curso, objetivos, metodologia…"></textarea></div>
-      <div class="fld"><label>URL do vídeo (opcional — YouTube embed ou arquivo direto)</label><input id="cVideoUrl" placeholder="https://www.youtube.com/embed/..."></div>
       <div class="fld">
         <label>Imagens do curso (máx. 3 — arraste para reordenar; a 1ª é a capa)</label>
         <div class="uploader" id="cUpZone">
@@ -757,7 +756,7 @@
   function openCursoModal(){
     $("cModalTitle").textContent = "Novo curso";
     $("cId").value = ""; $("cTitulo").value = ""; $("cCategoria").value = ""; $("cDescCurta").value = "";
-    $("cInfo").value = ""; $("cDescCompleta").value = ""; $("cVideoUrl").value = ""; $("cStatus").value = "ativo";
+    $("cInfo").value = ""; $("cDescCompleta").value = "";  $("cStatus").value = "ativo";
     cEditImages = []; renderCursoThumbs();
     clearMsg($("cMsg"));
     $("ovCurso").classList.add("open");
@@ -767,7 +766,7 @@
     $("cModalTitle").textContent = "Editar curso";
     $("cId").value = id; $("cTitulo").value = c.titulo||""; $("cCategoria").value = c.categoria||"";
     $("cDescCurta").value = c.descCurta||""; $("cInfo").value = c.info||"";
-    $("cDescCompleta").value = c.descCompleta||""; $("cVideoUrl").value = c.videoUrl||"";
+    $("cDescCompleta").value = c.descCompleta||""; 
     $("cStatus").value = c.status||"ativo";
     cEditImages = Array.isArray(c.images) ? c.images.slice() : [];
     renderCursoThumbs();
@@ -824,7 +823,7 @@
     const data = {
       titulo, categoria: $("cCategoria").value.trim(),
       descCurta: $("cDescCurta").value.trim(), info: $("cInfo").value.trim(),
-      descCompleta: $("cDescCompleta").value.trim(), videoUrl: $("cVideoUrl").value.trim(),
+      descCompleta: $("cDescCompleta").value.trim(),
       images: cEditImages, status: $("cStatus").value,
       updatedAt: ts(), updatedBy: me.email
     };

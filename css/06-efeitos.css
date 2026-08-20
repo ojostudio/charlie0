@@ -43,7 +43,6 @@
 /* --- Mídias de curso: leve zoom contido ao passar o mouse --- */
 .course-media img,
 .stat-media img,
-.curso-horizontal-media img,
 .gestao-card-img img,
 .vitrine-card-bg img,
 .intro-photo img{
@@ -51,17 +50,21 @@
 }
 .course-card:hover .course-media img,
 .stat:hover .stat-media img,
-.curso-horizontal-card:hover .curso-horizontal-media img,
 .gestao-card:hover .gestao-card-img img,
 .vitrine-card:hover .vitrine-card-bg img{
   transform:scale(1.045);
 }
 .course-media,
 .stat-media,
-.curso-horizontal-media,
 .gestao-card-img,
 .vitrine-card-bg{
   overflow:hidden;
+}
+/* curso-horizontal-media: overflow+border-radius aqui para conter a imagem,
+   mas SEM zoom — o card já levanta no hover, não precisa de mais movimento */
+.curso-horizontal-media{
+  overflow:hidden;
+  border-radius:12px;
 }
 
 /* --- Botões: transição mais macia (mantém escala/cores já definidas) --- */

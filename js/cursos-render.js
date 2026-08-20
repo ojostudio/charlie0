@@ -14,23 +14,26 @@
 
   function renderCard(id, c) {
     const cover = (c.images && c.images[0]) || '';
+    const url = `curso.html?id=${encodeURIComponent(id)}`;
     const article = document.createElement('article');
     article.className = 'curso-horizontal-card';
     article.innerHTML = `
       <div class="curso-horizontal-media">
-        ${cover
-          ? `<img src="${esc(cover)}" alt="${esc(c.titulo||'')}" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">`
-          : `<div class="placeholder-box" style="min-height:220px;"></div>`}
+        <a href="${url}" tabindex="-1" aria-hidden="true" style="display:block;height:100%">
+          ${cover
+            ? `<img src="${esc(cover)}" alt="${esc(c.titulo||'')}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">`
+            : `<div class="placeholder-box" style="min-height:220px;"></div>`}
+        </a>
       </div>
       <div class="curso-horizontal-body">
-        <h2>${esc(c.titulo||'')}</h2>
+        <h2><a href="${url}" style="color:inherit;text-decoration:none">${esc(c.titulo||'')}</a></h2>
         <p class="desc">${esc(c.descCurta||'')}</p>
         <div class="curso-line" aria-hidden="true"></div>
         <div class="curso-footer">
           <div class="curso-stats">
             <span style="white-space:pre-line">${esc(c.info||'')}</span>
           </div>
-          <a href="curso.html?id=${encodeURIComponent(id)}" class="btn btn-outline">Saiba Mais</a>
+          <a href="${url}" class="btn btn-outline">Saiba Mais</a>
         </div>
       </div>`;
     return article;
