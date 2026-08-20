@@ -43,10 +43,7 @@
       return;
     }
     try {
-      const snap = await CZ.db.collection('cursos')
-        .where('status','==','ativo')
-        .orderBy('ordem','asc')
-        .get();
+      const snap = await CZ.db.collection('cursos').get();
 
       if (loading) loading.style.display = 'none';
 
@@ -55,7 +52,17 @@
         return;
       }
 
-      snap.forEach(doc => lista.appendChild(renderCard(doc.id, doc.data())));
+      const items = [];
+      snap.forEach(doc => {
+        const d = doc.data();
+        // Mostra cursos ativos OU sem campo status (criados antes do novo sistema)
+        if (!d.status || d.status === 'ativo') items.push({ id: doc.id, ...d });
+      });
+
+      if (!items.length) { if (empty) empty.style.display = 'block'; return; }
+
+      items.sort((a, b) => (a.ordem ?? 999) - (b.ordem ?? 999));
+      items.forEach(c => lista.appendChild(renderCard(c.id, c)));
 
       // Re-dispara reveal-on-scroll nos cards recém-criados
       document.querySelectorAll('.cursos-lista .curso-horizontal-card').forEach((el, i) => {
