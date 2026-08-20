@@ -121,7 +121,7 @@
 .cursos-dropdown-arrow{transition:transform .25s ease;}
 .cursos-dropdown-menu{
   position:absolute;
-  top:calc(100% + 2px);
+  top:calc(100% + 4px);
   right:0;
   min-width:200px;
   background:var(--white);
@@ -129,10 +129,8 @@
   border-radius:12px;
   box-shadow:0 18px 40px -14px rgba(0,0,0,.28);
   padding:8px;
-  /* Padding-top extra invisível que "preenche" o gap entre botão e menu,
-     impedindo o flickering quando o mouse passa por cima do espaço */
-  padding-top:12px;
-  margin-top:-4px;
+  /* Pseudo-elemento de ponte via CSS não é possível diretamente,
+     então usamos um before para criar a zona invisível de hover */
   display:flex;
   flex-direction:column;
   gap:2px;
@@ -141,6 +139,15 @@
   transform:translateY(-6px);
   transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
   z-index:60;
+}
+/* Zona de hover invisível entre botão e menu — elimina o flickering */
+.cursos-dropdown-menu::before{
+  content:"";
+  position:absolute;
+  top:-12px;
+  left:0;
+  right:0;
+  height:12px;
 }
 .cursos-dropdown-menu a{
   display:block;

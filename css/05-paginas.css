@@ -981,6 +981,29 @@
   .team-panel{overflow-x:auto;}
   .team-panel .arrow-btn{display:none;}
   .team-card{flex:0 0 calc(50% - 8px);}
+
+  /* Carrossel Homologado Cirrus no mobile: esconde setas, permite swipe */
+  .certified-overlay{padding:0 0 32px;}
+  .certified-slider .arrow-btn{display:none;}
+  .certified-card{
+    display:flex;
+    flex-direction:row;
+    gap:16px;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    padding-bottom:8px;
+  }
+  .certified-card::-webkit-scrollbar{display:none;}
+  .certified-card .placeholder-box{
+    flex:0 0 80vw;
+    scroll-snap-align:center;
+    height:200px;
+    display:block !important;
+    opacity:1 !important;
+  }
+  .certified-text-wrap{display:none;}
+  .certified-dots{display:none;}
 }
 
 
