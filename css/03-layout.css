@@ -119,24 +119,24 @@
   font-family:inherit;
 }
 .cursos-dropdown-arrow{transition:transform .25s ease;}
-.cursos-dropdown-menu{
-  position:absolute;
-  top:calc(100% + 10px);
-  right:0;
-  min-width:200px;
-  background:var(--white);
-  border:1px solid var(--line);
-  border-radius:12px;
-  box-shadow:0 18px 40px -14px rgba(0,0,0,.28);
-  padding:8px;
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-  opacity:0;
-  visibility:hidden;
-  transform:translateY(-6px);
-  transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
-  z-index:60;
+.cursos-dropdown-menu {
+  position: absolute;
+  top: 100%; 
+  right: 0;
+  min-width: 200px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px -14px rgba(0,0,0,.28);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0); 
+  transition: opacity .2s ease, transform .2s ease, visibility .2s ease;
+  z-index: 60;
 }
 .cursos-dropdown-menu a{
   display:block;
