@@ -36,91 +36,12 @@
         </div>
       </section>
 
-      <!-- LISTA DE CURSOS -->
-      <div class="cursos-lista">
-        <!-- Card 1 -->
-        <article class="curso-horizontal-card">
-          <div class="curso-horizontal-media">
-            <div class="placeholder-box">IMAGEM</div>
-          </div>
-          <div class="curso-horizontal-body">
-            <h2>Transição Cirrus</h2>
-            <p class="desc">Domine os sistemas, aviônicos e filosofia operacional das aeronaves Cirrus.</p>
-            <div class="curso-line" aria-hidden="true"></div>
-            <div class="curso-footer">
-              <div class="curso-stats">
-                <span><strong>Carga Horária Total:</strong> 30 Horas</span>
-                <span><strong>Teoria:</strong> 20 Horas</span>
-                <span><strong>Simulador:</strong> 05 Horas</span>
-                <span><strong>Voo:</strong> 05 Horas</span>
-              </div>
-              <a href="#" class="btn btn-outline">Saiba Mais</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 2 -->
-        <article class="curso-horizontal-card">
-          <div class="curso-horizontal-media">
-            <div class="placeholder-box">IMAGEM</div>
-          </div>
-          <div class="curso-horizontal-body">
-            <h2>IFR — Piloto de Instrumentos</h2>
-            <p class="desc">Voo com segurança em condições meteorológicas de voo por instrumentos (IMC).</p>
-            <div class="curso-line" aria-hidden="true"></div>
-            <div class="curso-footer">
-              <div class="curso-stats">
-                <span><strong>Carga Horária Total:</strong> 40 Horas</span>
-                <span><strong>Teoria:</strong> 20 Horas</span>
-                <span><strong>Simulador:</strong> 10 Horas</span>
-                <span><strong>Voo:</strong> 10 Horas</span>
-              </div>
-              <a href="#" class="btn btn-outline">Saiba Mais</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 3 -->
-        <article class="curso-horizontal-card">
-          <div class="curso-horizontal-media">
-            <div class="placeholder-box">IMAGEM</div>
-          </div>
-          <div class="curso-horizontal-body">
-            <h2>Piloto Privado (PP)</h2>
-            <p class="desc">Seu primeiro passo para conquistar a liberdade de voar.</p>
-            <div class="curso-line" aria-hidden="true"></div>
-            <div class="curso-footer">
-              <div class="curso-stats">
-                <span><strong>Carga Horária Total:</strong> 50 Horas</span>
-                <span><strong>Teoria:</strong> 30 Horas</span>
-                <span><strong>Simulador:</strong> 05 Horas</span>
-                <span><strong>Voo:</strong> 15 Horas</span>
-              </div>
-              <a href="#" class="btn btn-outline">Saiba Mais</a>
-            </div>
-          </div>
-        </article>
-
-        <!-- Card 4 -->
-        <article class="curso-horizontal-card">
-          <div class="curso-horizontal-media">
-            <div class="placeholder-box">IMAGEM</div>
-          </div>
-          <div class="curso-horizontal-body">
-            <h2>Piloto Comercial</h2>
-            <p class="desc">Profissionalize-se e dê o próximo passo na sua carreira de aviação.</p>
-            <div class="curso-line" aria-hidden="true"></div>
-            <div class="curso-footer">
-              <div class="curso-stats">
-                <span><strong>Carga Horária Total:</strong> 150 Horas</span>
-                <span><strong>Teoria:</strong> 50 Horas</span>
-                <span><strong>Simulador:</strong> 20 Horas</span>
-                <span><strong>Voo:</strong> 80 Horas</span>
-              </div>
-              <a href="#" class="btn btn-outline">Saiba Mais</a>
-            </div>
-          </div>
-        </article>
+      <!-- LISTA DE CURSOS (renderizada via js/cursos-render.js) -->
+      <div class="cursos-lista" id="cursosLista">
+        <div class="cursos-loading" id="cursosLoading">
+          <p>Carregando cursos…</p>
+        </div>
+        <p class="cursos-empty" id="cursosEmpty" style="display:none">Nenhum curso disponível no momento. Volte em breve.</p>
       </div>
     </div> <!-- Fim da Caixa Preta -->
 
@@ -232,9 +153,13 @@
 
 <div id="footer-placeholder"></div>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/effects.js"></script>
 <script src="js/faq-accordion.js"></script>
+<script src="js/cursos-render.js"></script>
 </body>
 </html>

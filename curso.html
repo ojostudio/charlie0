@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Curso | Charlie Zero</title>
+  <meta name="description" content="Treinamento Cirrus com padronização de linha aérea.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lekton:wght@400;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===== Página de Curso ===== */
+    .curso-page { padding:56px 0 100px; }
+    .curso-breadcrumb { margin-bottom:28px; }
+    .curso-breadcrumb a { font-size:13px; font-weight:600; color:var(--muted); }
+    .curso-breadcrumb a:hover { color:var(--blue); }
+
+    .curso-loading, .curso-not-found { text-align:center; padding:80px 0; }
+
+    .curso-detail {
+      display:grid;
+      grid-template-columns:1.1fr 1fr;
+      gap:64px;
+      align-items:start;
+    }
+
+    /* Carrossel */
+    .curso-carousel { position:relative; user-select:none; }
+    .curso-carousel-stage {
+      position:relative;
+      width:100%;
+      aspect-ratio:16/10;
+      background:#111;
+      border-radius:var(--radius-lg);
+      overflow:hidden;
+    }
+    .curso-carousel-stage img,
+    .curso-carousel-stage video {
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:none;
+      border-radius:inherit;
+    }
+    .curso-carousel-stage video { object-fit:contain; background:#000; }
+    .curso-carousel-stage .c-slide.is-active { display:block; }
+
+    .curso-carousel-nav {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      margin-top:14px;
+    }
+    .c-nav-btn {
+      width:36px; height:36px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:var(--white);
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
+      transition:border-color .2s, background .2s;
+      flex-shrink:0;
+    }
+    .c-nav-btn:hover { border-color:var(--blue); background:var(--paper); }
+    .c-nav-btn svg { width:14px; height:14px; }
+    .c-nav-dots { display:flex; gap:6px; }
+    .c-dot {
+      width:7px; height:7px;
+      border-radius:50%;
+      background:#c7c7c2;
+      cursor:pointer;
+      transition:background .2s, width .2s;
+      border:none;
+    }
+    .c-dot.is-active { background:var(--blue); width:20px; border-radius:4px; }
+    .c-counter { font-size:12px; color:var(--muted); font-weight:600; min-width:32px; text-align:center; }
+
+    /* Info */
+    .curso-info { padding-top:4px; }
+    .curso-tag-chip {
+      display:inline-block;
+      font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+      color:var(--blue); background:rgba(23,105,226,.08);
+      border-radius:99px; padding:.25rem .75rem;
+      margin-bottom:14px;
+    }
+    .curso-info h1 { font-size:clamp(28px,3.5vw,40px); line-height:1.15; letter-spacing:-.03em; margin-bottom:14px; }
+    .curso-info .curso-descCurta { font-size:16px; color:var(--muted); margin-bottom:24px; }
+    .curso-info-line { height:2px; background:var(--blue); width:100%; margin-bottom:24px; }
+    .curso-info-block {
+      background:var(--paper);
+      border-radius:var(--radius-sm);
+      padding:20px 24px;
+      margin-bottom:24px;
+      font-size:13.5px;
+      line-height:1.7;
+      white-space:pre-line;
+      color:var(--ink);
+    }
+    .curso-descCompleta { font-size:15px; line-height:1.75; color:var(--ink); margin-bottom:32px; white-space:pre-wrap; }
+    .curso-cta { display:inline-flex; }
+    .curso-cta-hint { margin-top:10px; font-size:12px; color:var(--muted); }
+
+    @media(max-width:900px){
+      .curso-detail { grid-template-columns:1fr; gap:32px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+  <div id="header-placeholder"></div>
+
+  <main id="main">
+    <div class="wrap curso-page">
+      <div class="curso-breadcrumb">
+        <a href="cursos.html">← Voltar para Cursos</a>
+      </div>
+
+      <div class="curso-loading" id="cursoLoading"><p>Carregando curso…</p></div>
+      <div class="curso-not-found" id="cursoNotFound" style="display:none">
+        <h1>Curso não encontrado</h1>
+        <p style="color:var(--muted);margin:12px 0 28px">Esse curso pode ter sido removido ou o link está incorreto.</p>
+        <a href="cursos.html" class="btn btn-outline">Ver todos os cursos</a>
+      </div>
+
+      <div class="curso-detail" id="cursoDetail" style="display:none">
+        <!-- Carrossel -->
+        <div class="curso-carousel">
+          <div class="curso-carousel-stage" id="carouselStage"></div>
+          <div class="curso-carousel-nav" id="carouselNav" style="display:none">
+            <button class="c-nav-btn" id="cPrev" aria-label="Anterior">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="c-nav-dots" id="cDots"></div>
+            <button class="c-nav-btn" id="cNext" aria-label="Próximo">
+              <svg viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="curso-info" id="cursoInfo"></div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/curso-render.js"></script>
+</body>
+</html>
