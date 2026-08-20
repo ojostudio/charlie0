@@ -75,10 +75,30 @@
     const allDots = $dots.querySelectorAll('.c-dot');
     // Pausa vídeo anterior se houver
     if (allSlides[current]?.tagName === 'VIDEO') allSlides[current].pause();
-    allSlides[current]?.classList.remove('is-active');
+
+    // Fade out atual
+    const prev = allSlides[current];
+    if (prev) {
+      prev.classList.remove('is-active');
+      // Mantém visível mas com opacity 0 até a transição acabar, então esconde
+      prev.style.display = 'block';
+      prev.style.opacity = '0';
+      prev.style.transform = 'scale(1.015)';
+      setTimeout(() => { if (!prev.classList.contains('is-active')) prev.style.display = ''; }, 460);
+    }
     allDots[current]?.classList.remove('is-active');
+
     current = i;
-    allSlides[current]?.classList.add('is-active');
+
+    // Fade in novo
+    const next = allSlides[current];
+    if (next) {
+      next.style.display = 'block';
+      next.style.opacity = '0';
+      next.style.transform = 'scale(1.015)';
+      void next.offsetHeight; // força reflow
+      next.classList.add('is-active');
+    }
     allDots[current]?.classList.add('is-active');
   }
 

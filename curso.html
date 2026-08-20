@@ -44,9 +44,16 @@
       object-fit:cover;
       display:none;
       border-radius:inherit;
+      opacity:0;
+      transition:opacity .45s cubic-bezier(.16,1,.3,1), transform .45s cubic-bezier(.16,1,.3,1);
+      transform:scale(1.015);
     }
     .curso-carousel-stage video { object-fit:contain; background:#000; }
-    .curso-carousel-stage .c-slide.is-active { display:block; }
+    .curso-carousel-stage .c-slide.is-active {
+      display:block;
+      opacity:1;
+      transform:scale(1);
+    }
 
     .curso-carousel-nav {
       display:flex;
