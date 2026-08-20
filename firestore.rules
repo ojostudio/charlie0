@@ -29,6 +29,12 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // Cursos: leitura pública, escrita só por staff logado
+    match /cursos/{cursoId} {
+      allow read: if true;
+      allow write: if isStaff();
+    }
+
     // Mensagens do formulário de contato: qualquer visitante pode CRIAR
     // (enviar o formulário), mas só admin/editor logado pode ler, marcar
     // como lida, arquivar ou excluir.
