@@ -121,7 +121,7 @@
 .cursos-dropdown-arrow{transition:transform .25s ease;}
 .cursos-dropdown-menu{
   position:absolute;
-  top:calc(100% + 10px);
+  top:calc(100% + 2px);
   right:0;
   min-width:200px;
   background:var(--white);
@@ -129,6 +129,10 @@
   border-radius:12px;
   box-shadow:0 18px 40px -14px rgba(0,0,0,.28);
   padding:8px;
+  /* Padding-top extra invisível que "preenche" o gap entre botão e menu,
+     impedindo o flickering quando o mouse passa por cima do espaço */
+  padding-top:12px;
+  margin-top:-4px;
   display:flex;
   flex-direction:column;
   gap:2px;

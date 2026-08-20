@@ -52,17 +52,10 @@
         </button>
 
         <div class="team-track" data-track>
-          <!-- OS 4 CARDS ORIGINAIS -->
           <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Gerson</h3><p>Instrutor Cirrus</p></article>
           <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Cabral</h3><p>Instrutor Cirrus</p></article>
           <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Nome</h3><p>Instrutor IFR</p></article>
           <article class="team-card"><div class="placeholder-box" aria-hidden="true">IMAGEM</div><h3>Nome</h3><p>Instrutor PP</p></article>
-
-          <!-- OS 4 CLONES PARA O LOOP INVISÍVEL -->
-          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Gerson</h3><p>Instrutor Cirrus</p></article>
-          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Cabral</h3><p>Instrutor Cirrus</p></article>
-          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Nome</h3><p>Instrutor IFR</p></article>
-          <article class="team-card" aria-hidden="true"><div class="placeholder-box">IMAGEM</div><h3>Nome</h3><p>Instrutor PP</p></article>
         </div>
 
         <button type="button" class="arrow-btn arrow-btn-next" data-next aria-label="Ver mais instrutores">
@@ -75,133 +68,53 @@
   <!-- HOMOLOGADO CIRRUS -->
   <section class="certified" aria-labelledby="certified-title">
     
-    <!-- O scrim (fade escuro) continua aqui embaixo para atuar só no rodapé -->
     <div class="certified-scrim" aria-hidden="true"></div>
 
     <div class="certified-content">
-      <!-- MÁGICA 3: O avião fica dentro do texto para usar o alinhamento blindado -->
       <img class="certified-plane" src="imagens/cirrus-paralaxe.webp" alt="Aeronave Cirrus em voo" aria-hidden="true">
-
       <h2 id="certified-title">Homologado <br class="quebra-desktop"> Cirrus</h2>
       <p>Único centro homologado para curso e prática na família Cirrus. Frota própria de aeronaves Cirrus e simulador dedicado para desenvolvimento de memória muscular e minimização da transferência negativa de habilidades para o voo real.</p>
     </div>
 
-    <!-- CONTAINER PRINCIPAL -->
-    <div class="wrap certified-overlay" data-carousel="fade" style="margin-bottom: 80px;">
-      
-      <!-- ============================================== -->
-      <!-- VERSÃO DESKTOP (INTACTA - NÃO VAI QUEBRAR O PC!) -->
-      <!-- ============================================== -->
-      <div class="certified-desktop-only">
-        <div class="certified-slider">
-          <button type="button" class="arrow-btn" data-prev aria-label="Depoimento anterior">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
+    <div class="wrap certified-overlay" data-carousel="fade">
+      <div class="certified-slider">
+        <button type="button" class="arrow-btn" data-prev aria-label="Depoimento anterior">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
 
-          <div class="certified-card">
-            <!-- Imagens -->
-            <div class="placeholder-box is-active" data-slide="0" aria-hidden="true">IMAGEM</div>
-            <div class="placeholder-box" data-slide="1" aria-hidden="true">IMAGEM</div>
-            <div class="placeholder-box" data-slide="2" aria-hidden="true">IMAGEM</div>
-            <div class="placeholder-box" data-slide="3" aria-hidden="true">IMAGEM</div>
-            <div class="placeholder-box" data-slide="4" aria-hidden="true">IMAGEM</div>
-            <div class="placeholder-box" data-slide="5" aria-hidden="true">IMAGEM</div>
+        <div class="certified-card">
+          <div class="placeholder-box is-active" data-slide="0" aria-hidden="true">IMAGEM</div>
+          <div class="placeholder-box" data-slide="1" aria-hidden="true">IMAGEM</div>
+          <div class="placeholder-box" data-slide="2" aria-hidden="true">IMAGEM</div>
+          <div class="placeholder-box" data-slide="3" aria-hidden="true">IMAGEM</div>
+          <div class="placeholder-box" data-slide="4" aria-hidden="true">IMAGEM</div>
+          <div class="placeholder-box" data-slide="5" aria-hidden="true">IMAGEM</div>
 
-            <!-- Textos -->
-            <div class="certified-text-wrap">
-              <p class="certified-caption is-active" data-slide="0">Padrão de linha aérea aplicado à aviação geral</p>
-              <p class="certified-caption" data-slide="1">Único centro homologado para a família Cirrus</p>
-              <p class="certified-caption" data-slide="2">Simulador Cirrus e frota própria</p>
-              <p class="certified-caption" data-slide="3">Instrutores em atividade na aviação comercial</p>
-              <p class="certified-caption" data-slide="4">95% de taxa de aprovação</p>
-              <p class="certified-caption" data-slide="5">Compromisso com sustentabilidade (crédito de carbono)</p>
-            </div>
+          <div class="certified-text-wrap">
+            <p class="certified-caption is-active" data-slide="0">Padrão de linha aérea aplicado à aviação geral</p>
+            <p class="certified-caption" data-slide="1">Único centro homologado para a família Cirrus</p>
+            <p class="certified-caption" data-slide="2">Simulador Cirrus e frota própria</p>
+            <p class="certified-caption" data-slide="3">Instrutores em atividade na aviação comercial</p>
+            <p class="certified-caption" data-slide="4">95% de taxa de aprovação</p>
+            <p class="certified-caption" data-slide="5">Compromisso com sustentabilidade (crédito de carbono)</p>
           </div>
+        </div>
 
-          <button type="button" class="arrow-btn" data-next aria-label="Próximo depoimento">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </div>
-        
-        <div class="certified-dots" role="tablist" aria-label="Selecionar destaque">
-          <span class="is-active" data-dot="0" role="tab" aria-selected="true" aria-label="Item 1"></span>
-          <span data-dot="1" role="tab" aria-selected="false" aria-label="Item 2"></span>
-          <span data-dot="2" role="tab" aria-selected="false" aria-label="Item 3"></span>
-          <span data-dot="3" role="tab" aria-selected="false" aria-label="Item 4"></span>
-          <span data-dot="4" role="tab" aria-selected="false" aria-label="Item 5"></span>
-          <span data-dot="5" role="tab" aria-selected="false" aria-label="Item 6"></span>
-        </div>
+        <button type="button" class="arrow-btn" data-next aria-label="Próximo depoimento">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
-
-      <!-- ============================================== -->
-      <!-- VERSÃO MOBILE (SWIPE NATIVO - SEM SETAS) -->
-      <!-- ============================================== -->
-      <div class="certified-mobile-only">
-        <div class="certified-swipe-track">
-          
-          <article class="certified-swipe-card">
-            <div class="placeholder-box">IMAGEM</div>
-            <p class="certified-caption">Padrão de linha aérea aplicado à aviação geral</p>
-          </article>
-          
-          <article class="certified-swipe-card">
-            <div class="placeholder-box">IMAGEM</div>
-            <p class="certified-caption">Único centro homologado para a família Cirrus</p>
-          </article>
-          
-          <article class="certified-swipe-card">
-            <div class="placeholder-box">IMAGEM</div>
-            <p class="certified-caption">Simulador Cirrus e frota própria</p>
-          </article>
-          
-          <article class="certified-swipe-card">
-            <div class="placeholder-box">IMAGEM</div>
-            <p class="certified-caption">Instrutores em atividade na aviação comercial</p>
-          </article>
-          
-          <article class="certified-swipe-card">
-            <div class="placeholder-box">IMAGEM</div>
-            <p class="certified-caption">95% de taxa de aprovação</p>
-          </article>
-          
-          <article class="certified-swipe-card">
-            <div class="placeholder-box">IMAGEM</div>
-            <p class="certified-caption">Compromisso com sustentabilidade (crédito de carbono)</p>
-          </article>
-
-        </div>
+      
+      <div class="certified-dots" role="tablist" aria-label="Selecionar destaque">
+        <span class="is-active" data-dot="0" role="tab" aria-selected="true" aria-label="Item 1"></span>
+        <span data-dot="1" role="tab" aria-selected="false" aria-label="Item 2"></span>
+        <span data-dot="2" role="tab" aria-selected="false" aria-label="Item 3"></span>
+        <span data-dot="3" role="tab" aria-selected="false" aria-label="Item 4"></span>
+        <span data-dot="4" role="tab" aria-selected="false" aria-label="Item 5"></span>
+        <span data-dot="5" role="tab" aria-selected="false" aria-label="Item 6"></span>
       </div>
+    </div>
 
-      <!-- ============================================== -->
-      <!-- MÁGICA DO AUTO-PLAY COM SWIPE (MOBILE)         -->
-      <!-- ============================================== -->
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          const track = document.querySelector(".certified-swipe-track");
-          if (!track) return;
-          
-          // Define a velocidade da troca automática (4000 = 4 segundos)
-          let autoScroll = setInterval(moveNext, 4000);
-          
-          function moveNext() {
-            // Se o carrossel chegou no final da lista, ele volta para o começo suavemente
-            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-              track.scrollTo({ left: 0, behavior: "smooth" });
-            } else {
-              // Se não, empurra para a esquerda (o scroll-snap do CSS crava no lugar certo)
-              track.scrollBy({ left: window.innerWidth * 0.8, behavior: "smooth" });
-            }
-          }
-          
-          // TOQUE DE OURO: Se o usuário colocar o dedo para arrastar, o automático desliga 
-          // para não brigar com a mão da pessoa!
-          track.addEventListener("touchstart", () => {
-            clearInterval(autoScroll);
-          }, { passive: true });
-        });
-      </script>
-
-    </div> <!-- Faltava este fechamento para o certified-overlay! -->
   </section>
 
 </main>
