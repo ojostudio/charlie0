@@ -830,87 +830,52 @@
 .certified-overlay {
   position: relative;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
 }
 
-/* --- Carrossel "Homologado Cirrus" (Atualizado) --- */
-.certified-slider {
-  position: relative;
-  display: flex;
-  align-items: stretch;
+/* Card branco com imagem à esquerda e lista de tópicos à direita */
+.certified-highlights {
   background: var(--white);
   border-radius: var(--radius-lg);
-  padding: 12px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
   box-shadow: 0 30px 60px -18px rgba(0,0,0,.5);
-  width: 100%;
 }
-
-.certified-card {
+.certified-highlights-img .placeholder-box {
+  width: 100%;
+  height: 340px;
+  border-radius: 12px;
+  background: #e2e2dd;
+}
+.certified-highlights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 20px;
-  flex: 1;
-  min-width: 0;
+  gap: 16px;
 }
-
-.certified-card .placeholder-box {
-  width: 100%;
-  height: 300px;
-  flex-shrink: 0;
-  border-radius: 12px;
-  display: none;
-}
-.certified-card .placeholder-box.is-active {
+.certified-highlights-list li {
   display: flex;
-}
-
-.certified-text-wrap {
-  padding: 0 60px;
-  text-align: center;
-}
-
-.certified-caption {
-  display: none;
+  align-items: flex-start;
+  gap: 14px;
   font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.4;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.45;
   color: var(--ink);
 }
-.certified-caption.is-active {
-  display: block;
-}
-
-.certified-slider .arrow-btn {
-  position: absolute;
-  top: 160px; /* metade da altura da imagem (300px / 2) */
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 44px;
-  height: 44px;
+.certified-highlights-list li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
   flex-shrink: 0;
+  margin-top: 5px;
 }
-.certified-slider [data-prev] {
-  left: 8px;
-}
-.certified-slider [data-next] {
-  right: 8px;
-}
-
-.certified-dots{display:flex;gap:6px;}
-.certified-dots span{
-  width:8px;height:8px;
-  border-radius:100px;
-  background:rgba(255,255,255,.55);
-  cursor:pointer;
-  transition:width .2s ease, background-color .2s ease;
-}
-.certified-dots span.is-active{width:26px;background:var(--blue);}
-.certified-dots span:hover{background:rgba(255,255,255,.85);}
 
 /* ==========================================
    Seção Homologado Cirrus (MOBILE)
@@ -1015,27 +980,15 @@
     70%,100% { transform: translateX(calc(-200% - 32px)); }
   }
 
-  /* Homologado Cirrus: adapta o carrossel existente para swipe no mobile */
-  .certified-slider .arrow-btn { display: none !important; }
-  .certified-card {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 16px !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory !important;
-    scrollbar-width: none !important;
-    padding-bottom: 8px !important;
+  /* Homologado Cirrus mobile: empilha imagem em cima, lista embaixo */
+  .certified-highlights {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 24px !important;
   }
-  .certified-card::-webkit-scrollbar { display: none !important; }
-  .certified-card .placeholder-box {
-    flex: 0 0 80vw !important;
-    scroll-snap-align: center !important;
-    height: 200px !important;
-    display: block !important;
-    opacity: 1 !important;
+  .certified-highlights-img .placeholder-box {
+    height: 220px !important;
   }
-  .certified-text-wrap { display: none !important; }
-  .certified-dots { display: none !important; }
 }
 
 
