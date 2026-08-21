@@ -971,39 +971,118 @@
 }
 
 
+/* Esconde a versão Swipe no Desktop */
+.certified-mobile-only {
+  display: none; 
+}
+
 /* --- Responsive: Quem Somos --- */
 @media (max-width:1080px){
-  .intro-card{grid-template-columns:1fr;min-height:0;}
-  .intro-photo{height:320px;}
-  .intro-copy{padding:25px 28px 32px;}
-
-  .team{padding-top:80px;}
-  .team-panel{overflow-x:auto;}
-  .team-panel .arrow-btn{display:none;}
-  .team-card{flex:0 0 calc(50% - 8px);}
-
-  /* Carrossel Homologado Cirrus no mobile: esconde setas, permite swipe */
-  .certified-overlay{padding:0 0 32px;}
-  .certified-slider .arrow-btn{display:none;}
-  .certified-card{
-    display:flex;
-    flex-direction:row;
-    gap:16px;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    scrollbar-width:none;
-    padding-bottom:8px;
+  .intro-card {
+    grid-template-columns: 1fr !important;
+    min-height: 0 !important;
+    gap: 0 !important; 
   }
-  .certified-card::-webkit-scrollbar{display:none;}
-  .certified-card .placeholder-box{
-    flex:0 0 80vw;
-    scroll-snap-align:center;
-    height:200px;
-    display:block !important;
-    opacity:1 !important;
+  
+  .intro-photo {
+    height: 320px !important;
   }
-  .certified-text-wrap{display:none;}
-  .certified-dots{display:none;}
+  
+  .intro-copy {
+    padding: 25px 28px 32px !important; 
+  }
+  
+  .intro-copy .eyebrow {
+    margin-top: 0 !important; 
+  }
+
+  .team {
+    padding-top: 80px !important; 
+  }
+
+  .team-panel {
+    flex-direction: column !important;
+    padding: 32px 20px 32px !important; 
+    margin-top: 10px !important; 
+    overflow: hidden !important;
+  }
+  
+  .team-heading .lead {
+    margin-bottom: 20px !important; 
+  }
+  
+  .team-track {
+    width: 100% !important;
+    display: flex !important;
+    gap: 16px !important; 
+    padding: 10px 0 24px 0 !important; 
+    overflow: visible !important; 
+    animation: deslizaEquipePausado 9s ease-in-out infinite !important; 
+  }
+  
+  .team-card {
+    flex: 0 0 auto !important;
+    width: calc(50% - 8px) !important; 
+    margin-top: 0 !important; 
+  }
+  
+  .team-panel .arrow-btn { display: none !important; }
+
+  @keyframes deslizaEquipePausado {
+    0%, 30% { transform: translateX(0); }
+    35%, 65% { transform: translateX(calc(-100% - 16px)); }
+    70%, 100% { transform: translateX(calc(-200% - 32px)); }
+  }
+
+  .certified-desktop-only { display: none !important; }
+  
+  .certified-mobile-only {
+    display: block !important;
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+  }
+  
+  .certified-swipe-track {
+    display: flex !important;
+    gap: 16px !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    padding: 0 24px 32px 24px !important; 
+    scrollbar-width: none !important;
+  }
+  .certified-swipe-track::-webkit-scrollbar { display: none !important; }
+  
+  .certified-swipe-card {
+    flex: 0 0 82% !important;
+    scroll-snap-align: center !important;
+    background: var(--white) !important;
+    border-radius: var(--radius-lg) !important;
+    padding: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5) !important;
+  }
+  
+  .certified-swipe-card .placeholder-box {
+    width: 100% !important;
+    height: 240px !important;
+    border-radius: 12px !important;
+    background: #e2e2dd !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  .certified-swipe-card .certified-caption {
+    display: block !important; 
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: left !important;
+    color: var(--ink) !important;
+    line-height: 1.4 !important;
+    padding-bottom: 8px !important;
+  }
 }
 
 
