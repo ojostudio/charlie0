@@ -73,15 +73,27 @@ function initArrowSlider(root) {
   const nextBtn = root.querySelector('[data-next]');
   if (!track) return;
 
-  function scrollByCard(direction) {
+  let currentIndex = 0;
+
+  function getStepWidth() {
     const card = track.querySelector(':scope > *');
+    if (!card) return (track.parentElement ? track.parentElement.clientWidth : track.clientWidth) * 0.35;
     const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0');
-    const distance = card ? card.getBoundingClientRect().width + gap : track.clientWidth * 0.8;
-    track.scrollBy({ left: distance * direction, behavior: 'smooth' });
+    return card.getBoundingClientRect().width + gap;
   }
 
-  prevBtn?.addEventListener('click', () => scrollByCard(-1));
-  nextBtn?.addEventListener('click', () => scrollByCard(1));
+  function slideTo(index) {
+    const cards = track.querySelectorAll(':scope > *');
+    const stepW = getStepWidth();
+    const winW = track.parentElement ? track.parentElement.getBoundingClientRect().width : stepW;
+    const visible = stepW > 0 ? Math.round(winW / stepW) : 1;
+    const maxIndex = Math.max(0, cards.length - visible);
+    currentIndex = Math.max(0, Math.min(index, maxIndex));
+    track.style.transform = `translateX(-${currentIndex * stepW}px)`;
+  }
+
+  prevBtn?.addEventListener('click', () => slideTo(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => slideTo(currentIndex + 1));
 }
 
 document.querySelectorAll('[data-carousel="fade"]').forEach(el => initFadeCarousel(el));
