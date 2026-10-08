@@ -316,11 +316,14 @@
 }
 .simulator h2{
   /* Coluna estreita (~40 % da tela menos padding) — fonte ligeiramente menor
-     para "Tecnologia para" caber em uma única linha. */
+     para "Tecnologia para" caber em uma única linha.
+     white-space:nowrap garante que a quebra aconteça APENAS nos <br> do HTML,
+     sem word-wrap automático dentro de cada segmento. */
   font-size:clamp(26px, 3.1vw, 44px);
   line-height:var(--lh-title);
   letter-spacing:var(--ls-title);
   margin-bottom:20px;
+  white-space:nowrap;
 }
 .simulator p{
   max-width:500px;
@@ -968,7 +971,7 @@
   .team-track-clip {
     padding-top: 0 !important;
     margin-top: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;  /* hidden: o JS translateX clips corretamente */
     flex: none !important;
     width: 100% !important;
   }
@@ -978,7 +981,9 @@
     gap: 16px !important;
     padding: 10px 0 24px 0 !important;
     overflow: visible !important;
-    animation: deslizaEquipePausado 9s ease-in-out infinite !important;
+    /* animation removida: conflitava com o transform inline do JS initArrowSlider,
+       causando saltos em vez de slide suave. O JS + transition do desktop cuida
+       da rolagem em todas as telas. */
   }
   .team-card {
     flex: 0 0 auto !important;
@@ -986,11 +991,6 @@
     margin-top: 0 !important;
   }
   .team-panel .arrow-btn { display: none !important; }
-  @keyframes deslizaEquipePausado {
-    0%,  30% { transform: translateX(0); }
-    35%, 65% { transform: translateX(calc(-100% - 16px)); }
-    70%,100% { transform: translateX(calc(-200% - 32px)); }
-  }
 
   /* Homologado Cirrus mobile: empilha imagem em cima, lista embaixo */
   .certified-highlights {
