@@ -67,13 +67,14 @@ function initFadeCarousel(root, { interval = 6000 } = {}) {
   start();
 }
 
-function initArrowSlider(root) {
+function initArrowSlider(root, { autoplayInterval = 4500 } = {}) {
   const track = root.querySelector('[data-track]');
   const prevBtn = root.querySelector('[data-prev]');
   const nextBtn = root.querySelector('[data-next]');
   if (!track) return;
 
   let currentIndex = 0;
+  let timer = null;
 
   function getStepWidth() {
     const card = track.querySelector(':scope > *');
@@ -88,12 +89,30 @@ function initArrowSlider(root) {
     const winW = track.parentElement ? track.parentElement.getBoundingClientRect().width : stepW;
     const visible = stepW > 0 ? Math.round(winW / stepW) : 1;
     const maxIndex = Math.max(0, cards.length - visible);
-    currentIndex = Math.max(0, Math.min(index, maxIndex));
+    // Avança em loop: ao chegar no fim, volta ao início
+    currentIndex = index > maxIndex ? 0 : Math.max(0, index);
     track.style.transform = `translateX(-${currentIndex * stepW}px)`;
   }
 
-  prevBtn?.addEventListener('click', () => slideTo(currentIndex - 1));
-  nextBtn?.addEventListener('click', () => slideTo(currentIndex + 1));
+  function startAutoplay() {
+    stopAutoplay();
+    timer = setInterval(() => slideTo(currentIndex + 1), autoplayInterval);
+  }
+
+  function stopAutoplay() {
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  prevBtn?.addEventListener('click', () => { slideTo(currentIndex - 1); startAutoplay(); });
+  nextBtn?.addEventListener('click', () => { slideTo(currentIndex + 1); startAutoplay(); });
+
+  // Pausa ao passar o mouse (desktop) ou tocar (mobile)
+  root.addEventListener('mouseenter', stopAutoplay);
+  root.addEventListener('mouseleave', startAutoplay);
+  root.addEventListener('touchstart', stopAutoplay, { passive: true });
+  root.addEventListener('touchend',   startAutoplay, { passive: true });
+
+  startAutoplay();
 }
 
 document.querySelectorAll('[data-carousel="fade"]').forEach(el => initFadeCarousel(el));

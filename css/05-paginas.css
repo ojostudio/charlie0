@@ -315,7 +315,9 @@
   object-position:20% center;
 }
 .simulator h2{
-  font-size:var(--fs-title);
+  /* Coluna estreita (~40 % da tela menos padding) — fonte ligeiramente menor
+     para "Tecnologia para" caber em uma única linha. */
+  font-size:clamp(26px, 3.1vw, 44px);
   line-height:var(--lh-title);
   letter-spacing:var(--ls-title);
   margin-bottom:20px;
