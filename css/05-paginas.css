@@ -722,8 +722,17 @@
 .team-card .placeholder-box {
   margin: 12px 12px 0 12px;
   width: auto;
-  height: 240px; 
-  border-radius: 12px; 
+  height: 240px;
+  border-radius: 12px;
+}
+.team-card-photo {
+  display: block;
+  margin: 12px 12px 0 12px;
+  width: calc(100% - 24px);
+  height: 240px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: center top;
 }
 .team-card h3{
   font-family:var(--font-body);
