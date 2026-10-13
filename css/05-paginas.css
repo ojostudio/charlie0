@@ -269,6 +269,7 @@
      ficam acima do card. */
   .frota-bg{
     width:auto;
+    max-width:none; /* override img{max-width:100%} do reset — sem isso a imagem fica espremida */
     height:115%;
     left:50%;
     top:-18%;
