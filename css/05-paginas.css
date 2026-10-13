@@ -271,12 +271,12 @@
     /* Mobile: imagem em proporção natural (sem corte lateral).
        width:100%/height:auto mantém o aspect ratio; preto do fundo preenche
        acima e abaixo. top posiciona os aviões (43–69% da img) acima do card. */
-    width:100%;
+    width:130%;
     max-width:none;
     height:auto;
-    left:0;
-    top:160px;
-    transform:none;
+    left:50%;
+    top:200px;
+    transform:translateX(-50%);
   }
   /* margin-top: 500px é ideal no desktop, mas grande demais no mobile. */
   .frota-card-wrap{margin-top:200px;}

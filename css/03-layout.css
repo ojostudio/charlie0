@@ -268,29 +268,24 @@
   .main-nav .nav-cta{display:inline-flex;}
   .main-nav .cursos-dropdown{align-self:flex-start;margin-top:10px;}
 
-  /* --- 1. Caixa do menu fechada (Nova estética de janelinha branca) --- */
+  /* --- 1. Caixa do menu fechada (display:none — confiável no iOS/Safari) --- */
   .main-nav .cursos-dropdown-menu {
+    display: none;
     position: static;
     opacity: 1;
     visibility: visible;
     transform: none;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height .35s ease, margin .3s ease, padding .3s ease;
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: 12px;
     box-shadow: 0 12px 30px -10px rgba(0,0,0,0.15);
-    margin-top: 0;
-    padding: 0 12px;
+    margin-top: 12px;
+    padding: 12px;
   }
 
-  /* --- 2. Caixa do menu aberta (RESTAURADA: Abre ao tocar no celular) --- */
-  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu,
-  .main-nav .cursos-dropdown:focus-within .cursos-dropdown-menu {
-    max-height: 260px;
-    margin-top: 12px; 
-    padding: 12px; 
+  /* --- 2. Caixa do menu aberta --- */
+  .main-nav .cursos-dropdown.is-open .cursos-dropdown-menu {
+    display: block;
   }
 
   /* --- 3. Os links lá dentro (Separados e elegantes) --- */
