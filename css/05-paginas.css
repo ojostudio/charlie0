@@ -262,16 +262,17 @@
 
 @media (max-width:900px){
   .frota{min-height:auto;padding:100px 0 32px;}
-  /* Mobile: cobrir a seção completamente, ancorado nos aviões (55% da altura).
-     Reseta a técnica de altura-fixa usada no desktop. */
+  /* Mobile: object-fit:cover num container retrato escala pela altura —
+     sem overflow vertical, object-position Y não tem efeito.
+     Mesma técnica do desktop (width:auto, height:115%) com top negativo
+     para deslocar a imagem para cima: aviões (43–69% da imagem)
+     ficam acima do card. */
   .frota-bg{
-    width:100%;
-    height:100%;
-    left:0;
-    top:0;
-    transform:none;
-    object-fit:cover;
-    object-position:center 55%;
+    width:auto;
+    height:115%;
+    left:50%;
+    top:-18%;
+    transform:translateX(-50%);
   }
   /* margin-top: 500px é ideal no desktop, mas grande demais no mobile. */
   .frota-card-wrap{margin-top:200px;}
