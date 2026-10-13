@@ -161,16 +161,12 @@
   position:absolute;
   inset:0;
   width:100%;
-  
-  /* 1. MUDANÇA: Damos altura extra para a imagem não "vazar fundo preto" quando subir */
-  height:120%; 
-  
+  height:100%;
   object-fit:cover;
-  object-position:center;
+  /* Nova imagem: aviões na metade inferior, topo já é preto —
+     bottom center mantém os aviões visíveis e o título no preto superior */
+  object-position:center bottom;
   z-index:0;
-  
-  /* 2. MÁGICA AQUI: Puxa a foto para cima fisicamente */
-  transform: translateY(-20%); /* <-- Teste -10%, -15% ou -20% */
 }
 .frota-overlay{
   position:absolute;
