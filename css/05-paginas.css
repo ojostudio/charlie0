@@ -159,17 +159,15 @@
 }
 .frota-bg{
   position:absolute;
-  /* Imagem 3132×2443: os aviões estão entre 43%–69% da altura da imagem.
-     Estratégia: fixar a imagem sempre com altura = altura da seção (100%),
-     largura proporcional (auto), centralizada horizontalmente.
-     Assim os aviões ficam sempre no mesmo lugar (centro da seção),
-     independente da largura do monitor. Em telas largas (27"+), o preto
-     da seção preenche as laterais — intencional e limpo. */
+  /* Imagem 3132×2443: aviões entre 43%–69% da altura (centro em 55%).
+     Fixamos altura = 110% da seção (proporcional, width:auto) centralizada.
+     Os aviões ficam sempre na mesma posição independente da largura do monitor.
+     Em telas largas (27"+), o preto preenche as laterais. */
   width:auto;
-  height:100%;
+  height:110%;
   left:50%;
-  top:0;
-  transform:translateX(-50%);
+  top:50%;
+  transform:translate(-50%, -50%);
   z-index:0;
 }
 .frota-overlay{
@@ -264,6 +262,19 @@
 
 @media (max-width:900px){
   .frota{min-height:auto;padding:100px 0 32px;}
+  /* Mobile: cobrir a seção completamente, ancorado nos aviões (55% da altura).
+     Reseta a técnica de altura-fixa usada no desktop. */
+  .frota-bg{
+    width:100%;
+    height:100%;
+    left:0;
+    top:0;
+    transform:none;
+    object-fit:cover;
+    object-position:center 55%;
+  }
+  /* margin-top: 500px é ideal no desktop, mas grande demais no mobile. */
+  .frota-card-wrap{margin-top:200px;}
   .frota-card{grid-template-columns:1fr;padding:28px;}
   .frota-card-specs{
     grid-template-columns:1fr 1fr;
