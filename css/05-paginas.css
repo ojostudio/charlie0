@@ -163,9 +163,11 @@
   width:100%;
   height:100%;
   object-fit:cover;
-  /* Nova imagem: aviões na metade inferior, topo já é preto —
-     bottom center mantém os aviões visíveis e o título no preto superior */
-  object-position:center bottom;
+  /* Imagem 3132×2443 (quasi-quadrada): ancoramos no topo para garantir
+     que a área preta superior fique sempre visível no topo da seção,
+     independente da largura do monitor — evita que em telas largas (27"+)
+     a imagem escale muito e os aviões subam para cima do título. */
+  object-position:center top;
   z-index:0;
 }
 .frota-overlay{
