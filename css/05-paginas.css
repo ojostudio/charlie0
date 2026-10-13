@@ -159,15 +159,17 @@
 }
 .frota-bg{
   position:absolute;
-  inset:0;
-  width:100%;
+  /* Imagem 3132×2443: os aviões estão entre 43%–69% da altura da imagem.
+     Estratégia: fixar a imagem sempre com altura = altura da seção (100%),
+     largura proporcional (auto), centralizada horizontalmente.
+     Assim os aviões ficam sempre no mesmo lugar (centro da seção),
+     independente da largura do monitor. Em telas largas (27"+), o preto
+     da seção preenche as laterais — intencional e limpo. */
+  width:auto;
   height:100%;
-  object-fit:cover;
-  /* Imagem 3132×2443 (quasi-quadrada): ancoramos no topo para garantir
-     que a área preta superior fique sempre visível no topo da seção,
-     independente da largura do monitor — evita que em telas largas (27"+)
-     a imagem escale muito e os aviões subam para cima do título. */
-  object-position:center top;
+  left:50%;
+  top:0;
+  transform:translateX(-50%);
   z-index:0;
 }
 .frota-overlay{
