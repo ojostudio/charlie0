@@ -96,6 +96,10 @@
       <h2>Tecnologia para<br>treinar além<br>do voo</h2>
       <p>Simulador RealSimGear configurado para a família Cirrus SR20, SR22 e SR22T — incluindo a simulação do CAPS® (Cirrus Airframe Parachute System), experiência impossível de reproduzir em voo real. Ferramenta essencial para PPL, treinamento IFR e revisão de procedimentos, com sessões personalizadas por objetivo.</p>
       <p>Mais tempo praticando. Mais preparação para o voo real.</p>
+      <button class="sim-gallery-btn" data-sim-gallery aria-label="Veja o simulador em imagens">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        Veja o simulador
+      </button>
     </div>
     <div class="simulator-photo">
       <img class="simulator-bg" src="imagens/simulador.webp" alt="Aluno em simulador de voo Cirrus com múltiplas telas" loading="lazy">
@@ -166,8 +170,8 @@
     </div>
   </section>
 
-  <!-- RESULTS / CARROSSEL DE DEPOIMENTOS -->
-  <section class="results" id="vitrine" data-carousel="fade" aria-labelledby="results-title">
+  <!-- RESULTS / CARROSSEL DE DEPOIMENTOS — oculto até haver depoimentos reais -->
+  <section class="results" id="vitrine" data-carousel="fade" aria-labelledby="results-title" style="display:none" aria-hidden="true">
     
     <!-- ÍCONE EXPANDIDO (CORRIGIDO): Usa a classe "wrap" para alinhar perfeitamente com os limites das outras seções -->
     <div class="wrap" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; margin: 0 auto; z-index: 0; pointer-events: none; display: flex; align-items: center; justify-content: center;">
@@ -238,11 +242,35 @@
 
 </main>
 
+<!-- MODAL: Galeria do simulador -->
+<div id="simGalleryModal" class="sim-gallery-modal" role="dialog" aria-modal="true" aria-label="Fotos do simulador" hidden>
+  <div class="sim-overlay" data-sim-close></div>
+  <div class="sim-modal-inner">
+    <button class="sim-close" data-sim-close aria-label="Fechar galeria">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="sim-modal-img-wrap">
+      <button class="sim-nav" id="simPrev" aria-label="Foto anterior">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <img id="simModalImg" class="sim-modal-img" src="" alt="" loading="eager">
+      <button class="sim-nav" id="simNext" aria-label="Próxima foto">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="sim-footer">
+      <div class="sim-dots" id="simDots"></div>
+      <span class="sim-counter" id="simCounter"></span>
+    </div>
+  </div>
+</div>
+
 <div id="footer-placeholder"></div>
 
 <script src="js/nav.js"></script>
 <script src="js/utils.js"></script>
 <script src="js/carousel.js"></script>
 <script src="js/effects.js"></script>
+<script src="js/simulator-gallery.js"></script>
 </body>
 </html>

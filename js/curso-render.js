@@ -115,7 +115,7 @@
       ${c.info ? `<div class="curso-info-block">${esc(c.info)}</div>` : ''}
       ${c.descCompleta ? `<p class="curso-descCompleta">${esc(c.descCompleta)}</p>` : ''}
       <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-solid-blue curso-cta">
-        Falar com a Equipe
+        ${esc(c.ctaBtnText||'Falar com a Equipe')}
       </a>
       <p class="curso-cta-hint">Atendimento pelo WhatsApp. Resposta rápida.</p>
     `;
