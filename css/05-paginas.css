@@ -268,12 +268,15 @@
      para deslocar a imagem para cima: aviões (43–69% da imagem)
      ficam acima do card. */
   .frota-bg{
-    width:auto;
-    max-width:none; /* override img{max-width:100%} do reset — sem isso a imagem fica espremida */
-    height:115%;
-    left:50%;
-    top:-18%;
-    transform:translateX(-50%);
+    /* Mobile: imagem em proporção natural (sem corte lateral).
+       width:100%/height:auto mantém o aspect ratio; preto do fundo preenche
+       acima e abaixo. top posiciona os aviões (43–69% da img) acima do card. */
+    width:100%;
+    max-width:none;
+    height:auto;
+    left:0;
+    top:160px;
+    transform:none;
   }
   /* margin-top: 500px é ideal no desktop, mas grande demais no mobile. */
   .frota-card-wrap{margin-top:200px;}
