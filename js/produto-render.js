@@ -10,7 +10,7 @@
   // Número de WhatsApp da empresa (COLOQUE aqui no formato
   // DDI+DDD+número, só dígitos — ex: "5511999999999")
   // -----------------------------------------------------------
-  const WHATSAPP_NUMBER = "5511991940017";
+  const WHATSAPP_NUMBER = "5511919940017";
 
   const $loading = document.getElementById('produtoLoading');
   const $notFound = document.getElementById('produtoNotFound');

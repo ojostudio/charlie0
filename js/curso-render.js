@@ -5,7 +5,7 @@
    (imagens + vídeo, sem autoplay, navegação por setas).
 =================================================== */
 (() => {
-  const WA = '5511991940017';
+  const WA = '5511919940017';
 
   const $loading  = document.getElementById('cursoLoading');
   const $notFound = document.getElementById('cursoNotFound');
