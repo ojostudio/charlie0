@@ -96,17 +96,10 @@ body.page-ready{
   box-shadow:0 6px 24px -12px rgba(0,0,0,.18);
 }
 
-/* --- Hero: leve profundidade de paralaxe (aplicado via JS na imagem) --- */
-.hero-media img,
+/* --- Hero: parallax sutil só na .hero-person img (via JS) --- */
 .hero-person img{
   transition:transform .2s linear;
   will-change:transform;
-}
-/* cirrus.webp (.hero-plane) — sem nenhum efeito de movimento */
-.hero-plane{
-  transition:none !important;
-  transform:none !important;
-  will-change:auto !important;
 }
 
 /* --- Badges e selos: pulso muito discreto para chamar atenção sem cansar --- */
