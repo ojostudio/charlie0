@@ -12,7 +12,7 @@
         não tenham sido marcados manualmente no HTML. */
   const autoSelectors = [
     // Home
-    '.hero-copy', '.hero-media', '.hero-card',
+    '.hero-copy', '.hero-media', '.hero-card', '.hero-plane', '.hero-person',
     '.course-card', '.stat', '.results-copy', '.results-visual',
     '.cta-banner', '.simulator-text', '.simulator-photo',
     '.frota-heading', '.frota-card',
@@ -76,15 +76,15 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  /* 3. Parallax bem discreto na imagem do hero (desktop apenas) */
+  /* 3. Parallax bem discreto na hero-person img (desktop apenas) */
   if (!prefersReducedMotion && window.innerWidth > 900) {
-    const heroImg = document.querySelector('.hero-media img');
-    if (heroImg) {
+    const heroPersonImg = document.querySelector('.hero-person img');
+    if (heroPersonImg) {
       const onParallax = () => {
-        const rect = heroImg.getBoundingClientRect();
+        const rect = heroPersonImg.getBoundingClientRect();
         if (rect.bottom < 0 || rect.top > window.innerHeight) return;
         const offset = Math.max(-12, Math.min(12, rect.top * 0.03));
-        heroImg.style.transform = `translateY(${offset}px)`;
+        heroPersonImg.style.transform = `translateY(${offset}px)`;
       };
       onParallax();
       window.addEventListener('scroll', onParallax, { passive: true });
