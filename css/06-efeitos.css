@@ -5,6 +5,15 @@
    ou estrutura: apenas adiciona movimento discreto.
 =================================================== */
 
+/* --- Carregamento de página: invisível até header/footer carregarem --- */
+body{
+  opacity:0;
+  transition:opacity .25s ease;
+}
+body.page-ready{
+  opacity:1;
+}
+
 /* --- Reveal on scroll (aplicado via js/effects.js) --- */
 [data-reveal]{
   opacity:0;
@@ -124,9 +133,11 @@
 
 /* --- Respeita preferência de movimento reduzido --- */
 @media (prefers-reduced-motion: reduce){
+  body{ transition:none; }
   [data-reveal]{
     opacity:1 !important;
     transform:none !important;
+    filter:none !important;
     transition:none !important;
   }
   .course-card, .stat, .team-card, .certified-card, .curso-horizontal-card,
