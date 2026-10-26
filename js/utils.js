@@ -16,14 +16,17 @@
 
 async function carregarComponentes() {
   try {
-    // 1. Carrega o Header
-    const resHeader = await fetch('header.html');
-    const headerHtml = await resHeader.text();
-    document.getElementById('header-placeholder').innerHTML = headerHtml;
+    // 1. Carrega o Header e Footer em paralelo (mais rápido)
+    const [resHeader, resFooter] = await Promise.all([
+      fetch('header.html'),
+      fetch('footer.html')
+    ]);
+    const [headerHtml, footerHtml] = await Promise.all([
+      resHeader.text(),
+      resFooter.text()
+    ]);
 
-    // 2. Carrega o Footer
-    const resFooter = await fetch('footer.html');
-    const footerHtml = await resFooter.text();
+    document.getElementById('header-placeholder').innerHTML = headerHtml;
     document.getElementById('footer-placeholder').innerHTML = footerHtml;
 
     // 3. BÔNUS: Descobre a página atual e deixa o menu azul!
@@ -52,8 +55,13 @@ async function carregarComponentes() {
       });
     }
 
+    // Página pronta: revela tudo com fade suave
+    document.body.classList.add('page-ready');
+
   } catch (erro) {
     console.error("Erro ao carregar o header/footer:", erro);
+    // Em caso de erro, garante que a página não fique presa invisível
+    document.body.classList.add('page-ready');
   }
 }
 

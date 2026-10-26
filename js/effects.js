@@ -57,7 +57,11 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
 
-    document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    // rAF garante que o browser pintou o estado inicial (opacity:0, blur)
+    // antes de observar — sem isso o hero (já no viewport) pularia a transição
+    requestAnimationFrame(() => {
+      document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+    });
   } else {
     document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
   }
