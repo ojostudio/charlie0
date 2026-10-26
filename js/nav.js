@@ -14,6 +14,8 @@
 
   document.querySelectorAll('.main-nav a').forEach(link => {
     link.addEventListener('click', () => {
+      // Não fecha o nav ao clicar em link de dropdown (abre em nova aba)
+      if (link.closest('.cursos-dropdown-menu')) return;
       header.classList.remove('nav-open');
       menuToggle.setAttribute('aria-expanded', 'false');
     });
